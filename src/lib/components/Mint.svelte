@@ -9,11 +9,9 @@
     chainData,
     contracts,
   } from "svelte-ethers-store";
-  import { ethers } from "ethers";
   import ColorPicker from "svelte-awesome-color-picker";
   import rgeConf from "$lib/rge.conf.json";
   import { goto } from '$app/navigation';
-  import { fade } from "svelte/transition";
 
   const maxX = 128;
   const maxY = 128;
@@ -29,11 +27,12 @@
   $: lang = $locale;
 
   let showTooltip = false;
-
   let canvasWidth;
+  let updateCanvasColors = () => {};
   function updateCanvasWidth() {
     // 896px width for medium or larger screens
     canvasWidth = window.innerWidth >= 768 ? 896 : window.innerWidth;
+    updateCanvasColors();
   }
 
   onMount(async () => {
@@ -59,36 +58,14 @@
   function validate(e) {
     console.log("TODO CHECK destination is a valid address");
   }
-  function validateCoupon(e) {
-    const couponText = document.getElementById("coupon");
-    if (coupon == "") {
-      couponText.classList.remove("border-green-500");
-      couponText.classList.remove("border-red-500");
-    }
-    fUpdatePrice(rgb);
-  }
 
   onMount(async () => {
     destination = "0x89261878977b5a01c4fd78fc11566abe31bbc14e"; // RG DAO
 	try {
-     $signer.getAddress().then((address) => {
-	  // Fetch coupon at /{address}.json
-	  fetch("/public//" + address.toLowerCase() + ".json").then((response) => {
-	    if (response.status == 404) {
-	      // No coupon found
-	      return;
-	    }
-	    return response.json();
-	  }).then((data) => {
-	 	// Set coupon input to fetched coupon
-		data = data == null ? "" : data;
-	    document.getElementById("coupon").value = data;
-		coupon = data;
-		validateCoupon(null);
-	})
-	});
+		$signer.getAddress().then((address) => {
+			destination = address;
+		});
 	} catch (error) {
-	  validateCoupon(null);
 	}
     const canvas = document.getElementById("canvas");
     const saveBtn = document.getElementById("saveBtn");
@@ -100,33 +77,6 @@
     let isEraserActive = false;
     let colorPrice = 0;
     fUpdatePrice = (rgb) => {
-      if (!nymMode) {
-        $contracts.rge.callStatic["calcPrice(uint256,bytes)"](
-          (rgb.r << 16) + (rgb.g << 8) + rgb.b,
-          coupon == "" ? [] : coupon
-        )
-          .then((priceWei) => {
-            colorPrice = priceWei;
-            saveBtn.disabled = false;
-            priceText =
-              "Code " +
-              rgbToHex(rgb.r, rgb.g, rgb.b) +
-              " Price " + ethers.utils.formatEther(priceWei).substring(0, 6) + " ETH";
-            updateCanvasColors();
-          })
-          .catch((error) => {
-            saveBtn.disabled = true;
-            priceText =
-              "Code " +
-              rgbToHex(rgb.r, rgb.g, rgb.b) +
-              " already used or invalid coupon";
-            console.error("An error occurred when calling calcPrice:", error);
-          });
-      } else {
-        saveBtn.disabled = false;
-        priceText =
-          "Code " + rgbToHex(rgb.r, rgb.g, rgb.b);
-      }
       updateCanvasColors();
     };
     eraseBtn.addEventListener("click", () => {
@@ -242,16 +192,14 @@
             });
         } else {
           await $contracts.rge[
-            "mintEpitaphOf(uint256[12],uint256,address,bytes)"
-          ](sig, rgb256, destination, coupon == "" ? [] : coupon, {
-            value: colorPrice,
-          }).then((e) => {
+            "mintGraffitiBaseOf(uint256[64],uint256,address)"
+          ](sig, rgb256, destination).then((e) => {
             console.log("Message sent using Provider: ", e);
             goto("/");
           })
         }
       } catch (error) {
-        console.error("An error occurred when calling mintEpitaph:", error);
+        console.error("An error occurred when calling mintGraffitiBaseOf:", error);
       }
     });
 
@@ -282,7 +230,7 @@
       drawnPixels[x][y] = set;
     }
 
-    function updateCanvasColors() {
+    function fUupdateCanvasColors() {
       const context = canvas.getContext("2d");
       context.clearRect(0, 0, canvas.width, canvas.height);
       for (let x = 0; x < maxX; x++) {
@@ -293,6 +241,7 @@
         }
       }
     }
+	updateCanvasColors = fUupdateCanvasColors;
 
     function rgbToHex(r, g, b) {
       return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
@@ -308,20 +257,16 @@
       >
         <h1 class="text-green underline">Getting Started!</h1>
         <p class="info-box">
-        {t("Mint.Banner" + (nymMode ? "Nym" : ""))}
+        {t("Mint.Banner")}
       </p>
       </div>
       <div class="flex flex-col items-stretch md:items-center relative p-6">
-      <!-- svelte-ignore a11y-mouse-events-have-key-events -->
-        <div
-          on:mouseover={() => (showTooltip = true)}
-          on:mouseleave={() => (showTooltip = false)}
-        >
+        <div>
           <label
             for="address"
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >
-            ReapersGambit account:
+            Blast address (recipient):
           </label>
           <input
             type="text"
@@ -332,23 +277,27 @@
             required
           />
         </div>
-
-        {#if showTooltip}
-          <span
-            class="tool-tip absolute z-10 w-auto text-white bg-black rounded-md shadow-lg -translate-x-1/2 left-1/2"
-          >
-            {t("Mint.Tooltip")}
-            <svg class="tooltip-svg" viewBox="0 0 20 10">
-              <path d="M0,0 L10,10 L20,0 Z"></path>
-            </svg>
-          </span>
-        {/if}
       </div>
+      <br />
     </div>
-
     <br />
     <div class="p-10">
-      <h1 class="text-white">Your Canvas</h1>
+      <div class="flex justify-between flex-col md:flex-row gap-y-6 md:gap-y-0">
+        <div class="text-white">
+          <button
+            id="saveBtn"
+            class=" w-full mt-4 neon-btn blue px-2 py-1 text-sm text-white rounded-md shadow-md focus:outline-none"
+          >
+            {t("Mint.Save")}
+          </button>
+        </div>
+        <div>
+          <button
+            id="eraseBtn"
+            class="block w-full mt-4 px-4 py-2 text-base font-medium text-white bg-red-500 rounded-md shadow-md hover:bg-red-900 focus:outline-none focus:ring-red-500 focus:ring-offset-2"
+            >Erase</button>
+        </div>
+      </div>
       <div
         class="flex items-center justify-center flex-col md:flex-row-reverse"
       >
@@ -373,7 +322,7 @@
           <canvas
             id="canvas"
             class="block w-full border-2 my-4 justify-center items-center mx-auto"
-            height="168px"
+            height={canvasWidth}
             width={canvasWidth}
           />
         </div>
@@ -383,36 +332,6 @@
       <br />
       <div class="flex justify-between flex-col md:flex-row gap-y-6 md:gap-y-0">
         <div>
-        {#if !nymMode}
-          <label
-            for="coupon"
-            class="block w-56 mb-2 text-sm font-medium text-gray-100 dark:text-white"
-            >Coupon</label
-          >
-          <input
-            type="text"
-            bind:value={coupon}
-            on:input={(e) => validateCoupon(e)}
-            id="coupon"
-            class="bg-gray-50 w-1/6 border text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="0xDE2..."
-          />
-        {/if}
-      </div>
-        <div>
-          <div class="text-white">
-            <button
-              id="saveBtn"
-              class=" w-full mt-4 neon-btn blue px-2 py-1 text-sm text-white rounded-md shadow-md focus:outline-none"
-            >
-              {t("Mint.Save")}
-            </button>
-          </div>
-          <button
-            id="eraseBtn"
-            class="block w-full mt-4 px-4 py-2 text-base font-medium text-white bg-red-500 rounded-md shadow-md hover:bg-red-900 focus:outline-none focus:ring-red-500 focus:ring-offset-2"
-            >Erase</button
-          >
         </div>
       </div>
     </div>

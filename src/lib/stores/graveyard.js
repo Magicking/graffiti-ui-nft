@@ -32,17 +32,21 @@ function b64DecodeUnicode(str) {
     }).join(''));
 }
 
+let ProviderRunning = false;
 export const GraveyardStore1 = derived([provider, signerAddress, contracts], ([$provider, $signerAddress, $contracts], set) => {
 	if (!$provider || !$contracts.rge || !$signerAddress) return set({});
 
 	provider.subscribe(async (provider) => {
-		if (!provider) return;
+		if (!provider || ProviderRunning) return;
 
+        console.log("New Provider", ProviderRunning);
+		ProviderRunning = true;
 		provider.on('block', async (_block) => {
+			console.log("New Block", _block);
 			if ($contracts.rge) {
                 let ret = [];
                 const totalSupply = await $contracts.rge.totalSupply();
-                console.log("totalSupply", totalSupply-1);
+                console.log("totalSupply", totalSupply);
                 // Fetch last 5 tokenURI
                 const min = totalSupply-6 < 0 ? 0 : totalSupply-6;
                 const max = totalSupply;

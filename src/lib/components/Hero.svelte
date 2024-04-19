@@ -15,8 +15,8 @@
         <h1
           class="text-5xl text-white mb-2 flex flex-col md:items-center justify-center items-start"
         >
-          Reapers Gambit<br />
-          <span class="text-brightGreen epitaph">Epitaph</span><br/>
+          Graffiti<br />
+          <span class="text-brightGreen epitaph">Graffiti</span><br/>
           <span class="text-brightGreen epitaph">Ethernal NFT</span>
         </h1>
         <h2

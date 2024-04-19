@@ -18,7 +18,7 @@
       <div class="flex flex-col items-evenly justify-evenly min-h-[90vh]">
         <p class="py-4 text-white text-center text-3xl">Total {totalSupply}</p>
         {#each range(totalSupply - 5, totalSupply - 0, 1) as tokenId}
-          {#if tokenId >= 0 && tokenId < totalSupply && $GraveyardStore1[tokenId]}
+          {#if tokenId >= 0 && tokenId < totalSupply && $GraveyardStore1 }
             <div class="px-4 mt-2">
               <p class="text-white text-xl pl-10">ID: {tokenId}</p>
               <a href="/epitaph/?i={tokenId}"

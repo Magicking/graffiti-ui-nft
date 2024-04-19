@@ -16,3 +16,4 @@ out
 .npm
 out
 cache
+node_modules

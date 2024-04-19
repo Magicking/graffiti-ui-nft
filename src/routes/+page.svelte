@@ -7,6 +7,7 @@
   import Hero from "$lib/components/Hero.svelte";
   import Graveyard from "$lib/components/Graveyard.svelte";
   import { onMount } from "svelte";
+  import {chainid} from "$lib/rge.conf.json";
   import { useConnectToWallet } from "$lib/utils/useConnectToWallet";
 
 
@@ -16,14 +17,14 @@
 </script>
 
 <svelte:head>
-  <title>RG Epitaph</title>
-  <meta name="description" content="RG Epitaph" />
+  <title>Graffiti</title>
+  <meta name="description" content="Graffiti" />
 </svelte:head>
 
 <div>
   {#if $connected}
-    {#if $chainId !== 84532}
-      TODO: Warning not on Ethereum Mainnet
+    {#if $chainId !== chainid }
+      Warning not on Blast chain ({chainid})
     {:else}
       <Graveyard />
     {/if}

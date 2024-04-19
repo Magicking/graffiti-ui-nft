@@ -31,7 +31,7 @@
      * Strongly recommended to provide atleast one URL as it is required by some wallets (i.e. MetaMask)
      * To connect with WalletConnect
      */
-    dappUrl: "https://rge.6120.eu/",
+    dappUrl: "https://g.6120.eu/",
   };
   const walletConnect = walletConnectModule(wcV2InitOptions);
   let isOpen = false;
@@ -47,15 +47,15 @@
     wallets: [injected, walletConnect],
     chains: [
       {
-        id: "0x1",
+        id: "0x13e31",
         token: "ETH",
-        label: "Ethereum Mainnet",
-        rpcUrl: "https://eth-mainnet.g.alchemy.com/v2/_ufgCCm8U0HQ70u1xxcJwxXBC9fN8ISc",
+        label: "Blast",
+        rpcUrl: "https://rpc.blast.io",
       },
     ],
     appMetadata: {
-      name: "RG EPITAPH",
-      description: "RG Epitaph drawing interface.",
+      name: "Graffiti",
+      description: "Graffiti painting interface.",
       recommendedInjectedWallets: [
         { name: "MetaMask", url: "https://metamask.io" },
         { name: "WalletConnect", url: "https://walletconnect.com/" },
