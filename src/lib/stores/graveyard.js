@@ -55,6 +55,7 @@ export const GraveyardStore1 = derived([provider, signerAddress, contracts], ([$
                     const stripb64h = tokenURI.replace(/^data:\w+\/\w+;base64,/, '');
                     const jobject = JSON.parse(b64DecodeUnicode(stripb64h));
                     ret[i] = jobject;
+                    ret["minFloorPrice"] = await $contracts.rge.getMinFloorPrice();
                 }
 				set(ret);
 			}

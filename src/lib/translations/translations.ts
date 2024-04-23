@@ -26,7 +26,7 @@ const translations: Translations = {
     "Header.Wallet": "Wallet",
     "Mint.Banner": "Paint on the canvas below, hit save to paying gas to inscribe your of drawing on-chain (Blast.io) ethernarly. Use the erase button bellow to erase pixel.",
     "Mint.BannerNym": "Use the NYM Mixnet to anonymously draw your message on the canvas below, it will be stored on the Ethereum blockchain ethernarly. Use the erase button bellow to erase pixel.",
-    "Mint.Save": "Save",
+    "Mint.Save": "Save (mint)",
 	  "Hero.Welcome":"Paint your graffiti on-chain.",
   }
 };

@@ -17,7 +17,7 @@
   const maxY = 128;
   export let nymMode = false;
 
-  let priceText = "0.0 ETH";
+  let priceText = "";
   let destination = "";
   let coupon = "";
   let fUpdatePrice;
@@ -65,6 +65,8 @@
 		$signer.getAddress().then((address) => {
 			destination = address;
 		});
+
+    priceText = rgbToHex(rgb.r, rgb.g, rgb.b);
 	} catch (error) {
 	}
     const canvas = document.getElementById("canvas");
@@ -77,6 +79,8 @@
     let isEraserActive = false;
     let colorPrice = 0;
     fUpdatePrice = (rgb) => {
+      // set priceText to the color in HEX
+      priceText = rgbToHex(rgb.r, rgb.g, rgb.b);
       updateCanvasColors();
     };
     eraseBtn.addEventListener("click", () => {
@@ -291,16 +295,6 @@
             {t("Mint.Save")}
           </button>
         </div>
-        <div>
-          <button
-            id="eraseBtn"
-            class="block w-full mt-4 px-4 py-2 text-base font-medium text-white bg-red-500 rounded-md shadow-md hover:bg-red-900 focus:outline-none focus:ring-red-500 focus:ring-offset-2"
-            >Erase</button>
-        </div>
-      </div>
-      <div
-        class="flex items-center justify-center flex-col md:flex-row-reverse"
-      >
         <div class="flex justify-center text-white text-sm">
           <ColorPicker
             bind:rgb
@@ -318,6 +312,16 @@
             }}
           />
         </div>
+        <div>
+          <button
+            id="eraseBtn"
+            class="block w-full mt-4 px-4 py-2 text-base font-medium text-white bg-red-500 rounded-md shadow-md hover:bg-red-900 focus:outline-none focus:ring-red-500 focus:ring-offset-2"
+            >Erase</button>
+        </div>
+      </div>
+      <div
+        class="flex items-center justify-center flex-col md:flex-row-reverse"
+      >
         <div class="">
           <canvas
             id="canvas"

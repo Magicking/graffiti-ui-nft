@@ -5,7 +5,7 @@
   import {onMount} from "svelte";
   import {useConnectToWallet} from "$lib/utils/useConnectToWallet";
   import {address,chainid} from "$lib/rge.conf.json";
-  import {abi} from "$lib/rge.abi.json";
+  import abi from "$lib/rge.abi.json";
   evm.attachContract("rge", address, abi);
 
   onMount(() => {

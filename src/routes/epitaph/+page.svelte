@@ -3,8 +3,9 @@
   import { page } from "$app/stores";
   import rgeConf from "$lib/rge.conf.json";
   import rgeAbi from "$lib/rge.abi.json";
+  import { ethers } from "ethers";
   import { rgbToHex, getRgbString } from "$lib/utils/useColorCode.js";
-  evm.attachContract("rge", rgeConf["address"], rgeAbi["abi"]);
+  evm.attachContract("rge", rgeConf["address"], rgeAbi);
 
   import { GraveyardStore1 } from "$lib/stores/graveyard.js";
   import { onMount } from "svelte";
@@ -19,11 +20,30 @@
   // For adding a color changer
   let showRgb = false;
   let isLoading = true;
+  let minFloorPrice = 0;
 
   onMount(async () => {
     // Check if the contract is available and if the data is loaded
     if ($contracts.rge && $GraveyardStore1.length > 0) {
       isLoading = false;
+      // Get the floor price
+      const FloorPrice = await $contracts.rge.getMinFloorPrice();
+      obtainBtn.addEventListener("click", async () => {
+      // Call the smart contract function
+      try {
+          await $contracts.rge[
+            "obtainNFT(uint256)"
+          ](getIndex(), {
+          value: FloorPrice,
+        }).then((e) => {
+            console.log("Message sent using Provider: ", e);
+            goto("/");
+          })
+        } catch (error) {
+        console.error("An error occurred when calling obtainNFT:", error);
+      }
+    });
+      minFloorPrice = ethers.utils.formatUnits(FloorPrice, "ether");
 	  console.log($GraveyardStore1[getIndex()]);
     }
   });
@@ -39,8 +59,11 @@
       </h2>
 
       <h2 class="my-3">Details</h2>
+      <p>
+         Soon (tm)
+       </p>
        <p>
-          Soon (tm)
+          Obtain: <button id="obtainBtn">{minFloorPrice}</button>
         </p>
     </div>
     <img

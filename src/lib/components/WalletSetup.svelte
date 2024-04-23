@@ -78,7 +78,7 @@
     if (walletProvider) {
       const provider = new ethers.providers.Web3Provider(walletProvider, "any");
       evm.setProvider(provider);
-      evm.attachContract("rge", rgeConf["address"], rgeAbi["abi"]);
+      evm.attachContract("rge", rgeConf["address"], rgeAbi);
     }
     updateAlreadyConnectedWallets();
   });
