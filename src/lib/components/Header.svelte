@@ -56,15 +56,6 @@
           >
             <a href="/mint">{t("Header.Souldraw")}</a>
           </p>
-      <!--
-          <p
-            class="rainbowText"
-            aria-current={$page.url.pathname === "/nymmint" ? "page" : undefined}
-          >
-            <a href="/nymmint">{t("Header.SouldrawNym")}
-            </a>
-          </p>
-		  -->
           <p
             class="rainbowText"
             aria-current={$page.url.pathname.startsWith("/connect")
@@ -78,6 +69,29 @@
     </div>
   </div>
   <!-- Mobile menu, show/hide based on menu state -->
+      <div class="mr-2 flex md:hidden">
+        <!-- Mobile menu button -->
+        <button
+          on:click={toggleMenu}
+          class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none"
+        >
+          <span class="sr-only">Open main menu</span>
+          <!-- Icon when menu is closed. -->
+          <svg
+            class="{menuOpen ? 'hidden' : 'block'} h-6 w-6"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16m-7 6h7"
+            />
+          </svg>
   <div class="{menuOpen ? 'block' : 'hidden'} md:hidden bg-gray-800">
     <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
       <!-- Duplicate Navigation links for mobile -->
@@ -93,40 +107,14 @@
       >
         {t("Header.Souldraw")}
       </a>
-      <!--
-      <a
-        href="/nymmint"
-        class="block px-3 py-2 rounded-md text-sm text-white hover:bg-gray-700"
-      >
-        {t("Header.SouldrawNym")}
-      </a>
-	  -->
       <a
         href="/connect"
         class="block px-3 py-2 rounded-md text-sm text-white hover:bg-gray-700"
       >
         {t("Header.Wallet")}
       </a>
-      <!-- Language Buttons for mobile  - May use later on-->
-      <!-- <div class="px-3 py-2">
-        <button
-          class="px-3 py-2 rounded-md text-sm font-small {lang === 'en-US'
-            ? 'bg-gray-900'
-            : 'bg-gray-700 hover:bg-gray-600'}"
-          on:click={() => setLanguage("en-US")}
-        >
-          English
-        </button>
-        <button
-          class="px-3 py-2 rounded-md text-sm font-small {lang === 'fr-FR'
-            ? 'bg-gray-900'
-            : 'bg-gray-700 hover:bg-gray-600'}"
-          on:click={() => setLanguage("fr-FR")}
-        >
-          Français
-        </button>
-      </div> -->
     </div>
+  </div>
   </div>
 </header>
 

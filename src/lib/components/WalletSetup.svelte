@@ -21,7 +21,7 @@
     /**
      * Project ID associated with [WalletConnect account](https://cloud.walletconnect.com)
      */
-    projectId: "550b3382ab70a46838a0f1659b4aef43",
+    projectId: "b9f85888a5d74faa799c924ac2a06d68",
     /**
      * Chains required to be supported by all wallets connecting to your DApp
      */
