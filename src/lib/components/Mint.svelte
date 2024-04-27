@@ -11,7 +11,7 @@
   } from "svelte-ethers-store";
   import ColorPicker from "svelte-awesome-color-picker";
   import rgeConf from "$lib/rge.conf.json";
-  import { goto } from '$app/navigation';
+  import { goto } from "$app/navigation";
 
   const maxX = 128;
   const maxY = 128;
@@ -19,8 +19,10 @@
 
   let priceText = "";
   let destination = "";
-  let coupon = "";
+  let squaresize = 1;
   let fUpdatePrice;
+  let minBalance = 0;
+  let balance = 0;
 
   let w;
   $: t = $translation;
@@ -60,15 +62,17 @@
   }
 
   onMount(async () => {
-    destination = "0x89261878977b5a01c4fd78fc11566abe31bbc14e"; // RG DAO
-	try {
-		$signer.getAddress().then((address) => {
-			destination = address;
-		});
+    destination = "0x6120932248DaFbDDb7e97279e10F9348b0E0242c"; // RG DAO
 
-    priceText = rgbToHex(rgb.r, rgb.g, rgb.b);
-	} catch (error) {
-	}
+    try {
+      $signer.getAddress().then((address) => {
+        destination = address;
+        $signer.getBalance().then((bal) => {
+          balance = bal.toNumber();
+        });
+      });
+      priceText = rgbToHex(rgb.r, rgb.g, rgb.b);
+    } catch (error) {}
     const canvas = document.getElementById("canvas");
     const saveBtn = document.getElementById("saveBtn");
     let drawing = false;
@@ -79,10 +83,27 @@
     let isEraserActive = false;
     let colorPrice = 0;
     fUpdatePrice = (rgb) => {
-      // set priceText to the color in HEX
+      // estimate gas to preview the price and assert execution using library as the mint function
+      let sig = [];
+      for (let x = 0; x < 64; x++) {
+        sig.push(
+          "0x0161fc4222080401f68c205e0e40000001311c4222180c01548860638e400000"
+        );
+      }
       priceText = rgbToHex(rgb.r, rgb.g, rgb.b);
+      $contracts.rge.estimateGas[
+        "mintGraffitiBaseOf(uint256[64],uint256,address)"
+      ](sig, "0x" + priceText.substring(1), destination).then((e) => {
+        console.log("Mint possible: ", e);
+        minBalance = e;
+        $signer.getBalance().then((bal) => {
+          balance = bal;
+        });
+      });
+      // set priceText to the color in HEX
       updateCanvasColors();
     };
+    fUpdatePrice(rgb);
     eraseBtn.addEventListener("click", () => {
       drawing = false;
       isEraserActive = !isEraserActive;
@@ -182,28 +203,19 @@
           g.toString(16).padStart(2, "0") +
           b.toString(16).padStart(2, "0");
         console.log([sig, rgb256, destination]);
-        // call the smart contract with 0.1 ETH
-        //console.log($contracts.rge);
-        if (nymMode) {
-          const payload = {
-            message: String(JSON.stringify([sig, rgb256, destination])),
-            mimeType: String("text/plain"),
-          };
-          const recipient = rgeConf["nymservice"];
-            window.nym.client.send({ payload, recipient }).then((e) => {
-              console.log("Message sent using Nym: ", e);
-              goto("/");
-            });
-        } else {
-          await $contracts.rge[
-            "mintGraffitiBaseOf(uint256[64],uint256,address)"
-          ](sig, rgb256, destination).then((e) => {
-            console.log("Message sent using Provider: ", e);
-            goto("/");
-          })
-        }
+        await $contracts.rge["mintGraffitiBaseOf(uint256[64],uint256,address)"](
+          sig,
+          rgb256,
+          destination
+        ).then((e) => {
+          console.log("Message sent using Provider: ", e);
+          goto("/");
+        });
       } catch (error) {
-        console.error("An error occurred when calling mintGraffitiBaseOf:", error);
+        console.error(
+          "An error occurred when calling mintGraffitiBaseOf:",
+          error
+        );
       }
     });
 
@@ -225,27 +237,37 @@
       const ctx = canvas.getContext("2d");
       const pixX = ctx.canvas.width / maxX;
       const pixY = ctx.canvas.height / maxY;
-      if (set) {
-        ctx.fillStyle = rgbToHex(rgb.r, rgb.g, rgb.b);
-        ctx.fillRect(x * pixX, y * pixY, pixX, pixY);
-      } else {
-        ctx.clearRect(x * pixX, y * pixY, pixX, pixY);
-      }
-      drawnPixels[x][y] = set;
-    }
-
-    function fUupdateCanvasColors() {
-      const context = canvas.getContext("2d");
-      context.clearRect(0, 0, canvas.width, canvas.height);
-      for (let x = 0; x < maxX; x++) {
-        for (let y = 0; y < maxY; y++) {
-          if (drawnPixels[x][y]) {
-            setPixel(x, y, true);
+      squaresize = parseInt(squaresize);
+      ctx.fillStyle = rgbToHex(rgb.r, rgb.g, rgb.b);
+      for (let i = x - squaresize + 1; i < x + squaresize; i++) {
+        for (let j = y - squaresize + 1; j < y + squaresize; j++) {
+          if (i >= 0 && i < maxX && j >= 0 && j < maxY) {
+            if (set) {
+              ctx.fillRect(i * pixX, j * pixY, pixX, pixY);
+            } else {
+              ctx.clearRect(i * pixX, j * pixY, pixX, pixY);
+            }
+            drawnPixels[i][j] = set;
           }
         }
       }
     }
-	updateCanvasColors = fUupdateCanvasColors;
+
+    function fUupdateCanvasColors() {
+      const ctx = canvas.getContext("2d");
+      const pixX = ctx.canvas.width / maxX;
+      const pixY = ctx.canvas.height / maxY;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = rgbToHex(rgb.r, rgb.g, rgb.b);
+      for (let x = 0; x < maxX; x++) {
+        for (let y = 0; y < maxY; y++) {
+          if (drawnPixels[x][y]) {
+            ctx.fillRect(x * pixX, y * pixY, pixX, pixY);
+          }
+        }
+      }
+    }
+    updateCanvasColors = fUupdateCanvasColors;
 
     function rgbToHex(r, g, b) {
       return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
@@ -261,8 +283,8 @@
       >
         <h1 class="text-green underline">Getting Started!</h1>
         <p class="info-box">
-        {t("Mint.Banner")}
-      </p>
+          {t("Mint.Banner")}
+        </p>
       </div>
       <div class="flex flex-col items-stretch md:items-center relative p-6">
         <div>
@@ -290,10 +312,39 @@
         <div class="text-white">
           <button
             id="saveBtn"
-            class=" w-full mt-4 neon-btn blue px-2 py-1 text-sm text-white rounded-md shadow-md focus:outline-none"
+            class="w-full mt-4 neon-btn blue px-2 py-1 text-sm text-white rounded-md shadow-md focus:outline-none"
+            style="background-color: {balance < minBalance ? 'red' : 'blue'}"
           >
             {t("Mint.Save")}
           </button>
+        </div>
+        <div class="text-white">
+          <div class="relative">
+            Brush size<select
+              class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              on:change={(event) => (squaresize = event.target.value)}
+            >
+              {#each Array.from({ length: 8 }, (_, i) => i + 1) as number}
+                <option value={number}>{number}</option>
+              {/each}
+            </select>
+            <div
+              class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+            >
+              <svg
+                class="fill-current h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                <path
+                  fill-rule="evenodd"
+                  d="M10 3a7 7 0 110 14 7 7 0 010-14zm0 12a5 5 0 100-10 5 5 0 000 10z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </div>
         </div>
         <div class="flex justify-center text-white text-sm">
           <ColorPicker
@@ -316,7 +367,8 @@
           <button
             id="eraseBtn"
             class="block w-full mt-4 px-4 py-2 text-base font-medium text-white bg-red-500 rounded-md shadow-md hover:bg-red-900 focus:outline-none focus:ring-red-500 focus:ring-offset-2"
-            >Erase</button>
+            >Erase</button
+          >
         </div>
       </div>
       <div
@@ -335,8 +387,7 @@
     <div class="p-10 bg-black bottom-bar">
       <br />
       <div class="flex justify-between flex-col md:flex-row gap-y-6 md:gap-y-0">
-        <div>
-        </div>
+        <div></div>
       </div>
     </div>
   </div>

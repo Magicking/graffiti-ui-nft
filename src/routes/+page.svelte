@@ -9,6 +9,7 @@
   import { onMount } from "svelte";
   import {chainid} from "$lib/rge.conf.json";
   import { useConnectToWallet } from "$lib/utils/useConnectToWallet";
+  import InvalidChain from "$lib/components/InvalidChain.svelte";
 
 
   onMount(() => {
@@ -24,7 +25,7 @@
 <div>
   {#if $connected}
     {#if $chainId !== chainid }
-      Warning not on Blast chain ({chainid})
+    <InvalidChain/>
     {:else}
       <Graveyard />
     {/if}

@@ -29,22 +29,20 @@
       // Get the floor price
       const FloorPrice = await $contracts.rge.getMinFloorPrice();
       obtainBtn.addEventListener("click", async () => {
-      // Call the smart contract function
-      try {
-          await $contracts.rge[
-            "obtainNFT(uint256)"
-          ](getIndex(), {
-          value: FloorPrice,
-        }).then((e) => {
+        // Call the smart contract function
+        try {
+          await $contracts.rge["obtainNFT(uint256)"](getIndex(), {
+            value: FloorPrice,
+          }).then((e) => {
             console.log("Message sent using Provider: ", e);
             goto("/");
-          })
+          });
         } catch (error) {
-        console.error("An error occurred when calling obtainNFT:", error);
-      }
-    });
+          console.error("An error occurred when calling obtainNFT:", error);
+        }
+      });
       minFloorPrice = ethers.utils.formatUnits(FloorPrice, "ether");
-	  console.log($GraveyardStore1[getIndex()]);
+      console.log($GraveyardStore1[getIndex()]);
     }
   });
 </script>
@@ -59,12 +57,10 @@
       </h2>
 
       <h2 class="my-3">Details</h2>
+      <p>Soon (tm)</p>
       <p>
-         Soon (tm)
-       </p>
-       <p>
-          Obtain: <button id="obtainBtn">{minFloorPrice}</button>
-        </p>
+        Obtain: <button id="obtainBtn">{minFloorPrice}</button>
+      </p>
     </div>
     <img
       class="pxl justify-center items-center mx-auto my-4 px-4"
