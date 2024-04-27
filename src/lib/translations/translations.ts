@@ -24,10 +24,10 @@ const translations: Translations = {
     "Header.Souldraw": "Paint",
     "Header.SouldrawNym": "Souldraw (nym)",
     "Header.Wallet": "Wallet",
-    "Mint.Banner": "Paint on the canvas below, hit save to paying gas to inscribe your of drawing on-chain (Blast.io) ethernarly. Use the erase button bellow to erase pixel.",
+    "Mint.Banner": "Paint on the canvas below, hit save to pay gas to inscribe your of drawing on-chain (Blast.io) ethernarly. Use the erase button to remove pixels.",
     "Mint.BannerNym": "Use the NYM Mixnet to anonymously draw your message on the canvas below, it will be stored on the Ethereum blockchain ethernarly. Use the erase button bellow to erase pixel.",
     "Mint.Save": "Save (mint)",
-	  "Hero.Welcome":"Paint your graffiti on-chain.",
+	  "Hero.Welcome":"Make Art, Free to Mint, Pay to steal, Farm Gold",
   }
 };
 export default translations;

@@ -57,7 +57,9 @@
       </h2>
 
       <h2 class="my-3">Details</h2>
+      <p>&nbsp;</p>
       <p>Soon (tm)</p>
+      <p>&nbsp;</p>
       <p>
         Obtain: <button id="obtainBtn">{minFloorPrice}</button>
       </p>
