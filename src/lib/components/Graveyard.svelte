@@ -5,7 +5,10 @@
   import rgeConf from "$lib/rge.conf.json";
   import rgeAbi from "$lib/rge.abi.json";
   evm.attachContract("rge", rgeConf["address"], rgeAbi["abi"]);
-  import { GraveyardStore1 } from "$lib/stores/graveyard.js";
+  import { GraveyardStore1, TotalSupply } from "$lib/stores/graveyard.js";
+
+  $: totalSupply = TotalSupply;
+  $: GraveyardStore1;
 </script>
 
 <div class="min-h-screen">
@@ -17,7 +20,7 @@
     {:then totalSupply}
       <div class="flex flex-col items-evenly justify-evenly min-h-[90vh]">
         <p class="py-4 text-white text-center text-3xl">Total {totalSupply}</p>
-        {#each range(totalSupply - 5, totalSupply - 0, 1) as tokenId}
+        {#each range(totalSupply - 0, totalSupply - 5, 1) as tokenId}
           {#if tokenId >= 0 && tokenId < totalSupply && $GraveyardStore1 }
             <div class="px-4 mt-2">
               <p class="text-white text-xl pl-10">ID: {tokenId}</p>

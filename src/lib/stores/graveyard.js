@@ -1,5 +1,7 @@
 import { derived } from 'svelte/store';
 import { ethers } from 'ethers';
+import { writable } from 'svelte/store';
+
 import { provider, signer, signerAddress, contracts } from 'svelte-ethers-store';
 function atob(input) {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
@@ -32,6 +34,8 @@ function b64DecodeUnicode(str) {
     }).join(''));
 }
 
+export const TotalSupply = writable(0);
+
 let ProviderRunning = false;
 export const GraveyardStore1 = derived([provider, signerAddress, contracts], ([$provider, $signerAddress, $contracts], set) => {
 	if (!$provider || !$contracts.rge || !$signerAddress) return set({});
@@ -46,6 +50,7 @@ export const GraveyardStore1 = derived([provider, signerAddress, contracts], ([$
 			if ($contracts.rge) {
                 let ret = [];
                 const totalSupply = await $contracts.rge.totalSupply();
+				TotalSupply.set(totalSupply);
                 console.log("totalSupply", totalSupply);
                 // Fetch last 5 tokenURI
                 const min = totalSupply-6 < 0 ? 0 : totalSupply-6;
