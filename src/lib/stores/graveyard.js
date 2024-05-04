@@ -37,11 +37,19 @@ function b64DecodeUnicode(str) {
 export const TotalSupply = writable(0);
 
 let ProviderRunning = false;
+let unsubscribe = null;
 export const GraveyardStore1 = derived([provider, signerAddress, contracts], ([$provider, $signerAddress, $contracts], set) => {
 	if (!$provider || !$contracts.rge || !$signerAddress) return set({});
 
-	provider.subscribe(async (provider) => {
-		if (!provider || ProviderRunning) return;
+	unsubscribe = provider.subscribe(async (provider) => {
+		if (!provider || ProviderRunning) {
+			if (unsubscribe) {
+                unsubscribe();
+                unsubscribe = null;
+                console.log("Unsubscribed");
+            }
+			return;
+		}
 
         console.log("New Provider", ProviderRunning);
 		ProviderRunning = true;
@@ -51,7 +59,6 @@ export const GraveyardStore1 = derived([provider, signerAddress, contracts], ([$
                 let ret = [];
                 const totalSupply = await $contracts.rge.totalSupply();
 				TotalSupply.set(totalSupply);
-                console.log("totalSupply", totalSupply);
                 // Fetch last 5 tokenURI
                 const min = totalSupply-6 < 0 ? 0 : totalSupply-6;
                 const max = totalSupply;
@@ -62,6 +69,7 @@ export const GraveyardStore1 = derived([provider, signerAddress, contracts], ([$
                     ret[i] = jobject;
                     ret["minFloorPrice"] = await $contracts.rge.getMinFloorPrice();
                 }
+                console.log(ret);
 				set(ret);
 			}
 		});
