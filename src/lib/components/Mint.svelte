@@ -367,7 +367,7 @@
           <button
             id="eraseBtn"
             class="block w-full mt-4 px-4 py-2 text-base font-medium text-white bg-red-500 rounded-md shadow-md hover:bg-red-900 focus:outline-none focus:ring-red-500 focus:ring-offset-2"
-            >Erase</button
+            >ERASE</button
           >
         </div>
       </div>

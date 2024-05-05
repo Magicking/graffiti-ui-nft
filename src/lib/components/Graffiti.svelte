@@ -2,13 +2,12 @@
     export let index = 0;
 
     import { defaultEvmStores as evm, contracts } from "svelte-ethers-store";
+    import { writable } from 'svelte/store';
     import rgeConf from "$lib/rge.conf.json";
     import rgeAbi from "$lib/rge.abi.json";
     import { ethers } from "ethers";
-    import { rgbToHex, getRgbString } from "$lib/utils/useColorCode.js";
     evm.attachContract("rge", rgeConf["address"], rgeAbi);
 
-    import { GraveyardStore1 } from "$lib/stores/graveyard.js";
     import { onMount } from "svelte";
     import Loading from "$lib/components/shared/Loading.svelte";
 
@@ -16,9 +15,37 @@
     let showRgb = false;
     let isLoading = true;
     let minFloorPrice = 0;
+    const NFT = writable(null);
+    let graffiti;
 
-    $: GraveyardStore1;
+    function rgbToHex(NFT) {
+        const red = NFT.attributes[0].Red;
+        const green = NFT.attributes[1].Green;
+        const blue = NFT.attributes[2].Red; // Red => Green after patch submission
+        const toHex = (c) => c.toString(16).padStart(2, '0');
+        return `#${toHex(red)}${toHex(green)}${toHex(blue)}`;
+    }
 
+    function getRgbString(NFT) {
+        const red = NFT.attributes[0].Red;
+        const green = NFT.attributes[1].Green;
+        const blue = NFT.attributes[2].Red; // Red => Green after patch submission
+        return `rgb(${red}, ${green}, ${blue})`;
+    }
+
+    function b64DecodeUnicode(str) {
+        // Going backwards: from bytestream, to percent-encoding, to original string.
+        return decodeURIComponent(
+            atob(str)
+                .split("")
+                .map(function (c) {
+                    return (
+                        "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)
+                    );
+                })
+                .join(""),
+        );
+    }
     async function obtainGraffiti() {
         // Call the smart contract function
         try {
@@ -35,11 +62,16 @@
 
     onMount(async () => {
         // Check if the contract is available and if the data is loaded
-        console.log("GraveyardStore1", $GraveyardStore1);
         if ($contracts.rge) {
             // Get the floor price
             const FloorPrice = await $contracts.rge.getMinFloorPrice();
             minFloorPrice = ethers.utils.formatUnits(FloorPrice, "ether");
+            graffiti = await $contracts.rge.getGraffitiBase(index);
+            const tokenURI = await $contracts.rge.tokenURI(index);
+            const stripb64h = b64DecodeUnicode(tokenURI.replace(/^data:\w+\/\w+;base64,/, ""));
+            const parsedNFT = JSON.parse(stripb64h);
+            console.log(graffiti);
+            NFT.set(parsedNFT);
             isLoading = false;
         }
     });
@@ -49,11 +81,12 @@
     {#if isLoading}
         <Loading />
     {:else}
-        <h2>
-            Graffiti {index}ª
-        </h2>
-        {#if $GraveyardStore1 && $GraveyardStore1.length > 0}
+        {#if $NFT != null}
             <div class="text-white p-10">
+                <h2>
+                    Graffiti {index}ª
+                </h2>
+            <br/>
                 <h2 class="my-3">Details</h2>
                 <!--
             Items to display nicely:
@@ -61,33 +94,26 @@
              - Owner
              - Description
              - External URL
+             
          -->
                 <div class="flex items-center justify-start gap-y-3">
                     <p class="w-[28rem]">
-                        Color:
+                        Color:<a href style="color:{rgbToHex($NFT)}" on:click={() => (showRgb = !showRgb)}>
                         {#if showRgb}
-                            {rgbToHex(
-                                $GraveyardStore1[index].attributes[0].Red,
-                                $GraveyardStore1[index].attributes[1].Green,
-                                $GraveyardStore1[index].attributes[2].Blue,
-                            )}
+                            {rgbToHex($NFT)}
                         {:else}
-                            {getRgbString(
-                                $GraveyardStore1[index].attributes[0].Red,
-                                $GraveyardStore1[index].attributes[1].Green,
-                                $GraveyardStore1[index].attributes[2].Blue,
-                            )}
+                            {getRgbString($NFT)}
                         {/if}
+                    </a>
                     </p>
-                    <button on:click={() => (showRgb = !showRgb)}>
-                        {#if showRgb}Show RGB{:else}Show HEX Code{/if}
-                    </button>
                 </div>
                 <p>&nbsp;</p>
-                <p>Soon (tm)</p>
+                <p>Creator: <a href="https://blastscan.io/address/{graffiti["creator"]}">{graffiti["creator"]}</a></p>
+                <p>&nbsp;</p>
+                <p>Owner: <a href="https://blastscan.io/address/{graffiti["owner"]}">{graffiti["owner"]}</a></p>
                 <p>&nbsp;</p>
                 <p>
-                    Obtain: <button id="obtainBtn" on:click={obtainGraffiti}
+                    Obtain: <button id="obtainBtn" class="neon-btn" on:click={obtainGraffiti}
                         >{minFloorPrice}</button
                     >
                 </p>
@@ -95,7 +121,7 @@
             <img
                 class="pxl justify-center items-center mx-auto my-4 px-4"
                 alt="NFT {index}"
-                src={$GraveyardStore1[index].image}
+                src={$NFT.image}
             />
         {/if}
     {/if}

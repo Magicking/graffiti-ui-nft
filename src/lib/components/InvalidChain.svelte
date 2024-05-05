@@ -25,7 +25,7 @@
 
 <div>
   <h1 class="red text-center">
-    <button on:click={addEthereumChain}>Go to Blast Chain</button>
+    <button class="neon-btn blue" on:click={addEthereumChain}>Add Blast Chain</button>
   </h1>
   <h1 class="red text-center">Warning /!\ not on Blast chain /!\</h1>
 </div>
