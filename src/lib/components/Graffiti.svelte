@@ -72,11 +72,11 @@
   });
 </script>
 
-<div class="min-h-screen bg-camoDark p-4 font-sans">
+<div class="min-h-screen bg-camoDark p-4">
   {#if isLoading}
     <Loading />
   {:else if $NFT != null}
-    <div class="text-white p-10 max-w-2xl mx-auto">
+    <div class="text-camoDark p-10 max-w-2xl mx-auto">
       <h2 class="text-3xl font-bold mb-4 font-geom">Graffiti {index}ª</h2>
       <div class="bg-camo p-4 rounded-lg shadow-lg">
         <img
@@ -84,8 +84,8 @@
           alt="NFT {index}"
           src={$NFT.image}
         />
-        <div class="mt-4">
-          <h3 class="text-xl font-semibold">Details</h3>
+        <div class="mt-4 font-chakra">
+          <h3 class="text-xl font-geom font-semibold">Details</h3>
           <p class="mt-2">
             Color:
             <a
@@ -103,20 +103,20 @@
           <p class="mt-2">
             Creator: <a
               href="https://blastscan.io/address/{graffiti.creator}"
-              class="text-blue-500">{graffiti.creator}</a
+              class="text-yellow">{graffiti.creator}</a
             >
           </p>
           <p class="mt-2">
             Owner: <a
               href="https://blastscan.io/address/{graffiti.owner}"
-              class="text-blue-500">{graffiti.owner}</a
+              class="text-brightGreen">{graffiti.owner}</a
             >
           </p>
           <p class="mt-4">
             Obtain:
             <button
               id="obtainBtn"
-              class="neon-btn bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+              class="neon-btn lime"
               on:click={obtainGraffiti}
             >
               {minFloorPrice} ETH
@@ -129,27 +129,6 @@
 </div>
 
 <style>
-  .neon-btn {
-    background-color: #3498db;
-    border: none;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    transition-duration: 0.4s;
-    cursor: pointer;
-  }
-
-  .neon-btn:hover {
-    background-color: #2980b9;
-  }
-
-  .font-sans {
-    font-family: sans-serif;
-  }
-
   p {
     font-size: 14px;
   }
