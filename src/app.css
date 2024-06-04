@@ -1,14 +1,24 @@
-@import url("https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  html {
-    font-family: "Press Start 2P", cursive;
-    background-color: rgb(28 25 23);
-  }
+@font-face {
+  font-family: "Chakra Petch";
+  src: url("/src/lib/fonts/chakra-reg.ttf");
+  font-weight: normal;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Geom Graphic";
+  src: url("/src/lib/fonts/geom-reg.ttf");
+  font-weight: normal;
+  font-display: swap;
+  font-style: normal;
+}
+
+body {
+  font-family: "Chakra Petch";
 }
 
 .pxl {
@@ -29,10 +39,25 @@ button.active {
   background: transparent;
   text-transform: uppercase;
   padding: 10px 20px;
+  clip-path: polygon(
+    20px 0,
+    100% 0,
+    100% 50%,
+    calc(100% - 20px) 100%,
+    0 100%,
+    0 50%
+  );
 }
 
 .blue {
   color: #4cc9ff;
+}
+.lime {
+  color: black;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+  font: bold;
+  background-color: #98dd28;
 }
 
 .purple {
@@ -45,6 +70,7 @@ button.active {
 
 .yellow {
   color: #f8f32b;
+  
 }
 
 .red {
@@ -80,5 +106,9 @@ button.active {
   background-color: #ff2b2b;
   box-shadow: 10px 10px 100px 10px rgba(255, 43, 43, 1);
 }
+.lime:hover {
+  background: white;
+  color: black;
 
-
+  box-shadow: 10px 10px 100px 10px rgb(123, 226, 27);
+}

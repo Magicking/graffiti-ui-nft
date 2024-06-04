@@ -28,8 +28,17 @@
         >
           {t("Hero.Welcome")}<br />
         </h2>
-        <div class="flex mt-10 w-56 flex items-center justify-center w-full">
-          <MainWalletSetup />
+        <div
+          class="flex mt-10 w-56 flex items-center justify-center w-full flex-col text-white font-chakra"
+        >
+          <p class="text-xl font-geom text-camo">You are already setup!</p>
+
+          <p class="text-lime text-xl mb-10">
+            Take a look at what enthusiasts like you have created! <span
+              class="text-yellow text-xl font-bold font-geom"
+              ><a href="/gallery">Gallery</a></span
+            >
+          </p>
         </div>
         <div class="flex items-center justify-center text-camo space-x-2">
           <p>Supercharged By</p>

@@ -179,80 +179,71 @@
 <div>
   {#if !$connected}
     <div
-      class="flex items-center justify-center flex-col text-center pb-10 h-[80vh]" 
+      class="flex items-center justify-between text-center md:text-start gap-y-2 flex-col md:flex-row lg:flex-row"
     >
-      <div class="theme-bg">
-        <div class="main flex-col">
-          <p class="text-camo text-xl mr-2">Use an external provider:</p>
+      <p class="text-camo text-xl mr-2">Use an external provider:</p>
 
-          <button
-            class=" px-2 py-1 md:px-4 md:py-2 text-base font-sm md:font-md text-lime lime rounded-md neon-btn text-center md:text-start"
-            disabled={pending}
-            on:click={connectOnBoard}>Connect with On Board</button
-          >
-        </div>
-      </div>
+      <button
+        class="block px-2 py-1 md:px-4 md:py-2 text-base font-sm md:font-md text-lime lime rounded-md neon-btn text-center md:text-start"
+        disabled={pending}
+        on:click={connectOnBoard}>Connect with On Board</button
+      >
     </div>
+    <hr class="my-10 blue" />
     <!--
-          <div
-            class="flex items-center justify-between text-center md:text-start gap-y-2 flex-col md:flex-row lg:flex-row"
-          >
-            <p class="py-4 wallet_text">Or choose the "setProvider" method:</p>
-
-            <button
-              class="block px-4 py-2 text-base font-medium text-white blue rounded-md neon-btn"
-              disabled={pending}
-              on:click={connect}>Connect with</button
+            <div
+              class="flex items-center justify-between text-center md:text-start gap-y-2 flex-col md:flex-row lg:flex-row"
             >
-          </div>
-		-->
-    <!--
-          <div class="mt-4">
-            <div class="parent-container">
+              <p class="py-4 wallet_text">Or choose the "setProvider" method:</p>
+  
               <button
-                on:click={() => (isOpen = !isOpen)}
-                class="bg-white text truncate-select"
+                class="block px-4 py-2 text-base font-medium text-white blue rounded-md neon-btn"
+                disabled={pending}
+                on:click={connect}>Connect with</button
               >
-                {selectedOption || "Select a provider"}
-              </button>
-
-              {#if isOpen}
-                <ul class="options">
-                  {#each options as option}
-                    [!-- svelte-ignore a11y-click-events-have-key-events --]
-                    <li class="option" on:click={() => selectOption(option)}>
-                      {option.label}
-                    </li>
-                  {/each}
-                </ul>
-              {/if}
             </div>
-        </div>
-		-->
+          -->
+    <!--
+            <div class="mt-4">
+              <div class="parent-container">
+                <button
+                  on:click={() => (isOpen = !isOpen)}
+                  class="bg-white text truncate-select"
+                >
+                  {selectedOption || "Select a provider"}
+                </button>
+  
+                {#if isOpen}
+                  <ul class="options">
+                    {#each options as option}
+                      [!-- svelte-ignore a11y-click-events-have-key-events --]
+                      <li class="option" on:click={() => selectOption(option)}>
+                        {option.label}
+                      </li>
+                    {/each}
+                  </ul>
+                {/if}
+              </div>
+          </div>
+          -->
     {#if pending}<Loading />{/if}
   {:else}
-    <div class="flex items-center justify-center w-full pb-10 h-[80vh]">
-      <div class="theme-bg">
-        <div
-          class=" main flex flex-col items-center h-screen text-white gap-y-2"
-        >
-          <div class="flex items-center flex-col">
-            You are now connected to the account: <p class="signeraddress">
-              {$signerAddress}
-            </p>
-          </div>
-          <p>On the network {$chainData.name} (chainId: {$chainId})</p>
+    <div class="flex flex-col h-screen text-white mt-10 w-[70vw] gap-y-2">
+      <div>
+        You are now connected to the account: <p class="signeraddress">
+          {$signerAddress}
+        </p>
+      </div>
+      <p>On the network {$chainData.name} (chainId: {$chainId})</p>
 
-          <!--
+      <!--
             <button class="button neon-btn red" on:click={disconnect}>
               Disconnect
             </button>
   -->
-          <button class="button neon-btn red" on:click={disconnectOnBoard}>
-            Disconnect OnBoard</button
-          >
-        </div>
-      </div>
+      <button class="button neon-btn yellow" on:click={disconnectOnBoard}>
+        Disconnect OnBoard</button
+      >
     </div>
   {/if}
 </div>
@@ -261,26 +252,5 @@
   .signeraddress {
     word-wrap: break-word;
     color: #4cc9f0;
-  }
-
-  .theme-bg {
-    background: #fcfc03;
-    height: 400px;
-    width: 400px;
-    clip-path: polygon(35% 0, 100% 0, 100% 65%, 65% 100%, 0 100%, 0 35%);
-  }
-  .main {
-    clip-path: polygon(35% 0, 100% 0, 100% 65%, 65% 100%, 0 100%, 0 35%);
-    height: 394px;
-    top: 3px;
-    left: 3px;
-    position: relative;
-
-    width: 394px;
-    background-color: #11140c;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 </style>
