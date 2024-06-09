@@ -19,18 +19,20 @@
   let showModal = false;
   const handleToggleModal = () => {
     console.log("Toggle modal");
-    showModal = !showModal;
+    if ($connected && $chainId !== chainid) {
+      showModal = !showModal;
+    }
   };
 
   onMount(() => {
     useConnectToWallet();
-    handleToggleModal(); 
+    handleToggleModal();
   });
 </script>
 
-<div class="main">
+<Header />
+<div class="main min-h-screen">
   <div class="content">
-    <Header />
     <ThemedModal title="" open={showModal} on:close={() => handleToggleModal()}>
       <svelte:fragment slot="body">
         This is content inside my modal! 👋
@@ -51,21 +53,6 @@
 
 <style>
   .main {
-    min-height: 100vh;
-    clip-path: polygon(
-      0 16%,
-      0 0,
-      15% 0%,
-      62% 0,
-      75% 10%,
-      100% 10%,
-      100% 85%,
-      100% 100%,
-      85% 100%,
-      15% 100%,
-      0 100%,
-      0% 85%
-    );
     background: #fcfc03;
   }
 
@@ -73,23 +60,9 @@
     height: 99.4%;
     width: 99.4%;
     position: relative;
-    left: 0.3%;
-    top: 3px;
+    left: 3.55px;
+    margin-top: -1%;
 
-    clip-path: polygon(
-      0 16%,
-      0 0,
-      15% 0%,
-      62% 0,
-      75% 10%,
-      100% 10%,
-      100% 85%,
-      100% 100%,
-      85% 100%,
-      15% 100%,
-      0 100%,
-      0% 85%
-    );
     background: #11140c;
   }
 </style>

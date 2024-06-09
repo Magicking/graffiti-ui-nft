@@ -3,6 +3,7 @@
   import { onDestroy, onMount } from "svelte";
   import { locale, translation } from "$lib/stores/i18n";
 
+  export let style = "";
   $: t = $translation;
   $: lang = $locale;
 
@@ -36,8 +37,8 @@
   }
 </script>
 
-<header class=" text-camo font-geom main">
-  <div class="content flex">
+<header class="text-camo font-geom main {style === 'hero' ? 'hero' : ''}">
+  <div class="content flex {style === 'hero' ? 'hero-content' : ''}">
     <div class="px-10 py-6">
       <div class="flex w-full md:flex-row h-16">
         <div class="flex items-center">
@@ -156,22 +157,28 @@
   }
 
   /* Experimental */
-  /* .main {
-    clip-path: polygon(76% 0, 84% 37%, 100% 37%, 100% 100%, 0 100%, 0 0);
+  .main {
+    clip-path: polygon(63% 0, 72% 49%, 100% 51%, 100% 100%, 0 100%, 0 0);
     height: 120px;
     width: 100%;
     background: #fcfc03;
   }
 
+  .hero {
+    background: transparent;
+  }
+
   .content {
-    height: 114px;
-    width: 99%;
+    height: 94%;
+    width: 99.4%;
     position: relative;
-    left: 0.5%;
-    top: 3px;
-
-    clip-path: polygon(76% 0, 84% 37%, 100% 37%, 100% 100%, 0 100%, 0 0);
-
+    left: 3.3px;
+    top: 2%;
+    clip-path: polygon(63% 0, 72% 53%, 100% 55%, 100% 100%, 0 100%, 0 0);
     background: #11140c;
-  } */
+  }
+
+  .hero-content {
+    background: transparent;
+  }
 </style>

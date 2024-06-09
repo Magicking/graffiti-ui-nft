@@ -31,7 +31,7 @@
     <!-- <div class="border-shadow"></div> -->
   </div>
   <div class="main-container">
-    <Header />
+    <Header style="hero" />
 
     {#if $connected}
       {#if $chainId !== chainid}
@@ -50,13 +50,13 @@
     height: 100vh;
     width: 100%;
     clip-path: polygon(
-      0 16%,
+      0 -18%,
       0 0,
       15% 0%,
-      62% 0,
-      75% 10%,
-      100% 10%,
-      100% 85%,
+      63% 0,
+      72% 8%,
+      100% 8%,
+      100% 81%,
       100% 100%,
       85% 100%,
       15% 100%,
@@ -74,13 +74,13 @@
     /* left: 3px; */
     position: relative;
     clip-path: polygon(
-      0 16%,
+      0 -18%,
       0 0,
       15% 0%,
-      62% 0,
-      75% 10%,
-      100% 10%,
-      100% 85%,
+      63% 0,
+      72% 8%,
+      100% 8%,
+      100% 81%,
       100% 100%,
       85% 100%,
       15% 100%,
@@ -98,13 +98,13 @@
     bottom: 0;
     background: url("../lib/images/bg.jpg");
     clip-path: polygon(
-      0 16%,
+      0 -18%,
       0 0,
       15% 0%,
-      62% 0,
-      75% 10%,
-      100% 10%,
-      100% 85%,
+      63% 0,
+      72% 8%,
+      100% 8%,
+      100% 81%,
       100% 100%,
       85% 100%,
       15% 100%,
@@ -120,20 +120,20 @@
   .overlay {
     position: absolute;
     top: 3px;
-    left: .3%;
+    left: 0.3%;
     right: 0;
     bottom: 0;
     background: linear-gradient(to bottom, #11140c 1.54%, #2a2b1b);
     z-index: 1;
     opacity: 0.6;
     clip-path: polygon(
-      0 16%,
+      0 -18%,
       0 0,
       15% 0%,
-      62% 0,
-      75% 10%,
-      100% 10%,
-      100% 85%,
+      63% 0,
+      72% 8%,
+      100% 8%,
+      100% 81%,
       100% 100%,
       85% 100%,
       15% 100%,

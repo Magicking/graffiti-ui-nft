@@ -16,33 +16,71 @@
   };
 </script>
 
-<div class="min-h-screen bg-camoDark p-4 font-geom">
-  {#if $contracts.rge}
-    {#await $contracts.rge.totalSupply()}
-      <div class="flex justify-center items-center h-56">
-        <div
-          class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12"
-        ></div>
-      </div>
-    {:then totalSupply}
-      <div class="flex items-center flex-col">
-        <div class="w-full flex items-center">
-          <p class="py-4 neon-btn lime text-center text-3xl xl:ml-20">
-            Art Added Uptil Now: {totalSupply}
-          </p>
+<div class="main">
+  <div class=" content min-h-screen bg-camoDark p-4 font-geom">
+    {#if $contracts.rge}
+      {#await $contracts.rge.totalSupply()}
+        <div class="flex justify-center items-center h-56">
+          <div
+            class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12"
+          ></div>
         </div>
+      {:then totalSupply}
+        <div class="flex items-center flex-col">
+          <div class="w-full flex items-center">
+            <p class="py-4 neon-btn lime text-center text-3xl xl:ml-20">
+              Art Added Uptil Now: {totalSupply}
+            </p>
+          </div>
 
-        <h1 class="text-yellow text-center text-2xl uppercase mt-10">
-          Top Art By Creators
-        </h1>
-        <!-- Carousel Section for Top 10 Most Recent Images -->
-        <div class="w-full overflow-x-auto mb-20 custom-scrollbar">
-          <div class="flex space-x-4 p-4">
-            {#each range(totalSupply - 0, totalSupply - 10, 1) as tokenId}
+          <h1 class="text-yellow text-center text-2xl uppercase mt-10">
+            Top Art By Creators
+          </h1>
+          <!-- Carousel Section for Top 10 Most Recent Images -->
+          <div class="w-[90%] overflow-x-auto mb-20 custom-scrollbar">
+            <div class="flex space-x-4 p-4">
+              {#each range(totalSupply - 0, totalSupply - 10, 1) as tokenId}
+                {#if tokenId >= 0 && tokenId < totalSupply && $GraveyardStore1}
+                  <div
+                    class="min-w-[250px] bg-gray-700 rounded-lg overflow-hidden"
+                  >
+                    <a href="/graffiti/?i={tokenId}" class="block">
+                      {#if $GraveyardStore1[tokenId]}
+                        <img
+                          class="w-full h-64 object-cover"
+                          alt="NFT"
+                          src={$GraveyardStore1[tokenId].image}
+                        />
+                      {:else}
+                        <div
+                          class="w-full h-64 bg-gray-600 flex justify-center items-center"
+                        >
+                          <span class="text-white">Loading...</span>
+                        </div>
+                      {/if}
+                    </a>
+                    <div
+                      class="details bg-yellow p-2 text-center text-black border-2 border-yellow"
+                    >
+                      <p>ID: {tokenId}</p>
+                      <p>Author Magic King</p>
+                    </div>
+                  </div>
+                {/if}
+              {/each}
+            </div>
+          </div>
+          <h1 class="text-yellow text-2xl uppercase">
+            What the community has created!
+          </h1>
+
+          <!-- Grid Gallery Section -->
+          <div
+            class="gallery grid grid-cols-2 mt-4 mb-20 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
+          >
+            {#each range(0, totalSupply - 1, 1) as tokenId}
               {#if tokenId >= 0 && tokenId < totalSupply && $GraveyardStore1}
-                <div
-                  class="min-w-[250px] bg-gray-700 rounded-lg overflow-hidden"
-                >
+                <div class="gallery-item bg-gray-700 rounded-lg overflow mb-4">
                   <a href="/graffiti/?i={tokenId}" class="block">
                     {#if $GraveyardStore1[tokenId]}
                       <img
@@ -69,48 +107,25 @@
             {/each}
           </div>
         </div>
-        <h1 class="text-yellow text-2xl uppercase">
-          What the community has created!
-        </h1>
-
-        <!-- Grid Gallery Section -->
-        <div
-          class="gallery grid grid-cols-2 mt-4 mb-20 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
-        >
-          {#each range(0, totalSupply - 1, 1) as tokenId}
-            {#if tokenId >= 0 && tokenId < totalSupply && $GraveyardStore1}
-              <div class="gallery-item bg-gray-700 rounded-lg overflow mb-4">
-                <a href="/graffiti/?i={tokenId}" class="block">
-                  {#if $GraveyardStore1[tokenId]}
-                    <img
-                      class="w-full h-64 object-cover"
-                      alt="NFT"
-                      src={$GraveyardStore1[tokenId].image}
-                    />
-                  {:else}
-                    <div
-                      class="w-full h-64 bg-gray-600 flex justify-center items-center"
-                    >
-                      <span class="text-white">Loading...</span>
-                    </div>
-                  {/if}
-                </a>
-                <div
-                  class="details bg-yellow p-2 text-center text-black border-2 border-yellow"
-                >
-                  <p>ID: {tokenId}</p>
-                  <p>Author Magic King</p>
-                </div>
-              </div>
-            {/if}
-          {/each}
-        </div>
-      </div>
-    {/await}
-  {/if}
+      {/await}
+    {/if}
+  </div>
 </div>
 
 <style>
+  .main {
+    width: 100%;
+    height: 100%;
+    background: #fcfc03;
+  }
+  .content {
+    height: 99.4%;
+    width: 99.4%;
+    position: relative;
+    left: 3.5px;
+    margin-top: -1%;
+    padding-top: 3%;
+  }
   .loader {
     border-top-color: #3498db;
     -webkit-animation: spin 1s linear infinite;
