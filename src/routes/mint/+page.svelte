@@ -19,9 +19,9 @@
   let showModal = false;
   const handleToggleModal = () => {
     console.log("Toggle modal");
-    if ($connected && $chainId !== chainid) {
-      showModal = !showModal;
-    }
+    // if ($connected ) {
+    showModal = !showModal;
+    // }
   };
 
   onMount(() => {
