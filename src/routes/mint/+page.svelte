@@ -77,4 +77,17 @@
 
     background: #11140c;
   }
+
+  @media (max-width: 639px) {
+    .content {
+    height: 99.4%;
+    width: 99.4%;
+    position: relative;
+    left: 3.55px;
+    margin-top: -1%;
+
+    background: #11140c;
+  }
+  }
+  
 </style>

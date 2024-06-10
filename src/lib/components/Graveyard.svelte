@@ -67,7 +67,7 @@
               {/each}
             </div>
           </div>
-          <h1 class="text-yellow text-2xl uppercase">
+          <h1 class="text-yellow text-2xl uppercase text-center md:text-start">
             What the community has created!
           </h1>
 
