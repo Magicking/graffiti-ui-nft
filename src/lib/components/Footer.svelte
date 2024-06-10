@@ -1,5 +1,5 @@
 <footer
-  class="flex flex-row font-geom items-center py-8 bg-yellow text-white footer"
+  class="flex flex-row font-geom items-center py-3 bg-yellow text-white footer"
 >
   <div class="w-full flex items-center justify-start ml-2 text-black font-bold">
     <h5 class="author-text">
@@ -38,7 +38,8 @@
 
 <style>
   .footer {
-    border-top: 1px solid #4cc9f0;
+    border-top: 3px solid black;
+    border-bottom: 6px solid black;
   }
 
   .author-text {
