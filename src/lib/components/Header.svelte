@@ -1,6 +1,6 @@
 <script>
   import { page } from "$app/stores";
-  import { onDestroy, onMount } from "svelte";
+  import { onMount } from "svelte";
   import { locale, translation } from "$lib/stores/i18n";
 
   export let style = "";
@@ -50,11 +50,9 @@
           <div class="ml-10 flex items-center space-x-4 text-xl">
             <p
               class="menu-item"
-              aria-current={$page.url.pathname === "/gallery"
-                ? "page"
-                : undefined}
+              aria-current={$page.url.pathname === "/" ? "page" : undefined}
             >
-              <a href="/gallery"> {t("Header.Graveyard")} </a>
+              <a href="/"> {t("Header.Graveyard")} </a>
             </p>
             <p
               class="menu-item"

@@ -17,7 +17,7 @@
 </script>
 
 <div class="main">
-  <div class=" content min-h-screen bg-camoDark p-4 font-geom">
+  <div class=" content min-h-screen p-4 font-geom">
     {#if $contracts.rge}
       {#await $contracts.rge.totalSupply()}
         <div class="flex justify-center items-center h-56">
@@ -116,7 +116,7 @@
   .main {
     width: 100%;
     height: 100%;
-    background: #fcfc03;
+    /* background: #fcfc03; */
   }
   .content {
     height: 99.4%;

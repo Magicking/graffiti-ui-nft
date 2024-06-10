@@ -11,8 +11,6 @@
   import { useConnectToWallet } from "$lib/utils/useConnectToWallet";
   import InvalidChain from "$lib/components/InvalidChain.svelte";
   import Header from "../lib/components/Header.svelte";
-  import ValidChain from "../lib/components/ValidChain.svelte";
-  import ValidHero from "../lib/components/ValidHero.svelte";
 
   onMount(() => {
     useConnectToWallet();
@@ -24,20 +22,22 @@
   <meta name="description" content="Graffiti" />
 </svelte:head>
 
+<Header style="" />
 <div class="main">
   <div class="background-container">
-    <div class="background-image"></div>
-    <div class="overlay"></div>
+    <!-- <div class="background-image"></div> -->
+    <!-- <div class="overlay"></div> -->
     <!-- <div class="border-shadow"></div> -->
   </div>
-  <div class="main-container">
-    <Header style="hero" />
+  <div class="main-container bg-yellow">
+    <!-- Add style=hero if the you dont want the header specific style -->
+    <!-- <Header style="hero" /> -->
 
     {#if $connected}
       {#if $chainId !== chainid}
         <InvalidChain />
       {:else}
-        <ValidHero />
+        <Graveyard />
       {/if}
     {:else}
       <Hero />
@@ -47,9 +47,11 @@
 
 <style>
   .main {
-    height: 100vh;
+    /* min-height: 100vh; */
     width: 100%;
-    clip-path: polygon(
+    /* left: 3px; */
+    position: relative;
+    /* clip-path: polygon(
       0 -18%,
       0 0,
       15% 0%,
@@ -62,18 +64,21 @@
       15% 100%,
       0 100%,
       0% 85%
-    );
+    ); */
     background: #fcfc03;
   }
 
   .main-container {
-    background: transparent;
-    height: 99vh;
-    /* width: %; */
-    top: 3px;
-    /* left: 3px; */
+    background: #11140C;
+    /* height: 99vh; */
+    width: 99.45%;
+    /* top: 3px; */
+    left: 3px;
+    right: 3px;
+    margin-top: -1%;
+
     position: relative;
-    clip-path: polygon(
+    /* clip-path: polygon(
       0 -18%,
       0 0,
       15% 0%,
@@ -86,11 +91,11 @@
       15% 100%,
       0 100%,
       0% 85%
-    );
+    ); */
     z-index: 2;
   }
 
-  .background-image {
+  /* .background-image {
     position: absolute;
     top: 3px;
     left: 3px;
@@ -115,9 +120,9 @@
     background-repeat: no-repeat;
     background-size: cover;
     z-index: 0;
-  }
+  } */
 
-  .overlay {
+  /* .overlay {
     position: absolute;
     top: 3px;
     left: 0.3%;
@@ -140,7 +145,7 @@
       0 100%,
       0% 85%
     );
-  }
+  } */
 
   @media (max-width: 639px) {
     .overlay {
