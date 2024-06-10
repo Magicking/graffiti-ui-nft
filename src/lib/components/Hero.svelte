@@ -31,10 +31,7 @@
         <div class="flex mt-10 w-56 flex items-center justify-center w-full">
           <MainWalletSetup />
         </div>
-        <div class="flex items-center justify-center text-camo space-x-2">
-          <p>Supercharged By</p>
-          <img class="h-[18px]" src={BlastYellowText} alt="" />
-        </div>
+      
       </div>
     </div>
   </div>

@@ -40,10 +40,7 @@
             >
           </p>
         </div>
-        <div class="flex items-center justify-center text-camo space-x-2">
-          <p>Supercharged By</p>
-          <img class="h-[18px]" src={BlastYellowText} alt="" />
-        </div>
+       
       </div>
     </div>
   </div>
