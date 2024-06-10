@@ -14,7 +14,7 @@
 
   import rgeConf from "$lib/rge.conf.json";
   import rgeAbi from "$lib/rge.abi.json";
-  import Loading from "./shared/Loading.svelte";
+  import Loader from "./shared/Loader.svelte";
 
   const injected = injectedModule();
   const wcV2InitOptions = {
@@ -226,7 +226,7 @@
               </div>
           </div>
           -->
-    {#if pending}<Loading />{/if}
+    {#if pending}<Loader />{/if}
   {:else}
     <div class="flex flex-col h-screen text-white mt-10 w-[70vw] gap-y-2">
       <div>

@@ -6,6 +6,7 @@
   import rgeAbi from "$lib/rge.abi.json";
   evm.attachContract("rge", rgeConf["address"], rgeAbi["abi"]);
   import { GraveyardStore1, TotalSupply } from "$lib/stores/graveyard.js";
+  import Loader from "./shared/Loader.svelte";
 
   $: totalSupply = TotalSupply;
   $: GraveyardStore1;
@@ -20,11 +21,7 @@
   <div class=" content min-h-screen p-4 font-geom">
     {#if $contracts.rge}
       {#await $contracts.rge.totalSupply()}
-        <div class="flex justify-center items-center h-56">
-          <div
-            class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12"
-          ></div>
-        </div>
+      <Loader />
       {:then totalSupply}
         <div class="flex items-center flex-col">
           <div class="w-full flex items-center">
@@ -126,29 +123,8 @@
     margin-top: -1%;
     padding-top: 3%;
   }
-  .loader {
-    border-top-color: #3498db;
-    -webkit-animation: spin 1s linear infinite;
-    animation: spin 1s linear infinite;
-  }
 
-  @-webkit-keyframes spin {
-    0% {
-      -webkit-transform: rotate(0deg);
-    }
-    100% {
-      -webkit-transform: rotate(360deg);
-    }
-  }
 
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
 
   .gallery {
     display: grid;

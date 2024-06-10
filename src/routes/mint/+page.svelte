@@ -1,7 +1,6 @@
 <script>
   import {
     defaultEvmStores as evm,
-    contracts,
     connected,
     chainId,
   } from "svelte-ethers-store";
@@ -14,35 +13,48 @@
   import abi from "$lib/rge.abi.json";
   import Header from "../../lib/components/Header.svelte";
   import ThemedModal from "../../lib/components/shared/ThemedModal.svelte";
+  import { hasShownModal } from "$lib/stores/modal.js";
   evm.attachContract("rge", address, abi);
 
   let showModal = false;
+
   const handleToggleModal = () => {
     console.log("Toggle modal");
-    // if ($connected ) {
     showModal = !showModal;
-    // }
   };
 
   onMount(() => {
     useConnectToWallet();
-    handleToggleModal();
   });
+
+  $: if ($connected) {
+    hasShownModal.subscribe((value) => {
+      if (!value) {
+        setTimeout(() => {
+          showModal = true;
+          hasShownModal.set(true);
+        }, 2000); // Delay for 2 seconds
+      }
+    });
+  }
 </script>
 
 <Header />
 <div class="main min-h-screen">
   <div class="content">
-    <ThemedModal title="" open={showModal} on:close={() => handleToggleModal()}>
-      <svelte:fragment slot="body">
-        This is content inside my modal! 👋
-      </svelte:fragment>
-    </ThemedModal>
-
     {#if $connected}
       {#if $chainId !== chainid}
         <InvalidChain />
       {:else}
+        <ThemedModal
+          title=""
+          open={showModal}
+          on:close={() => handleToggleModal()}
+        >
+          <svelte:fragment slot="body">
+            This is content inside my modal! 👋
+          </svelte:fragment>
+        </ThemedModal>
         <Mint on:toggle={() => handleToggleModal()} />
       {/if}
     {:else}
