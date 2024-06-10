@@ -9,7 +9,7 @@
   evm.attachContract("rge", rgeConf["address"], rgeAbi);
 
   import { onMount } from "svelte";
-  import Loading from "$lib/components/shared/Loading.svelte";
+  import Loader from "./shared/Loader.svelte";
 
   let showRgb = false;
   let isLoading = true;
@@ -72,64 +72,81 @@
   });
 </script>
 
-<div class="min-h-screen bg-camoDark p-4">
-  {#if isLoading}
-    <Loading />
-  {:else if $NFT != null}
-    <div class="text-camoDark p-10 max-w-2xl mx-auto">
-      <h2 class="text-3xl font-bold mb-4 font-geom">Graffiti {index}ª</h2>
-      <div class="bg-camo p-4 rounded-lg shadow-lg">
-        <img
-          class="w-full h-auto object-cover rounded-lg"
-          alt="NFT {index}"
-          src={$NFT.image}
-        />
-        <div class="mt-4 font-chakra">
-          <h3 class="text-xl font-geom font-semibold">Details</h3>
-          <p class="mt-2">
-            Color:
-            <a
-              href
-              style="color:{rgbToHex($NFT)}"
-              on:click={() => (showRgb = !showRgb)}
-            >
-              {#if showRgb}
-                {rgbToHex($NFT)}
-              {:else}
-                {getRgbString($NFT)}
-              {/if}
-            </a>
-          </p>
-          <p class="mt-2">
-            Creator: <a
-              href="https://blastscan.io/address/{graffiti.creator}"
-              class="text-yellow">{graffiti.creator}</a
-            >
-          </p>
-          <p class="mt-2">
-            Owner: <a
-              href="https://blastscan.io/address/{graffiti.owner}"
-              class="text-brightGreen">{graffiti.owner}</a
-            >
-          </p>
-          <p class="mt-4">
-            Obtain:
-            <button
-              id="obtainBtn"
-              class="neon-btn lime"
-              on:click={obtainGraffiti}
-            >
-              {minFloorPrice} ETH
-            </button>
-          </p>
+<div class=" main min-h-screen bg-camoDark">
+  <div class="content">
+    {#if isLoading}
+      <Loader />
+    {:else if $NFT != null}
+      <div class=" text-camoDark p-10 max-w-2xl mx-auto">
+        <h2 class="text-3xl font-bold mb-4 font-geom">Graffiti {index}ª</h2>
+        <div class="bg-camo p-4 rounded-lg shadow-lg">
+          <img
+            class="w-full h-auto object-cover rounded-lg"
+            alt="NFT {index}"
+            src={$NFT.image}
+          />
+          <div class="mt-4 font-chakra">
+            <h3 class="text-xl font-geom font-semibold">Details</h3>
+            <p class="mt-2">
+              Color:
+              <a
+                href
+                style="color:{rgbToHex($NFT)}"
+                on:click={() => (showRgb = !showRgb)}
+              >
+                {#if showRgb}
+                  {rgbToHex($NFT)}
+                {:else}
+                  {getRgbString($NFT)}
+                {/if}
+              </a>
+            </p>
+            <p class="mt-2">
+              Creator: <a
+                href="https://blastscan.io/address/{graffiti.creator}"
+                class="text-yellow">{graffiti.creator}</a
+              >
+            </p>
+            <p class="mt-2">
+              Owner: <a
+                href="https://blastscan.io/address/{graffiti.owner}"
+                class="text-brightGreen">{graffiti.owner}</a
+              >
+            </p>
+            <p class="mt-4">
+              Obtain:
+              <button
+                id="obtainBtn"
+                class="neon-btn lime"
+                on:click={obtainGraffiti}
+              >
+                {minFloorPrice} ETH
+              </button>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-  {/if}
+    {/if}
+  </div>
 </div>
 
 <style>
   p {
     font-size: 14px;
+  }
+
+  .main {
+    margin-top: -1%;
+    background: #fcfc03;
+    position: relative;
+  }
+  .content {
+    height: 99.4%;
+    width: 99.4%;
+    position: relative;
+    left: 3.55px;
+    margin-top: -1%;
+
+    background: #11140c;
   }
 </style>

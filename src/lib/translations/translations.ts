@@ -10,7 +10,11 @@ export type TranslationKey =
   | "Mint.Save"
   | "Mint.Banner"
   | "Mint.BannerNym"
-  | "Header.Wallet";
+  | "Header.Wallet"
+  | "Graveyard.Loading"
+  | "Graveyard.TopArt"
+  | "Graveyard.ArtTillNow"
+  | "Graveyard.CommunityArt";
 
 // Define the translations interface for each locale
 export interface Translations {
@@ -24,10 +28,16 @@ const translations: Translations = {
     "Header.Souldraw": "Paint",
     "Header.SouldrawNym": "Souldraw (nym)",
     "Header.Wallet": "Wallet",
-    "Mint.Banner": "Paint on the canvas below, hit save to pay gas to inscribe your of drawing on-chain (Blast.io) ethernarly. Use the erase button to remove pixels. Make sure the Mint button is blue by funding your Blast ethereum account.",
-    "Mint.BannerNym": "Use the NYM Mixnet to anonymously draw your message on the canvas below, it will be stored on the Ethereum blockchain ethernarly. Use the erase button bellow to erase pixel.",
+    "Mint.Banner":
+      "Paint on the canvas below, hit save to pay gas to inscribe your of drawing on-chain (Blast.io) ethernarly. Use the erase button to remove pixels. Make sure the Mint button is blue by funding your Blast ethereum account.",
+    "Mint.BannerNym":
+      "Use the NYM Mixnet to anonymously draw your message on the canvas below, it will be stored on the Ethereum blockchain ethernarly. Use the erase button bellow to erase pixel.",
     "Mint.Save": "Save (mint)",
-	  "Hero.Welcome":"Make Art, Free to Mint, Pay to steal, Farm Gold",
-  }
+    "Hero.Welcome": "Make Art, Free to Mint, Pay to steal, Farm Gold",
+    "Graveyard.Loading": "Loading...",
+    "Graveyard.TopArt": "Top Art By Creators",
+    "Graveyard.CommunityArt": "What the community has created!",
+    "Graveyard.ArtTillNow": "Art Added Uptil Now",
+  },
 };
 export default translations;

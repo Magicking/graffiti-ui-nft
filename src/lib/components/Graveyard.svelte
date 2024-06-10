@@ -4,34 +4,51 @@
 
   import rgeConf from "$lib/rge.conf.json";
   import rgeAbi from "$lib/rge.abi.json";
-  evm.attachContract("rge", rgeConf["address"], rgeAbi["abi"]);
   import { GraveyardStore1, TotalSupply } from "$lib/stores/graveyard.js";
+  import { locale, translation } from "$lib/stores/i18n";
+
   import Loader from "./shared/Loader.svelte";
 
+  evm.attachContract("rge", rgeConf["address"], rgeAbi["abi"]);
+
   $: totalSupply = TotalSupply;
+  $: t = $translation;
   $: GraveyardStore1;
+  let owners = {};
 
   const getRecentTokens = (count) => {
     const start = totalSupply > count ? totalSupply - count : 0;
     return range(start, totalSupply - 1, 1).reverse();
   };
+
+  const getOwnerOfToken = async (tokenId) => {
+    try {
+      const owner = await $contracts.rge.ownerOf(tokenId);
+      owners = { ...owners, [tokenId]: owner };
+    } catch (error) {
+      console.error(`Error fetching owner for token ${tokenId}:`, error);
+    }
+  };
+
+  const shortAddress = (address) =>
+    `${address.slice(0, 6)}...${address.slice(-4)}`;
 </script>
 
 <div class="main">
   <div class=" content min-h-screen p-4 font-geom">
     {#if $contracts.rge}
       {#await $contracts.rge.totalSupply()}
-      <Loader />
+        <Loader />
       {:then totalSupply}
         <div class="flex items-center flex-col">
           <div class="w-full flex items-center">
             <p class="py-4 neon-btn lime text-center text-3xl xl:ml-20">
-              Art Added Uptil Now: {totalSupply}
+              {t("Graveyard.ArtTillNow")} : {totalSupply}
             </p>
           </div>
 
           <h1 class="text-yellow text-center text-2xl uppercase mt-10">
-            Top Art By Creators
+            {t("Graveyard.TopArt")}
           </h1>
           <!-- Carousel Section for Top 10 Most Recent Images -->
           <div class="w-[90%] overflow-x-auto mb-20 custom-scrollbar">
@@ -52,15 +69,19 @@
                         <div
                           class="w-full h-64 bg-gray-600 flex justify-center items-center"
                         >
-                          <span class="text-white">Loading...</span>
+                          <span class="text-white"
+                            >{t("Graveyard.Loading")}</span
+                          >
                         </div>
                       {/if}
                     </a>
                     <div
                       class="details bg-yellow p-2 text-center text-black border-2 border-yellow"
                     >
-                      <p>ID: {tokenId}</p>
-                      <p>Author Magic King</p>
+                      <p>№&nbsp;{tokenId}</p>
+                      {#await getOwnerOfToken(tokenId) then owner}
+                        <p>{shortAddress(owners[tokenId] || owner)}</p>
+                      {/await}
                     </div>
                   </div>
                 {/if}
@@ -68,7 +89,7 @@
             </div>
           </div>
           <h1 class="text-yellow text-2xl uppercase text-center md:text-start">
-            What the community has created!
+            {t("Graveyard.CommunityArt")}
           </h1>
 
           <!-- Grid Gallery Section -->
@@ -89,15 +110,19 @@
                       <div
                         class="w-full h-64 bg-gray-600 flex justify-center items-center"
                       >
-                        <span class="text-white">Loading...</span>
+                        <span class="text-white">
+                          {t("Graveyard.Loading")}
+                        </span>
                       </div>
                     {/if}
                   </a>
                   <div
                     class="details bg-yellow p-2 text-center text-black border-2 border-yellow"
                   >
-                    <p>ID: {tokenId}</p>
-                    <p>Author Magic King</p>
+                    <p>№&nbsp;{tokenId}</p>
+                    {#await getOwnerOfToken(tokenId) then owner}
+                      <p>{shortAddress(owners[tokenId] || owner)}</p>
+                    {/await}
                   </div>
                 </div>
               {/if}
@@ -123,8 +148,6 @@
     margin-top: -1%;
     padding-top: 3%;
   }
-
-
 
   .gallery {
     display: grid;

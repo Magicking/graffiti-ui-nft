@@ -4,20 +4,19 @@
 </script>
 
 <svelte:head>
-  <title>setProvider()</title>
+  <title>Wallet</title>
 </svelte:head>
 
 <Header />
 <div class="main">
   <div class="content">
-    <WalletSetup />
+    <WalletSetup styleType="connect" />
   </div>
 </div>
 
 <style>
   .main {
     height: 100vh;
-
     background: #fcfc03;
   }
 
@@ -25,6 +24,9 @@
     height: 99.4%;
     width: 99.4%;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     left: 3.55px;
     margin-top: -1%;
 

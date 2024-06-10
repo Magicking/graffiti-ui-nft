@@ -1,6 +1,5 @@
 <script>
   import { ethers } from "ethers";
-
   import {
     connected,
     chainData,
@@ -18,24 +17,16 @@
 
   const injected = injectedModule();
   const wcV2InitOptions = {
-    /**
-     * Project ID associated with [WalletConnect account](https://cloud.walletconnect.com)
-     */
     projectId: "b9f85888a5d74faa799c924ac2a06d68",
-    /**
-     * Chains required to be supported by all wallets connecting to your DApp
-     */
     requiredChains: [1],
-    /**
-     * Defaults to `appMetadata.explore` that is supplied to the web3-onboard init
-     * Strongly recommended to provide atleast one URL as it is required by some wallets (i.e. MetaMask)
-     * To connect with WalletConnect
-     */
     dappUrl: "https://g.6120.eu/",
   };
   const walletConnect = walletConnectModule(wcV2InitOptions);
   let isOpen = false;
   let selectedOption = "";
+  let style = "";
+
+  export let styleType = ""; // New prop
 
   function selectOption(option) {
     selectedOption = option.label;
@@ -171,70 +162,41 @@
     pending = false;
   };
 
-  // Might come in handy later
-  // $: network = $connected ? $provider.getNetwork() : "";
-  // $: account = $connected && $signer ? $signer.getAddress() : "";
+  console.log(styleType === "connect");
 </script>
 
 <div>
   {#if !$connected}
     <div
-      class="flex items-center justify-center flex-col text-center pb-10 h-[80vh]" 
+      class="flex items-center justify-center flex-col text-center pb-10 ${styleType ===
+      'connect'
+        ? 'h-[80vh]'
+        : ''}"
     >
-      <div class="theme-bg">
-        <div class="main flex-col">
-          <p class="text-camo text-xl mr-2">Use an external provider:</p>
+      <div class:theme-bg={styleType === "connect"}>
+        <div class:main={styleType === "connect"} class="flex-col">
+          <p class="text-camo text-xl mr-2 mb-3" >Use an external provider:</p>
 
           <button
-            class=" px-2 py-1 md:px-4 md:py-2 text-base font-sm md:font-md text-lime lime rounded-md neon-btn text-center md:text-start"
+            class=" px-2 py-3 md:px-4 md:py-2 text-base font-sm md:font-md text-lime lime rounded-md neon-btn text-center md:text-start"
             disabled={pending}
             on:click={connectOnBoard}>Connect with On Board</button
           >
         </div>
       </div>
     </div>
-    <!--
-          <div
-            class="flex items-center justify-between text-center md:text-start gap-y-2 flex-col md:flex-row lg:flex-row"
-          >
-            <p class="py-4 wallet_text">Or choose the "setProvider" method:</p>
-
-            <button
-              class="block px-4 py-2 text-base font-medium text-white blue rounded-md neon-btn"
-              disabled={pending}
-              on:click={connect}>Connect with</button
-            >
-          </div>
-		-->
-    <!--
-          <div class="mt-4">
-            <div class="parent-container">
-              <button
-                on:click={() => (isOpen = !isOpen)}
-                class="bg-white text truncate-select"
-              >
-                {selectedOption || "Select a provider"}
-              </button>
-
-              {#if isOpen}
-                <ul class="options">
-                  {#each options as option}
-                    [!-- svelte-ignore a11y-click-events-have-key-events --]
-                    <li class="option" on:click={() => selectOption(option)}>
-                      {option.label}
-                    </li>
-                  {/each}
-                </ul>
-              {/if}
-            </div>
-        </div>
-		-->
     {#if pending}<Loader />{/if}
   {:else}
-    <div class="flex items-center justify-center w-full pb-10 h-[80vh]">
-      <div class="theme-bg">
+    <div
+      class="flex items-center justify-center w-full pb-10 ${styleType ===
+      'connect'
+        ? 'h-[80vh]'
+        : ''}"
+    >
+      <div class:theme-bg={styleType === "connect"}>
         <div
-          class=" main flex flex-col items-center h-screen text-white gap-y-2"
+          class:main={styleType === "connect"}
+          class="flex flex-col items-center h-screen text-white gap-y-2"
         >
           <div class="flex items-center flex-col">
             You are now connected to the account: <p class="signeraddress">
@@ -243,11 +205,6 @@
           </div>
           <p>On the network {$chainData.name} (chainId: {$chainId})</p>
 
-          <!--
-            <button class="button neon-btn red" on:click={disconnect}>
-              Disconnect
-            </button>
-  -->
           <button class="button neon-btn red" on:click={disconnectOnBoard}>
             Disconnect OnBoard</button
           >

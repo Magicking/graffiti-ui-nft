@@ -1,7 +1,5 @@
 <script>
   import { locale, translation } from "$lib/stores/i18n";
-  import BlastYellowText from "../images/blast-yellow.png";
-  import MainWalletSetup from "./MainWalletSetup.svelte";
   import WalletSetup from "./WalletSetup.svelte";
 
   $: t = $translation;
@@ -29,9 +27,8 @@
           {t("Hero.Welcome")}<br />
         </h2>
         <div class="flex mt-10 w-56 flex items-center justify-center w-full">
-          <MainWalletSetup />
+          <WalletSetup styleType="" />
         </div>
-      
       </div>
     </div>
   </div>
