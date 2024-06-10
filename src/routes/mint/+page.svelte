@@ -30,10 +30,10 @@
   $: if ($connected) {
     hasShownModal.subscribe((value) => {
       if (!value) {
-        setTimeout(() => {
+        // setTimeout(() => {
           showModal = true;
           hasShownModal.set(true);
-        }, 2000); // Delay for 2 seconds
+        // }, 2000); // Delay for 2 seconds - Uncomment this line to again add the delay
       }
     });
   }
