@@ -64,7 +64,7 @@
         // Check if the contract is available and if the data is loaded
         if ($contracts.rge) {
             // Get the floor price
-            const FloorPrice = await $contracts.rge.getMinFloorPrice();
+            const FloorPrice = 0;
             minFloorPrice = ethers.utils.formatUnits(FloorPrice, "ether");
             graffiti = await $contracts.rge.getGraffitiBase(index);
             const tokenURI = await $contracts.rge.tokenURI(index);
