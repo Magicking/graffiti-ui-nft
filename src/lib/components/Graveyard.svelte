@@ -93,7 +93,7 @@
           <div
             class="gallery grid grid-cols-2 mt-4 mb-20 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
           >
-            {#each range(0, totalSupply - 1, 1) as tokenId}
+            {#each range(-1, totalSupply, 1) as tokenId}
               {#if tokenId >= 0 && tokenId < totalSupply && $GraveyardStore1}
                 <div class="gallery-item bg-gray-700 rounded-lg overflow mb-4">
                   <a href="/graffiti/?i={tokenId}" class="block">
