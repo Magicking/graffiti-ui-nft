@@ -35,9 +35,9 @@ const translations: Translations = {
     "Mint.Save": "Save (mint)",
     "Hero.Welcome": "Make Art, Free to Mint, Pay to steal, Farm Gold",
     "Graveyard.Loading": "Loading...",
-    "Graveyard.TopArt": "Top Art By Creators",
-    "Graveyard.CommunityArt": "What the community has created!",
-    "Graveyard.ArtTillNow": "Art Added Uptil Now",
+    "Graveyard.TopArt": "Recent graff1t1s",
+    "Graveyard.CommunityArt": "Gra7fit1 Wall",
+    "Graveyard.ArtTillNow": "Gra77iti count",
   },
 };
 export default translations;

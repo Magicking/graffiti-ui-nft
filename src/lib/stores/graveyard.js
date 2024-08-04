@@ -60,7 +60,7 @@ export const GraveyardStore1 = derived([provider, signerAddress, contracts], ([$
 		provider.on('block', async (_block) => {
 			if ($contracts.rge) {
 			console.log("New Block("+instanceId+")", _block);
-				if (Number(_block) - MaxIndex  >= 40) {
+				if (Number(_block) - MaxIndex  >= 100) {
 					const totalSupply = await $contracts.rge.totalSupply();
 				    console.log(currentIndex, _block);
 					TotalSupply.set(totalSupply);
@@ -72,9 +72,6 @@ export const GraveyardStore1 = derived([provider, signerAddress, contracts], ([$
 				const stripb64h = tokenURI.replace(/^data:\w+\/\w+;base64,/, '');
 				const jobject = JSON.parse(b64DecodeUnicode(stripb64h));
 				currentIndex = String(jobject['external_url']).split("=")[1];
-				if (ret.length >= 50) {
-					ret.shift(); // Remove the oldest item if we have more than 50 items
-				}
 				ret[currentIndex] = jobject;
 				ret["minFloorPrice"] = 0;//await $contracts.rge.getMinFloorPrice();
 				set(ret);
