@@ -20,7 +20,8 @@
   function rgbToHex(NFT) {
     const red = NFT.attributes[0].Red;
     const green = NFT.attributes[1].Green;
-    const blue = NFT.attributes[2].Red; // Red => Green after patch submission
+    // Check if the Blue attribute exists, otherwise use Red
+    const blue = NFT.attributes[2].Blue !== undefined ? NFT.attributes[2].Blue : NFT.attributes[2].Red;
     const toHex = (c) => c.toString(16).padStart(2, "0");
     return `#${toHex(red)}${toHex(green)}${toHex(blue)}`;
   }
@@ -58,7 +59,7 @@
 
   onMount(async () => {
     if ($contracts.rge) {
-      const FloorPrice = await $contracts.rge.getMinFloorPrice();
+      const FloorPrice = 0;//await $contracts.rge.getMinFloorPrice();
       minFloorPrice = ethers.utils.formatUnits(FloorPrice, "ether");
       graffiti = await $contracts.rge.getGraffitiBase(index);
       const tokenURI = await $contracts.rge.tokenURI(index);

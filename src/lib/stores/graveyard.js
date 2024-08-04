@@ -51,26 +51,36 @@ export const GraveyardStore1 = derived([provider, signerAddress, contracts], ([$
 			return;
 		}
 
+		let instanceId = Math.random();
         console.log("New Provider", ProviderRunning);
 		ProviderRunning = true;
+		let MaxIndex = 0;
+		let currentIndex = -1;
+		let ret = new Array(0);
 		provider.on('block', async (_block) => {
-			console.log("New Block", _block);
 			if ($contracts.rge) {
-                let ret = [];
-                const totalSupply = await $contracts.rge.totalSupply();
-				TotalSupply.set(totalSupply);
-                // Fetch last 5 tokenURI
-                const min = totalSupply-6 < 0 ? 0 : totalSupply-6;
-                const max = totalSupply;
-                for (let i = min; i < max; i++) {
-                    const tokenURI = await $contracts.rge.tokenURI(i);
-                    const stripb64h = tokenURI.replace(/^data:\w+\/\w+;base64,/, '');
-                    const jobject = JSON.parse(b64DecodeUnicode(stripb64h));
-                    ret[i] = jobject;
-                    ret["minFloorPrice"] = await $contracts.rge.getMinFloorPrice();
-                }
-                console.log(ret);
+			console.log("New Block("+instanceId+")", _block);
+				if (Number(_block) - MaxIndex  >= 40) {
+					const totalSupply = await $contracts.rge.totalSupply();
+				    console.log(currentIndex, _block);
+					TotalSupply.set(totalSupply);
+					currentIndex = Number(totalSupply) - 1;
+					MaxIndex = Number(_block);
+				}
+				console.log(currentIndex,Number(_block) - MaxIndex, _block);
+				const tokenURI = await $contracts.rge.tokenURI(Number(_block) - MaxIndex);
+				const stripb64h = tokenURI.replace(/^data:\w+\/\w+;base64,/, '');
+				const jobject = JSON.parse(b64DecodeUnicode(stripb64h));
+				currentIndex = String(jobject['external_url']).split("=")[1];
+				if (ret.length >= 50) {
+					ret.shift(); // Remove the oldest item if we have more than 50 items
+				}
+				ret[currentIndex] = jobject;
+				ret["minFloorPrice"] = 0;//await $contracts.rge.getMinFloorPrice();
 				set(ret);
+				currentIndex = currentIndex - 1;
+				console.log(currentIndex, jobject, ret);
+				
 			}
 		});
 	});

@@ -61,7 +61,7 @@
                     <a href="/graffiti/?i={tokenId}" class="block">
                       {#if $GraveyardStore1[tokenId]}
                         <img
-                          class="w-full h-64 object-cover"
+                          class="class-{tokenId} w-full h-64 object-cover"
                           alt="NFT"
                           src={$GraveyardStore1[tokenId].image}
                         />
@@ -79,9 +79,6 @@
                       class="details bg-yellow p-2 text-center text-black border-2 border-yellow"
                     >
                       <p>№&nbsp;{tokenId}</p>
-                      {#await getOwnerOfToken(tokenId) then owner}
-                        <p>{shortAddress(owners[tokenId] || owner)}</p>
-                      {/await}
                     </div>
                   </div>
                 {/if}
@@ -120,9 +117,6 @@
                     class="details bg-yellow p-2 text-center text-black border-2 border-yellow"
                   >
                     <p>№&nbsp;{tokenId}</p>
-                    {#await getOwnerOfToken(tokenId) then owner}
-                      <p>{shortAddress(owners[tokenId] || owner)}</p>
-                    {/await}
                   </div>
                 </div>
               {/if}
