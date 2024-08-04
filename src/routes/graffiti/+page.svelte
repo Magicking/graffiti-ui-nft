@@ -12,6 +12,8 @@
   import { address, chainid } from "$lib/rge.conf.json";
   import InvalidChain from "$lib/components/InvalidChain.svelte";
   import abi from "$lib/rge.abi.json";
+  import ThemedModal from "../../lib/components/shared/ThemedModal.svelte";
+  import Header from "../../lib/components/Header.svelte";
   evm.attachContract("rge", address, abi);
 
   onMount(() => {
@@ -23,10 +25,10 @@
     if (i === undefined) return 0;
     return i;
   }
-
 </script>
 
 <div>
+  <Header />
   {#if $connected}
     {#if $chainId !== chainid}
       <InvalidChain />

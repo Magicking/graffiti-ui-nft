@@ -1,6 +1,6 @@
 <script>
   import { locale, translation } from "$lib/stores/i18n";
-  import { onDestroy, onMount } from "svelte";
+  import { createEventDispatcher, onDestroy, onMount } from "svelte";
   import {
     defaultEvmStores as evm,
     connected,
@@ -273,18 +273,25 @@
       return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
     }
   });
+
+  const dispatch = createEventDispatcher();
 </script>
 
 <div class="min-h-screen">
   <div class="flex flex-col">
-    <div class="w-full flex items-center justify-evenly">
+    <div
+      class="w-full flex items-center justify-evenly font-geom flex-col md:flex-row"
+    >
       <div
-        class=" flex flex-col text-white mt-5 p-6 gap-y-4 w-[50rem] my-0 md:my-10"
+        class=" flex flex-col text-camo mt-5 p-6 gap-y-4 max-w-[50rem] my-0 md:my-10"
       >
         <h1 class="text-green underline">Getting Started!</h1>
         <p class="info-box">
           {t("Mint.Banner")}
         </p>
+        <button class="btn lime btn-neon" on:click={() => dispatch("toggle")}
+          >Read More!</button
+        >
       </div>
       <div class="flex flex-col items-stretch md:items-center relative p-6">
         <div>
@@ -298,7 +305,7 @@
             type="text"
             bind:value={destination}
             id="address"
-            class="bg-gray-50 blue border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+            class="bg-gray-50 blue font-chakra border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
             placeholder="0xDE2..."
             required
           />
@@ -307,68 +314,75 @@
       <br />
     </div>
     <br />
-    <div class="p-10">
-      <div class="flex justify-between flex-col md:flex-row gap-y-6 md:gap-y-0">
-        <div class="text-white">
-          <button
-            id="saveBtn"
-            class="w-full mt-4 neon-btn blue px-2 py-1 text-sm text-white rounded-md shadow-md focus:outline-none"
-            style="background-color: {balance < minBalance ? 'red' : 'blue'}"
-          >
-            {t("Mint.Save")}
-          </button>
-        </div>
-        <div class="text-white">
-          <div class="relative">
-            Brush size<select
-              class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              on:change={(event) => (squaresize = event.target.value)}
-            >
-              {#each Array.from({ length: 8 }, (_, i) => i + 1) as number}
-                <option value={number}>{number}</option>
-              {/each}
-            </select>
-            <div
-              class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-            >
-              <svg
-                class="fill-current h-4 w-4"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-              >
-                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-                <path
-                  fill-rule="evenodd"
-                  d="M10 3a7 7 0 110 14 7 7 0 010-14zm0 12a5 5 0 100-10 5 5 0 000 10z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-        <div class="flex justify-center text-white text-sm">
-          <ColorPicker
-            bind:rgb
-            label={priceText}
-            isPopup={true}
-            isInput={true}
-            isAlpha={false}
-            isDark={true}
-            on:input={(event) => {
-              if (fUpdatePrice != null) {
-                fUpdatePrice(event.detail.rgb);
-              } else {
-                console.log("fUpdatePrice is null");
-              }
-            }}
-          />
-        </div>
+    <div class="p-10 flex flex-col justify-center md:flex-row-reverse">
+      <div class="flex flex-col gap-y-6 md:gap-y-10 md:ml-6 h-full">
         <div>
           <button
             id="eraseBtn"
-            class="block w-full mt-4 px-4 py-2 text-base font-medium text-white bg-red-500 rounded-md shadow-md hover:bg-red-900 focus:outline-none focus:ring-red-500 focus:ring-offset-2"
+            class="block w-full mt-4 px-6 py-2 text-base font-medium red neon-btn"
             >ERASE</button
           >
+        </div>
+
+        <div
+          class="flex items-center justify-center flex-col md:flex-row gap-y-0 md:gap-x-6 w-full"
+        >
+          <div class="text-camo w-full">
+            <div class="relative">
+              Brush size<select
+                class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                on:change={(event) => (squaresize = event.target.value)}
+              >
+                {#each Array.from({ length: 8 }, (_, i) => i + 1) as number}
+                  <option value={number}>{number}</option>
+                {/each}
+              </select>
+              <div
+                class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+              >
+                <svg
+                  class="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 3a7 7 0 110 14 7 7 0 010-14zm0 12a5 5 0 100-10 5 5 0 000 10z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-center mt-4 md:mt-0 text-camo text-sm">
+            <ColorPicker
+              bind:rgb
+              label={priceText}
+              isPopup={true}
+              isInput={true}
+              isAlpha={false}
+              isDark={true}
+              on:input={(event) => {
+                if (fUpdatePrice != null) {
+                  fUpdatePrice(event.detail.rgb);
+                } else {
+                  console.log("fUpdatePrice is null");
+                }
+              }}
+            />
+          </div>
+        </div>
+
+        <div class="">
+          <button
+            id="saveBtn"
+            class="w-full mt-4 px-2 py-1 neon-btn {balance < minBalance
+              ? 'red'
+              : 'blue'}"
+          >
+            {t("Mint.Save")}
+          </button>
         </div>
       </div>
       <div
@@ -377,17 +391,11 @@
         <div class="">
           <canvas
             id="canvas"
-            class="block w-full border-2 my-4 justify-center items-center mx-auto"
+            class="block w-full border-yellow border-2 my-4 justify-center items-center"
             height={canvasWidth}
             width={canvasWidth}
           />
         </div>
-      </div>
-    </div>
-    <div class="p-10 bg-black bottom-bar">
-      <br />
-      <div class="flex justify-between flex-col md:flex-row gap-y-6 md:gap-y-0">
-        <div></div>
       </div>
     </div>
   </div>
