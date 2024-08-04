@@ -23,7 +23,7 @@
   </h3>
   &nbsp;
   <h3 class="text-black font-bold">
-    <a href="https://discord.gg/g5xvnHEtEF">S.ky L.ight</a>
+    <a href="https://discord.gg/5eT7MwmY8N">S.ky L.ight</a>
   </h3>
 
   <div class="w-full flex items-center justify-end mt-2">

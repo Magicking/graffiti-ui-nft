@@ -71,6 +71,7 @@
       isLoading = false;
     }
   });
+
 </script>
 
 <div class=" main min-h-screen bg-camoDark">
