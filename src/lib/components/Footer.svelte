@@ -1,5 +1,5 @@
 <footer
-  class="flex flex-row font-geom items-center py-3 bg-yellow text-white footer"
+  class="flex flex-row font-geom items-center py-3 bg-accent text-white footer"
 >
   <div class="w-full flex items-center justify-start ml-2 text-black font-bold">
     <h5 class="author-text">

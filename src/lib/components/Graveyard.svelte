@@ -47,7 +47,7 @@
             </p>
           </div>
 
-          <h1 class="text-yellow text-center text-2xl uppercase mt-10">
+          <h1 class="text-accent text-center text-2xl uppercase mt-10">
             {t("Graveyard.TopArt")}
           </h1>
           <!-- Carousel Section for Top 10 Most Recent Images -->
@@ -76,7 +76,7 @@
                       {/if}
                     </a>
                     <div
-                      class="details bg-yellow p-2 text-center text-black border-2 border-yellow"
+                      class="details bg-accent p-2 text-center text-black border-2 border-accent"
                     >
                       <p>№&nbsp;{tokenId}</p>
                     </div>
@@ -85,7 +85,7 @@
               {/each}
             </div>
           </div>
-          <h1 class="text-yellow text-2xl uppercase text-center md:text-start">
+          <h1 class="text-accent text-2xl uppercase text-center md:text-start">
             {t("Graveyard.CommunityArt")}
           </h1>
 
@@ -114,7 +114,7 @@
                     {/if}
                   </a>
                   <div
-                    class="details bg-yellow p-2 text-center text-black border-2 border-yellow"
+                    class="details bg-accent p-2 text-center text-black border-2 border-accent"
                   >
                     <p>№&nbsp;{tokenId}</p>
                   </div>

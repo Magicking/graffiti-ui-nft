@@ -74,14 +74,14 @@
 
 </script>
 
-<div class=" main min-h-screen bg-camoDark">
+<div class=" main min-h-screen bg-darkBackground">
   <div class="content">
     {#if isLoading}
       <Loader />
     {:else if $NFT != null}
-      <div class=" text-camoDark p-10 max-w-2xl mx-auto">
+      <div class=" text-darkBackground p-10 max-w-2xl mx-auto">
         <h2 class="text-3xl font-bold mb-4 font-geom">Graffiti {index}ª</h2>
-        <div class="bg-camo p-4 rounded-lg shadow-lg">
+        <div class="bg-tertiary p-4 rounded-lg shadow-lg">
           <img
             class="w-full h-auto object-cover rounded-lg"
             alt="NFT {index}"
@@ -106,13 +106,13 @@
             <p class="mt-2">
               Creator: <a
                 href="https://blastscan.io/address/{graffiti.creator}"
-                class="text-yellow">{graffiti.creator}</a
+                class="text-accent">{graffiti.creator}</a
               >
             </p>
             <p class="mt-2">
               Owner: <a
                 href="https://blastscan.io/address/{graffiti.owner}"
-                class="text-brightGreen">{graffiti.owner}</a
+                class="text-primary">{graffiti.owner}</a
               >
             </p>
             <p class="mt-4">

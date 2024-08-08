@@ -29,7 +29,7 @@
     <!-- <div class="overlay"></div> -->
     <!-- <div class="border-shadow"></div> -->
   </div>
-  <div class="main-container bg-yellow">
+  <div class="main-container bg-accent">
     <!-- Add style=hero if the you dont want the header specific style -->
     <!-- <Header style="hero" /> -->
 
@@ -69,7 +69,7 @@
   }
 
   .main-container {
-    background: #11140C;
+    background: #11140c;
     /* height: 99vh; */
     width: 99.45%;
     /* top: 3px; */

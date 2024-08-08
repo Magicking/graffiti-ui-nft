@@ -37,7 +37,9 @@
   }
 </script>
 
-<header class="text-camo flex font-geom main {style === 'hero' ? 'hero' : ''}">
+<header
+  class="text-tertiary flex font-geom main {style === 'hero' ? 'hero' : ''}"
+>
   <div class="content flex {style === 'hero' ? 'hero-content' : ''}">
     <div class="md:px-10 py-6">
       <div class="flex w-full flex-col md:flex-row h-16">
@@ -50,9 +52,9 @@
         <!-- Mobile menu, show/hide based on menu state -->
         <div class=" flex md:hidden pl-4 mt-2">
           <!-- Mobile menu buttons -->
-          <div class="block md:hidden bg-yellow">
+          <div class="block md:hidden bg-accent">
             <div
-              class=" flex items-center justify-center px-2 space-y-1 sm:px-3 text-camoDark"
+              class=" flex items-center justify-center px-2 space-y-1 sm:px-3 text-darkBackground"
             >
               <!-- Duplicate Navigation links for mobile -->
               <a href="/" class="block px-3 rounded-md text-sm menu-item">

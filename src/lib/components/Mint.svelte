@@ -283,7 +283,7 @@
       class="w-full flex items-center justify-evenly font-geom flex-col md:flex-row"
     >
       <div
-        class=" flex flex-col text-camo mt-5 p-6 gap-y-4 max-w-[50rem] my-0 md:my-10"
+        class=" flex flex-col text-tertiary mt-5 p-6 gap-y-4 max-w-[50rem] my-0 md:my-10"
       >
         <h1 class="text-green underline">Getting Started!</h1>
         <p class="info-box">
@@ -327,7 +327,7 @@
         <div
           class="flex items-center justify-center flex-col md:flex-row gap-y-0 md:gap-x-6 w-full"
         >
-          <div class="text-camo w-full">
+          <div class="text-tertiary w-full">
             <div class="relative">
               Brush size<select
                 class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -355,7 +355,7 @@
               </div>
             </div>
           </div>
-          <div class="flex justify-center mt-4 md:mt-0 text-camo text-sm">
+          <div class="flex justify-center mt-4 md:mt-0 text-tertiary text-sm">
             <ColorPicker
               bind:rgb
               label={priceText}
@@ -391,7 +391,7 @@
         <div class="">
           <canvas
             id="canvas"
-            class="block w-full border-yellow border-2 my-4 justify-center items-center"
+            class="block w-full border-accent border-2 my-4 justify-center items-center"
             height={canvasWidth}
             width={canvasWidth}
           />

@@ -11,13 +11,13 @@
     <div class="flex-1 flex items-center justify-center">
       <div class="">
         <h1
-          class="text-6xl font-geom text-yellow uppercase mb-2 flex flex-col md:items-center justify-center items-start"
+          class="text-6xl font-geom text-accent uppercase mb-2 flex flex-col md:items-center justify-center items-start"
         >
           <span class="widest-tracking"> Graffiti </span>
-          <span class="text-lime epitaph font-geom widest-tracking"
+          <span class="text-secondary epitaph font-geom widest-tracking"
             >Graffiti</span
           ><br />
-          <span class="text-yellow epitaph font-geom text-4xl md:text-6xl"
+          <span class="text-accent epitaph font-geom text-4xl md:text-6xl"
             >Ethernal NFT</span
           >
         </h1>

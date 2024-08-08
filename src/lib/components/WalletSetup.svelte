@@ -175,10 +175,10 @@
     >
       <div class:theme-bg={styleType === "connect"}>
         <div class:main={styleType === "connect"} class="flex-col">
-          <p class="text-camo text-xl mr-2 mb-3" >Use an external provider:</p>
+          <p class="text-tertiary text-xl mr-2 mb-3">Use an external provider:</p>
 
           <button
-            class=" px-2 py-3 md:px-4 md:py-2 text-base font-sm md:font-md text-lime lime rounded-md neon-btn text-center md:text-start"
+            class=" px-2 py-3 md:px-4 md:py-2 text-base font-sm md:font-md text-secondary lime rounded-md neon-btn text-center md:text-start"
             disabled={pending}
             on:click={connectOnBoard}>Connect with On Board</button
           >
