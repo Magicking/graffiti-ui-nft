@@ -285,11 +285,11 @@
       <div
         class=" flex flex-col text-tertiary mt-5 p-6 gap-y-4 max-w-[50rem] my-0 md:my-10"
       >
-        <h1 class="text-green underline">Getting Started!</h1>
+        <h1 class="text-primary underline">Getting Started!</h1>
         <p class="info-box">
           {t("Mint.Banner")}
         </p>
-        <button class="btn lime btn-neon" on:click={() => dispatch("toggle")}
+        <button class="btn btn-secondary btn-neon" on:click={() => dispatch("toggle")}
           >Read More!</button
         >
       </div>
@@ -319,7 +319,7 @@
         <div>
           <button
             id="eraseBtn"
-            class="block w-full mt-4 px-6 py-2 text-base font-medium red neon-btn"
+            class="block w-full mt-4 px-6 py-2 text-base font-medium btn-red neon-btn"
             >ERASE</button
           >
         </div>
@@ -378,7 +378,7 @@
           <button
             id="saveBtn"
             class="w-full mt-4 px-2 py-1 neon-btn {balance < minBalance
-              ? 'red'
+              ? 'btn-red'
               : 'blue'}"
           >
             {t("Mint.Save")}

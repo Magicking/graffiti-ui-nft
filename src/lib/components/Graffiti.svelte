@@ -119,7 +119,7 @@
               Obtain:
               <button
                 id="obtainBtn"
-                class="neon-btn lime"
+                class="neon-btn btn-secondary"
                 on:click={obtainGraffiti}
               >
                 {minFloorPrice} ETH

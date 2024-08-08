@@ -178,7 +178,7 @@
           <p class="text-tertiary text-xl mr-2 mb-3">Use an external provider:</p>
 
           <button
-            class=" px-2 py-3 md:px-4 md:py-2 text-base font-sm md:font-md text-secondary lime rounded-md neon-btn text-center md:text-start"
+            class=" px-2 py-3 md:px-4 md:py-2 text-base font-sm md:font-md text-secondary btn-secondary rounded-md neon-btn text-center md:text-start"
             disabled={pending}
             on:click={connectOnBoard}>Connect with On Board</button
           >
@@ -205,7 +205,7 @@
           </div>
           <p>On the network {$chainData.name} (chainId: {$chainId})</p>
 
-          <button class="button neon-btn red" on:click={disconnectOnBoard}>
+          <button class="button neon-btn btn-red" on:click={disconnectOnBoard}>
             Disconnect OnBoard</button
           >
         </div>

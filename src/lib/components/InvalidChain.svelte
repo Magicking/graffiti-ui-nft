@@ -24,10 +24,10 @@
 </script>
 
 <div>
-  <h1 class="red text-center">
-    <button class="neon-btn blue" on:click={addEthereumChain}
+  <h1 class="btn-red text-center">
+    <button class="neon-btn btn-primary" on:click={addEthereumChain}
       >Add Blast Chain</button
     >
   </h1>
-  <h1 class="red text-center">Warning /!\ not on Blast chain /!\</h1>
+  <h1 class="btn-red text-center">Warning /!\ not on Blast chain /!\</h1>
 </div>

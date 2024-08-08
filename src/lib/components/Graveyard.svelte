@@ -42,7 +42,7 @@
       {:then totalSupply}
         <div class="flex items-center flex-col">
           <div class="w-full flex items-center">
-            <p class="py-4 neon-btn lime text-center text-3xl xl:ml-20">
+            <p class="py-4 neon-btn btn-secondary text-center text-3xl xl:ml-20">
               {t("Graveyard.ArtTillNow")} : {totalSupply}
             </p>
           </div>

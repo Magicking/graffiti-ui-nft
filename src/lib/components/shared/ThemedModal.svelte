@@ -39,7 +39,7 @@
 
           <br />
 
-          <button class="mt-6 red neon-btn" on:click={() => dispatch("close")}>
+          <button class="mt-6 btn-red neon-btn" on:click={() => dispatch("close")}>
             Get Started!
           </button>
         </div>
