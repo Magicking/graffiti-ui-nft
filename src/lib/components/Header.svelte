@@ -38,9 +38,9 @@
 </script>
 
 <header
-  class="text-tertiary flex font-geom main {style === 'hero' ? 'hero' : ''}"
+  class="text-tertiary flex font-geom main bg-accent {style === 'hero' ? 'hero' : ''}"
 >
-  <div class="content flex {style === 'hero' ? 'hero-content' : ''}">
+  <div class="content bg-darkBackground flex {style === 'hero' ? 'bg-transparent' : ''}">
     <div class="md:px-10 py-6">
       <div class="flex w-full flex-col md:flex-row h-16">
         <div class="flex items-center pl-4">
@@ -103,39 +103,17 @@
 </header>
 
 <style>
-  .logo {
-    padding: 10px 20px;
-    clip-path: polygon(
-      20px 0,
-      100% 0,
-      100% 50%,
-      calc(100% - 20px) 100%,
-      0 100%,
-      0 50%
-    );
-    color: #f8f32b;
-    border: 2px solid #f8f32b;
-  }
-  .logo:hover {
-    color: #f8f32b; /* White text */
-    cursor: pointer;
-    text-shadow:
-      0 0 10px #fff,
-      /* First layer of shadow */ 0 0 5px rgba(246, 255, 0, 0.6),
-      /* Second layer */ 0 0 10px rgba(242, 255, 0, 0.6),
-      /* Third layer */ 0 0 20px rgba(208, 255, 0, 0.6),
-      /* Fourth layer */ 0 0 25px rgba(212, 255, 0, 0.6),
-      /* Fifth layer */ 0 0 80px rgba(212, 255, 0, 0.6); /* Sixth layer */
-    transition: box-shadow 0.3s ease;
-    border: 2px solid #f8f32b;
-  }
+  /* ----------- Header Styles are rather too specific ------------------  */
+  /* 
+  
+  The main focus is that the colors are change able, at places where I think the styles can not be changed much I am 
+  adding the tailwind classes with the theme color names.
 
-  /* Experimental */
+  */
   .main {
     clip-path: polygon(63% 0, 72% 49%, 100% 51%, 100% 100%, 0 100%, 0 0);
     height: 120px;
     width: 100%;
-    background: #fcfc03;
   }
 
   .hero {
@@ -149,10 +127,5 @@
     left: 3.3px;
     top: 2%;
     clip-path: polygon(63% 0, 72% 53%, 100% 55%, 100% 100%, 0 100%, 0 0);
-    background: #11140c;
-  }
-
-  .hero-content {
-    background: transparent;
   }
 </style>

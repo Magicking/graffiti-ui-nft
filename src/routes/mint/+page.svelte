@@ -31,8 +31,8 @@
     hasShownModal.subscribe((value) => {
       if (!value) {
         // setTimeout(() => {
-          showModal = true;
-          hasShownModal.set(true);
+        showModal = true;
+        hasShownModal.set(true);
         // }, 2000); // Delay for 2 seconds - Uncomment this line to again add the delay
       }
     });
@@ -40,8 +40,8 @@
 </script>
 
 <Header />
-<div class="main min-h-screen">
-  <div class="content">
+<div class="main bg-accent min-h-screen">
+  <div class="base-content bg-transparent md:bg-darkBackground">
     {#if $connected}
       {#if $chainId !== chainid}
         <InvalidChain />
@@ -62,32 +62,3 @@
     {/if}
   </div>
 </div>
-
-<style>
-  .main {
-    background: #fcfc03;
-  }
-
-  .content {
-    height: 99.4%;
-    width: 99.4%;
-    position: relative;
-    left: 3.55px;
-    margin-top: -1%;
-
-    background: #11140c;
-  }
-
-  @media (max-width: 639px) {
-    .content {
-    height: 99.4%;
-    width: 99.4%;
-    position: relative;
-    left: 3.55px;
-    margin-top: -1%;
-
-    background: #11140c;
-  }
-  }
-  
-</style>

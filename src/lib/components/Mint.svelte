@@ -289,8 +289,9 @@
         <p class="info-box">
           {t("Mint.Banner")}
         </p>
-        <button class="btn btn-secondary btn-neon" on:click={() => dispatch("toggle")}
-          >Read More!</button
+        <button
+          class="btn btn-secondary btn-neon"
+          on:click={() => dispatch("toggle")}>Read More!</button
         >
       </div>
       <div class="flex flex-col items-stretch md:items-center relative p-6">
@@ -400,36 +401,3 @@
     </div>
   </div>
 </div>
-
-<style>
-  .info-box {
-    font-size: 12px;
-  }
-
-  .tool-tip {
-    font-size: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 200px;
-    padding: 10px 20px;
-  }
-
-  .tooltip-svg {
-    position: absolute;
-    width: 20px;
-    height: 10px;
-    bottom: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-    overflow: visible;
-  }
-
-  .tooltip-svg path {
-    fill: black;
-  }
-
-  .bottom-bar {
-    /* border: 1px solid #4cc9ff; */
-  }
-</style>

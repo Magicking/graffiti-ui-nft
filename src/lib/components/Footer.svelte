@@ -2,7 +2,7 @@
   class="flex flex-row font-geom items-center py-3 bg-accent text-white footer"
 >
   <div class="w-full flex items-center justify-start ml-2 text-black font-bold">
-    <h5 class="author-text">
+    <h5 class="text-lg pr-5">
       <a href="https://sky-light-sl.com/">Sky&nbsp;Light</a> production
     </h5>
   </div>
@@ -27,7 +27,7 @@
   </h3>
 
   <div class="w-full flex items-center justify-end mt-2">
-    <h5 class="author-text text-black font-bold ">
+    <h5 class="text-lg pr-5 text-black font-bold">
       <a
         href="https://blastscan.io/address/0x971b2d96efc3cffb8bace89a17abfed0b8743cd1"
         >Graffiti</a
@@ -35,15 +35,3 @@
     </h5>
   </div>
 </footer>
-
-<style>
-  .footer {
-    border-top: 3px solid black;
-    border-bottom: 6px solid black;
-  }
-
-  .author-text {
-    font-size: 18px;
-    padding-right: 20px;
-  }
-</style>

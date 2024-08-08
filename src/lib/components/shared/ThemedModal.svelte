@@ -24,12 +24,12 @@
     class:opacity-0={!open}
   >
     <div
-      class="theme-bg text-accent bg-darkBackground z-50 flex items-center justify-center p-0"
+      class="modal-theme-bg text-accent bg-darkBackground z-50 flex items-center justify-center p-0"
       class:scale-100={modalVisible}
       class:scale-95={!modalVisible}
     >
       <div
-        class="main w-full h-max mx-auto pt-5 shadow-xl z-50 overflow-y-hidden"
+        class="modal-container w-full h-max mx-auto pt-5 shadow-xl z-50 overflow-y-hidden"
       >
         <div class="content p-12 pt-20 bg-darkBackground">
           Paint on the canvas below, hit save to pay gas to inscribe your of
@@ -47,36 +47,3 @@
     </div>
   </div>
 {/if}
-
-<style>
-  .theme-bg {
-    background: #fcfc03;
-    width: 410px;
-    clip-path: polygon(35% 0, 100% 0, 100% 65%, 65% 100%, 0 100%, 0 35%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .main {
-    clip-path: polygon(35% 0, 100% 0, 100% 65%, 65% 100%, 0 100%, 0 35%);
-    margin: 10px;
-    height: 90%;
-    background-color: #11140c;
-  }
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.8);
-  }
-  @media (max-width: 768px) {
-    .theme-bg {
-      width: 370px;
-    }
-  }
-</style>

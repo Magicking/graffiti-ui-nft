@@ -8,28 +8,8 @@
 </svelte:head>
 
 <Header />
-<div class="main">
-  <div class="content">
+<div class="h-screen bg-accent">
+  <div class="base-content grid items-center bg-darkBackground">
     <WalletSetup styleType="connect" />
   </div>
 </div>
-
-<style>
-  .main {
-    height: 100vh;
-    background: #fcfc03;
-  }
-
-  .content {
-    height: 99.4%;
-    width: 99.4%;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    left: 3.55px;
-    margin-top: -1%;
-
-    background: #11140c;
-  }
-</style>

@@ -174,8 +174,13 @@
         : ''}"
     >
       <div class:theme-bg={styleType === "connect"}>
-        <div class:main={styleType === "connect"} class="flex-col">
-          <p class="text-tertiary text-xl mr-2 mb-3">Use an external provider:</p>
+        <div
+          class:main={styleType === "connect"}
+          class="flex-col bg-darkBackground"
+        >
+          <p class="text-tertiary text-xl mr-2 mb-3">
+            Use an external provider:
+          </p>
 
           <button
             class=" px-2 py-3 md:px-4 md:py-2 text-base font-sm md:font-md text-secondary btn-secondary rounded-md neon-btn text-center md:text-start"
@@ -196,7 +201,7 @@
       <div class:theme-bg={styleType === "connect"}>
         <div
           class:main={styleType === "connect"}
-          class="flex flex-col items-center h-screen text-white gap-y-2"
+          class="flex flex-col items-center h-screen text-white gap-y-2 bg-darkBackground"
         >
           <div class="flex items-center flex-col">
             You are now connected to the account: <p class="signeraddress">
@@ -215,27 +220,13 @@
 </div>
 
 <style>
-  .signeraddress {
-    word-wrap: break-word;
-    color: #4cc9f0;
-  }
-
-  .theme-bg {
-    background: #fcfc03;
-    height: 400px;
-    width: 400px;
-    clip-path: polygon(35% 0, 100% 0, 100% 65%, 65% 100%, 0 100%, 0 35%);
-  }
   .main {
     clip-path: polygon(35% 0, 100% 0, 100% 65%, 65% 100%, 0 100%, 0 35%);
     height: 394px;
     top: 3px;
     left: 3px;
     position: relative;
-
     width: 394px;
-    background-color: #11140c;
-
     display: flex;
     align-items: center;
     justify-content: center;
