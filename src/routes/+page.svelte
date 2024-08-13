@@ -22,17 +22,10 @@
   <meta name="description" content="Graffiti" />
 </svelte:head>
 
-<Header style="" />
-<div class="main">
-  <div class="background-container">
-    <!-- <div class="background-image"></div> -->
-    <!-- <div class="overlay"></div> -->
-    <!-- <div class="border-shadow"></div> -->
-  </div>
-  <div class="main-container bg-yellow">
-    <!-- Add style=hero if the you dont want the header specific style -->
-    <!-- <Header style="hero" /> -->
-
+<Header />
+<div class="main bg-accent">
+  <div class="background-container"></div>
+  <div class="main-container">
     {#if $connected}
       {#if $chainId !== chainid}
         <InvalidChain />
@@ -44,117 +37,3 @@
     {/if}
   </div>
 </div>
-
-<style>
-  .main {
-    /* min-height: 100vh; */
-    width: 100%;
-    /* left: 3px; */
-    position: relative;
-    /* clip-path: polygon(
-      0 -18%,
-      0 0,
-      15% 0%,
-      63% 0,
-      72% 8%,
-      100% 8%,
-      100% 81%,
-      100% 100%,
-      85% 100%,
-      15% 100%,
-      0 100%,
-      0% 85%
-    ); */
-    background: #fcfc03;
-  }
-
-  .main-container {
-    background: #11140C;
-    /* height: 99vh; */
-    width: 99.45%;
-    /* top: 3px; */
-    left: 3px;
-    right: 3px;
-    margin-top: -1%;
-
-    position: relative;
-    /* clip-path: polygon(
-      0 -18%,
-      0 0,
-      15% 0%,
-      63% 0,
-      72% 8%,
-      100% 8%,
-      100% 81%,
-      100% 100%,
-      85% 100%,
-      15% 100%,
-      0 100%,
-      0% 85%
-    ); */
-    z-index: 2;
-  }
-
-  /* .background-image {
-    position: absolute;
-    top: 3px;
-    left: 3px;
-    right: 0;
-    bottom: 0;
-    background: url("../lib/images/bg.jpg");
-    clip-path: polygon(
-      0 -18%,
-      0 0,
-      15% 0%,
-      63% 0,
-      72% 8%,
-      100% 8%,
-      100% 81%,
-      100% 100%,
-      85% 100%,
-      15% 100%,
-      0 100%,
-      0% 85%
-    );
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    z-index: 0;
-  } */
-
-  /* .overlay {
-    position: absolute;
-    top: 3px;
-    left: 0.3%;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to bottom, #11140c 1.54%, #2a2b1b);
-    z-index: 1;
-    opacity: 0.6;
-    clip-path: polygon(
-      0 -18%,
-      0 0,
-      15% 0%,
-      63% 0,
-      72% 8%,
-      100% 8%,
-      100% 81%,
-      100% 100%,
-      85% 100%,
-      15% 100%,
-      0 100%,
-      0% 85%
-    );
-  } */
-
-  @media (max-width: 639px) {
-    .overlay {
-      background: linear-gradient(
-        180deg,
-        rgba(17, 20, 12, 0.24) 27.54%,
-        rgba(17, 20, 12, 0.37) 58.11%,
-        rgba(17, 20, 12, 0.63) 100%
-      );
-    }
-  }
-</style>

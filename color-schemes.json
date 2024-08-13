@@ -1,0 +1,24 @@
+{
+  "default": {
+    "brightGreen": "#00ff00",
+    "lime": "#98DD28",
+    "yellow": "#FCFC03",
+    "lightYellow": "#FCFDC7",
+    "camo": "#9BA885",
+    "camoDark": "#11140C",
+    "success": "#219653",
+    "danger": "#D34053",
+    "warning": "#FFA70B"
+  },
+  "opposite": {
+    "brightGreen": "#FF0000",
+    "lime": "#6720C1",
+    "yellow": "#0323FC",
+    "lightYellow": "#073DFD",
+    "camo": "#6543BA",
+    "camoDark": "#EEE5F6",
+    "success": "#963521",
+    "danger": "#22C6AC",
+    "warning": "#0055F1"
+  }
+}

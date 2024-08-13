@@ -21,7 +21,10 @@
     const red = NFT.attributes[0].Red;
     const green = NFT.attributes[1].Green;
     // Check if the Blue attribute exists, otherwise use Red
-    const blue = NFT.attributes[2].Blue !== undefined ? NFT.attributes[2].Blue : NFT.attributes[2].Red;
+    const blue =
+      NFT.attributes[2].Blue !== undefined
+        ? NFT.attributes[2].Blue
+        : NFT.attributes[2].Red;
     const toHex = (c) => c.toString(16).padStart(2, "0");
     return `#${toHex(red)}${toHex(green)}${toHex(blue)}`;
   }
@@ -59,7 +62,7 @@
 
   onMount(async () => {
     if ($contracts.rge) {
-      const FloorPrice = 0;//await $contracts.rge.getMinFloorPrice();
+      const FloorPrice = 0; //await $contracts.rge.getMinFloorPrice();
       minFloorPrice = ethers.utils.formatUnits(FloorPrice, "ether");
       graffiti = await $contracts.rge.getGraffitiBase(index);
       const tokenURI = await $contracts.rge.tokenURI(index);
@@ -71,17 +74,16 @@
       isLoading = false;
     }
   });
-
 </script>
 
-<div class=" main min-h-screen bg-camoDark">
-  <div class="content">
+<div class="min-h-screen bg-accent mt-[-1%]">
+  <div class="bg-darkBackground">
     {#if isLoading}
       <Loader />
     {:else if $NFT != null}
-      <div class=" text-camoDark p-10 max-w-2xl mx-auto">
+      <div class="text-darkBackground p-10 max-w-2xl mx-auto">
         <h2 class="text-3xl font-bold mb-4 font-geom">Graffiti {index}ª</h2>
-        <div class="bg-camo p-4 rounded-lg shadow-lg">
+        <div class="bg-tertiary p-4 rounded-lg shadow-lg">
           <img
             class="w-full h-auto object-cover rounded-lg"
             alt="NFT {index}"
@@ -89,7 +91,7 @@
           />
           <div class="mt-4 font-chakra">
             <h3 class="text-xl font-geom font-semibold">Details</h3>
-            <p class="mt-2">
+            <p class="mt-2 font-sm">
               Color:
               <a
                 href
@@ -103,23 +105,23 @@
                 {/if}
               </a>
             </p>
-            <p class="mt-2">
+            <p class="mt-2 font-sm">
               Creator: <a
                 href="https://blastscan.io/address/{graffiti.creator}"
-                class="text-yellow">{graffiti.creator}</a
+                class="text-accent">{graffiti.creator}</a
               >
             </p>
-            <p class="mt-2">
+            <p class="mt-2 font-sm">
               Owner: <a
                 href="https://blastscan.io/address/{graffiti.owner}"
-                class="text-brightGreen">{graffiti.owner}</a
+                class="text-primary">{graffiti.owner}</a
               >
             </p>
-            <p class="mt-4">
+            <p class="mt-4 font-sm">
               Obtain:
               <button
                 id="obtainBtn"
-                class="neon-btn lime"
+                class="neon-btn btn-secondary"
                 on:click={obtainGraffiti}
               >
                 {minFloorPrice} ETH
@@ -131,24 +133,3 @@
     {/if}
   </div>
 </div>
-
-<style>
-  p {
-    font-size: 14px;
-  }
-
-  .main {
-    margin-top: -1%;
-    background: #fcfc03;
-    position: relative;
-  }
-  .content {
-    height: 99.4%;
-    width: 99.4%;
-    position: relative;
-    left: 3.55px;
-    margin-top: -1%;
-
-    background: #11140c;
-  }
-</style>

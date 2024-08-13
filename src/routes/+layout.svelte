@@ -1,14 +1,10 @@
 <script>
   import "../app.css";
-  import "../cyber.css";
-  import Header from "$lib/components/Header.svelte";
+  import "../globals.css";
   import Footer from "$lib/components/Footer.svelte";
 </script>
 
-<div class="min-h-screen bg-camoDark">
-  <!-- All the Content falls here -->
+<div class="min-h-screen bg-darkBackground">
   <slot />
-
-  <!-- Footer -->
   <Footer />
 </div>

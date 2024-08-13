@@ -283,14 +283,15 @@
       class="w-full flex items-center justify-evenly font-geom flex-col md:flex-row"
     >
       <div
-        class=" flex flex-col text-camo mt-5 p-6 gap-y-4 max-w-[50rem] my-0 md:my-10"
+        class=" flex flex-col text-tertiary mt-5 p-6 gap-y-4 max-w-[50rem] my-0 md:my-10"
       >
-        <h1 class="text-green underline">Getting Started!</h1>
+        <h1 class="text-primary underline">Getting Started!</h1>
         <p class="info-box">
           {t("Mint.Banner")}
         </p>
-        <button class="btn lime btn-neon" on:click={() => dispatch("toggle")}
-          >Read More!</button
+        <button
+          class="btn btn-secondary btn-neon"
+          on:click={() => dispatch("toggle")}>Read More!</button
         >
       </div>
       <div class="flex flex-col items-stretch md:items-center relative p-6">
@@ -319,7 +320,7 @@
         <div>
           <button
             id="eraseBtn"
-            class="block w-full mt-4 px-6 py-2 text-base font-medium red neon-btn"
+            class="block w-full mt-4 px-6 py-2 text-base font-medium btn-red neon-btn"
             >ERASE</button
           >
         </div>
@@ -327,7 +328,7 @@
         <div
           class="flex items-center justify-center flex-col md:flex-row gap-y-0 md:gap-x-6 w-full"
         >
-          <div class="text-camo w-full">
+          <div class="text-tertiary w-full">
             <div class="relative">
               Brush size<select
                 class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -355,7 +356,7 @@
               </div>
             </div>
           </div>
-          <div class="flex justify-center mt-4 md:mt-0 text-camo text-sm">
+          <div class="flex justify-center mt-4 md:mt-0 text-tertiary text-sm">
             <ColorPicker
               bind:rgb
               label={priceText}
@@ -378,7 +379,7 @@
           <button
             id="saveBtn"
             class="w-full mt-4 px-2 py-1 neon-btn {balance < minBalance
-              ? 'red'
+              ? 'btn-red'
               : 'blue'}"
           >
             {t("Mint.Save")}
@@ -391,7 +392,7 @@
         <div class="">
           <canvas
             id="canvas"
-            class="block w-full border-yellow border-2 my-4 justify-center items-center"
+            class="block w-full border-accent border-2 my-4 justify-center items-center"
             height={canvasWidth}
             width={canvasWidth}
           />
@@ -400,36 +401,3 @@
     </div>
   </div>
 </div>
-
-<style>
-  .info-box {
-    font-size: 12px;
-  }
-
-  .tool-tip {
-    font-size: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 200px;
-    padding: 10px 20px;
-  }
-
-  .tooltip-svg {
-    position: absolute;
-    width: 20px;
-    height: 10px;
-    bottom: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-    overflow: visible;
-  }
-
-  .tooltip-svg path {
-    fill: black;
-  }
-
-  .bottom-bar {
-    /* border: 1px solid #4cc9ff; */
-  }
-</style>

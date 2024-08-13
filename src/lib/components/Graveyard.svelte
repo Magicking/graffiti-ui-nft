@@ -35,19 +35,19 @@
 </script>
 
 <div class="main">
-  <div class=" content min-h-screen p-4 font-geom">
+  <div class=" content min-h-screen p-4 font-geom pt-[3%]">
     {#if $contracts.rge}
       {#await $contracts.rge.totalSupply()}
         <Loader />
       {:then totalSupply}
         <div class="flex items-center flex-col">
           <div class="w-full flex items-center">
-            <p class="py-4 neon-btn lime text-center text-3xl xl:ml-20">
+            <p class="py-4 neon-btn btn-secondary text-center text-3xl xl:ml-20">
               {t("Graveyard.ArtTillNow")} : {totalSupply}
             </p>
           </div>
 
-          <h1 class="text-yellow text-center text-2xl uppercase mt-10">
+          <h1 class="text-accent text-center text-2xl uppercase mt-10">
             {t("Graveyard.TopArt")}
           </h1>
           <!-- Carousel Section for Top 10 Most Recent Images -->
@@ -76,7 +76,7 @@
                       {/if}
                     </a>
                     <div
-                      class="details bg-yellow p-2 text-center text-black border-2 border-yellow"
+                      class="details bg-accent p-2 text-center text-black border-2 border-accent"
                     >
                       <p>№&nbsp;{tokenId}</p>
                     </div>
@@ -85,7 +85,7 @@
               {/each}
             </div>
           </div>
-          <h1 class="text-yellow text-2xl uppercase text-center md:text-start">
+          <h1 class="text-accent text-2xl uppercase text-center md:text-start">
             {t("Graveyard.CommunityArt")}
           </h1>
 
@@ -114,7 +114,7 @@
                     {/if}
                   </a>
                   <div
-                    class="details bg-yellow p-2 text-center text-black border-2 border-yellow"
+                    class="details bg-accent p-2 text-center text-black border-2 border-accent"
                   >
                     <p>№&nbsp;{tokenId}</p>
                   </div>
@@ -127,49 +127,3 @@
     {/if}
   </div>
 </div>
-
-<style>
-  .main {
-    width: 100%;
-    height: 100%;
-    /* background: #fcfc03; */
-  }
-  .content {
-    height: 99.4%;
-    width: 99.4%;
-    position: relative;
-    left: 3.5px;
-    margin-top: -1%;
-    padding-top: 3%;
-  }
-
-  .gallery {
-    display: grid;
-    gap: 1rem;
-  }
-
-  .gallery-item {
-    display: inline-block;
-    width: 100%;
-    height: auto;
-  }
-
-  /* Custom scrollbar styles */
-  .custom-scrollbar::-webkit-scrollbar {
-    height: 10px;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #fcfc03;
-    border-radius: 5px;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #fcfc03;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: #98dd28;
-    border-radius: 5px;
-  }
-</style>
