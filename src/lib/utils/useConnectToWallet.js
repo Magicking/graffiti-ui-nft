@@ -26,7 +26,7 @@ const onboard = Onboard({
         },
     ],
     appMetadata: {
-        name: "NFT EPITAPH",
+        name: "Graffiti NFT",
         description: "Research tokens smarter and faster.",
         recommendedInjectedWallets: [
             { name: "MetaMask", url: "https://metamask.io" },
@@ -84,7 +84,7 @@ export function useConnectToWallet() {
                     },
                 })
                 .then(() => {
-                    console.log(alreadyConnectedWallets);
+                    // Do nothing //console.log(alreadyConnectedWallets);
                 })
                 .catch(console.error);
         }

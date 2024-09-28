@@ -9,15 +9,14 @@
   import Graffiti from "$lib/components/Graffiti.svelte";
   import { onMount } from "svelte";
   import { useConnectToWallet } from "$lib/utils/useConnectToWallet";
-  import { address, chainid } from "$lib/rge.conf.json";
+  import { chainInfo } from "$lib/stores/chainInfo";
   import InvalidChain from "$lib/components/InvalidChain.svelte";
   import abi from "$lib/rge.abi.json";
-  import ThemedModal from "../../lib/components/shared/ThemedModal.svelte";
   import Header from "../../lib/components/Header.svelte";
-  evm.attachContract("rge", address, abi);
 
   onMount(() => {
     useConnectToWallet();
+    evm.attachContract("rge", $chainInfo.address, abi);
   });
 
   function getIndex() {
@@ -30,7 +29,7 @@
 <div>
   <Header />
   {#if $connected}
-    {#if $chainId !== chainid}
+    {#if $chainId !== $chainInfo.chainId}
       <InvalidChain />
     {:else}
       <Graffiti index={getIndex()} />

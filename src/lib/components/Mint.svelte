@@ -5,7 +5,6 @@
     defaultEvmStores as evm,
     connected,
     signer,
-    chainId,
     chainData,
     contracts,
   } from "svelte-ethers-store";

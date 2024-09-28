@@ -1,7 +1,8 @@
 <script>
   import { page } from "$app/stores";
-  import { onMount } from "svelte";
+  import { createEventDispatcher, onMount } from "svelte";
   import { locale, translation } from "$lib/stores/i18n";
+  import { chainInfo } from "$lib/stores/chainInfo";
 
   export let style = "";
   $: t = $translation;
@@ -35,12 +36,20 @@
   function toggleMenu() {
     menuOpen = !menuOpen;
   }
+
+  const dispatch = createEventDispatcher();
 </script>
 
 <header
-  class="text-tertiary flex font-geom main bg-accent {style === 'hero' ? 'hero' : ''}"
+  class="text-tertiary flex font-geom main bg-accent {style === 'hero'
+    ? 'hero'
+    : ''}"
 >
-  <div class="content bg-darkBackground flex {style === 'hero' ? 'bg-transparent' : ''}">
+  <div
+    class="content bg-darkBackground flex {style === 'hero'
+      ? 'bg-transparent'
+      : ''}"
+  >
     <div class="md:px-10 py-6">
       <div class="flex w-full flex-col md:flex-row h-16">
         <div class="flex items-center pl-4">
@@ -96,6 +105,40 @@
               <a href="/connect">{t("Header.Wallet")}</a>
             </p>
           </div>
+        </div>
+        <!-- ... existing header content ... -->
+
+        <!-- Add this new blockchain selector -->
+        <div class="hidden md:flex items-center ml-4 relative">
+          <button
+            on:click={() => dispatch("toggle")}
+            class="flex items-center space-x-2 btn-secondary neon-btn text-darkBackground px-3 py-2 rounded-md"
+          >
+            {#if $chainInfo}
+              <img
+                src={$chainInfo.logo}
+                alt={$chainInfo.name}
+                class="w-6 h-6"
+              />
+              <span>{$chainInfo.name}</span>
+            {:else}
+              <span>Select Chain</span>
+            {/if}
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              ></path>
+            </svg>
+          </button>
         </div>
       </div>
     </div>

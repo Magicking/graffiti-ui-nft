@@ -29,8 +29,8 @@
   <div class="w-full flex items-center justify-end mt-2">
     <h5 class="text-lg pr-5 text-black font-bold">
       <a
-        href="https://blastscan.io/address/0x971b2d96efc3cffb8bace89a17abfed0b8743cd1"
-        >Graffiti</a
+        href="https://6120.eu"
+        >6120.eu</a
       >
     </h5>
   </div>

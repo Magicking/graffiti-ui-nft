@@ -43,6 +43,12 @@
         label: "Blast",
         rpcUrl: "https://rpc.blast.io",
       },
+      {
+        id: "0x2105",
+        token: "ETH",
+        label: "Base",
+        rpcUrl: "https://mainnet.base.org",
+      },
     ],
     appMetadata: {
       name: "Graffiti",
@@ -87,7 +93,7 @@
           },
         })
         .then(() => {
-          console.log(alreadyConnectedWallets);
+          //console.log(alreadyConnectedWallets);
         })
         .catch(console.error);
     }
@@ -108,7 +114,7 @@
       .wallets.map(({ label }) => label);
 
     if (connectedWalletsLabels.length > 0) {
-      console.log(connectedWalletsLabels);
+      //console.log(connectedWalletsLabels);
       window.sessionStorage.setItem(
         "ConnectedWallets",
         JSON.stringify(connectedWalletsLabels)
@@ -162,7 +168,7 @@
     pending = false;
   };
 
-  console.log(styleType === "connect");
+  //console.log(styleType === "connect");
 </script>
 
 <div>
@@ -178,14 +184,11 @@
           class:main={styleType === "connect"}
           class="flex-col bg-darkBackground"
         >
-          <p class="text-tertiary text-xl mr-2 mb-3">
-            Use an external provider:
-          </p>
 
           <button
             class=" px-2 py-3 md:px-4 md:py-2 text-base font-sm md:font-md text-secondary btn-secondary rounded-md neon-btn text-center md:text-start"
             disabled={pending}
-            on:click={connectOnBoard}>Connect with On Board</button
+            on:click={connectOnBoard}>Connect your wallet</button
           >
         </div>
       </div>
