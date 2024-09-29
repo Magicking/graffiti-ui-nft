@@ -8,10 +8,15 @@
     chainData,
     contracts,
   } from "svelte-ethers-store";
+  import { chainInfo } from "$lib/stores/chainInfo";
   import ColorPicker from "svelte-awesome-color-picker";
-  import rgeConf from "$lib/rge.conf.json";
+  import rgeAbi from "$lib/rge.abi.json";
   import { goto } from "$app/navigation";
 
+  if ($chainInfo) {
+    console.log(rgeAbi);
+    evm.attachContract("rge", $chainInfo.address, rgeAbi);
+  }
   const maxX = 128;
   const maxY = 128;
   export let nymMode = false;
@@ -379,7 +384,7 @@
             id="saveBtn"
             class="w-full mt-4 px-2 py-1 neon-btn {balance < minBalance
               ? 'btn-red'
-              : 'blue'}"
+              : 'btn-blue'}"
           >
             {t("Mint.Save")}
           </button>

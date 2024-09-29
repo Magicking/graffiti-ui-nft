@@ -6,6 +6,7 @@ import walletConnectModule from '@web3-onboard/walletconnect';
 import { defaultEvmStores as evm } from 'svelte-ethers-store';
 import rgeConf from '$lib/rge.conf.json';
 import rgeAbi from '$lib/rge.abi.json';
+import { chainInfo } from "$lib/stores/chainInfo";
 
 const injected = injectedModule();
 const wcV2InitOptions = {
@@ -66,7 +67,11 @@ export function useConnectToWallet() {
         if (walletProvider) {
             const provider = new ethers.providers.Web3Provider(walletProvider, "any");
             evm.setProvider(provider);
-            evm.attachContract("rge", rgeConf["address"], rgeAbi);
+            console.log(chainInfo);/*
+            console.log(chainInfo.name);
+            if (chainInfo && chainInfo.address !== "") {
+            evm.attachContract("rge", chainInfo.address, rgeAbi);
+            }*/
         }
         updateAlreadyConnectedWallets();
     });

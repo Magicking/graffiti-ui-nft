@@ -12,6 +12,7 @@
   import InvalidChain from "$lib/components/InvalidChain.svelte";
   import abi from "$lib/rge.abi.json";
   import Header from "../../lib/components/Header.svelte";
+  import ThemedModal from "../../lib/components/shared/ThemedModal.svelte";
   import BlockchainSelectorModal from "../../lib/components/shared/BlockchainSelectorModal.svelte";
   import { hasShownModal } from "$lib/stores/modal.js";
 
@@ -25,10 +26,16 @@
   });
 
   let showModal = false;
+  let showModalBlockchainSelector = false;
 
   const handleToggleModal = () => {
     console.log("Toggle modal");
     showModal = !showModal;
+  };
+
+  const handleToggleModalBlockchainSelector = () => {
+    console.log("Toggle modal blockchain selector");
+    showModalBlockchainSelector = !showModalBlockchainSelector;
   };
 
 
@@ -44,22 +51,32 @@
   }
 </script>
 
-<Header on:toggle={() => handleToggleModal()}/>
+<Header on:toggle={() => handleToggleModalBlockchainSelector()}/>
 <div class="main bg-accent min-h-screen">
   <div class="base-content bg-transparent md:bg-darkBackground">
     {#if $connected}
-      {#if $chainId != $chainInfo.chainId}
+      {#if $chainId !== $chainInfo.chainId}
         <InvalidChain />
+        <h1 class="btn-red text-center">Warning /!\ not on supported chain /!\</h1>
       {:else}
-        <BlockchainSelectorModal
-          title=""
-          open={showModal}
-          on:close={() => handleToggleModal()}
-        >
-          <svelte:fragment slot="body">
-            This is content inside my modal! 👋
-          </svelte:fragment>
-        </BlockchainSelectorModal>
+      <ThemedModal
+        title=""
+        open={showModal}
+        on:close={() => handleToggleModal()}
+      >
+        <svelte:fragment slot="body">
+          This is content inside my modal! 👋
+        </svelte:fragment>
+      </ThemedModal>
+      <BlockchainSelectorModal
+        title=""
+        open={showModalBlockchainSelector}
+        on:close={() => handleToggleModalBlockchainSelector()}
+      >
+        <svelte:fragment slot="body">
+          This is content inside my modal! 👋
+        </svelte:fragment>
+      </BlockchainSelectorModal>
         <Mint on:toggle={() => handleToggleModal()} />
       {/if}
     {:else}

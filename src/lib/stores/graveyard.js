@@ -61,6 +61,7 @@ export const GraveyardStore1 = derived([provider, signerAddress, contracts], ([$
 			if ($contracts.rge) {
 			console.log("New Block("+instanceId+")", _block);
 				if (Number(_block) - MaxIndex  >= 100) {
+					console.log($contracts.rge);
 					const totalSupply = await $contracts.rge.totalSupply();
 				    console.log(currentIndex, _block);
 					TotalSupply.set(totalSupply);

@@ -10,8 +10,8 @@
   import { chainInfo } from "$lib/stores/chainInfo";
   import { useConnectToWallet } from "$lib/utils/useConnectToWallet";
   import InvalidChain from "$lib/components/InvalidChain.svelte";
+  import BlockchainSelectorModal from "$lib/components/shared/BlockchainSelectorModal.svelte";
   import Header from "../lib/components/Header.svelte";
-  import { hasShownModal } from "$lib/stores/modal.js";
 
   let showModal = false;
 
@@ -19,18 +19,6 @@
     console.log("Toggle modal");
     showModal = !showModal;
   };
-
-
-  $: if ($connected) {
-    hasShownModal.subscribe((value) => {
-      if (!value) {
-        // setTimeout(() => {
-        showModal = true;
-        hasShownModal.set(true);
-        // }, 2000); // Delay for 2 seconds - Uncomment this line to again add the delay
-      }
-    });
-  }
 
   onMount(() => {
     useConnectToWallet();
@@ -42,14 +30,24 @@
   <meta name="description" content="Graffiti" />
 </svelte:head>
 
-<Header />
+<Header on:toggle={() => handleToggleModal()}/>
 <div class="main bg-accent">
   <div class="background-container"></div>
   <div class="main-container">
     {#if $connected}
       {#if $chainId !== $chainInfo.chainId}
         <InvalidChain />
+        <h1 class="btn-red text-center">Warning /!\ not on supported chain /!\</h1>
       {:else}
+      <BlockchainSelectorModal
+        title=""
+        open={showModal}
+        on:close={() => handleToggleModal()}
+      >
+        <svelte:fragment slot="body">
+          This is content inside my modal! 👋
+        </svelte:fragment>
+      </BlockchainSelectorModal>
         <Graveyard />
       {/if}
     {:else}

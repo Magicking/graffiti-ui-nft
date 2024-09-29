@@ -2,15 +2,17 @@
   import { range } from "$lib/range.js";
   import { defaultEvmStores as evm, contracts } from "svelte-ethers-store";
 
-  import rgeConf from "$lib/rge.conf.json";
   import rgeAbi from "$lib/rge.abi.json";
   import { GraveyardStore1, TotalSupply } from "$lib/stores/graveyard.js";
+  import { chainInfo } from "$lib/stores/chainInfo";
   import { locale, translation } from "$lib/stores/i18n";
 
   import Loader from "./shared/Loader.svelte";
 
-  evm.attachContract("rge", rgeConf["address"], rgeAbi["abi"]);
-
+  if ($chainInfo) {
+    console.log(rgeAbi);
+    evm.attachContract("rge", $chainInfo.address, rgeAbi);
+  }
   $: totalSupply = TotalSupply;
   $: t = $translation;
   $: GraveyardStore1;

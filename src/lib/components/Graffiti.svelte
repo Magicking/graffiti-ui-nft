@@ -6,7 +6,10 @@
   import rgeConf from "$lib/rge.conf.json";
   import rgeAbi from "$lib/rge.abi.json";
   import { ethers } from "ethers";
-  evm.attachContract("rge", rgeConf["address"], rgeAbi);
+  import { chainInfo } from "$lib/stores/chainInfo";
+
+  $chainInfo: evm.attachContract("rge", $chainInfo.address, rgeAbi);
+
 
   import { onMount } from "svelte";
   import Loader from "./shared/Loader.svelte";

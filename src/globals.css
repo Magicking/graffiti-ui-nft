@@ -18,6 +18,7 @@
   --color-btn-tertiary: #00ff00;
   --color-btn-main: #f8f32b;
   --color-red: #ff2b2b;
+  --color-blue: #2b2bff;
   --color-black: #000000;
   --color-white: #ffffff;
 }
@@ -65,6 +66,10 @@
 
 .btn-red {
   color: var(--color-red);
+}
+
+.btn-blue {
+  color: var(--color-blue);
 }
 
 .neon-btn:hover {

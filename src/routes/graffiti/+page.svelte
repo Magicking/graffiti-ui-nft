@@ -31,6 +31,7 @@
   {#if $connected}
     {#if $chainId !== $chainInfo.chainId}
       <InvalidChain />
+      <h1 class="btn-red text-center">Warning /!\ not on supported chain /!\</h1>
     {:else}
       <Graffiti index={getIndex()} />
     {/if}
