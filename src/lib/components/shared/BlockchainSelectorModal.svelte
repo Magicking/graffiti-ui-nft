@@ -23,7 +23,7 @@
 {#if open}
   <div
     class="modal-overlay z-50 fixed w-full h-full bg-gray-900 flex items-center justify-center"
-    class:opacity-90={open}
+    class:opacity-80={open}
     class:opacity-0={!open}
   >
     <div
@@ -35,6 +35,7 @@
         class="modal-container w-full h-max mx-auto pt-5 shadow-xl z-50 overflow-y-hidden"
       >
         <div class="content p-12 pt-20 bg-darkBackground">
+          <h1 class="text-2xl font-bold">Change your network</h1>
           <InvalidChain/>
 
           <br />

@@ -1,13 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-@layer base {
+
   :root {
   /* -------------- General Theme Colors ---------------- */
 
   --primary: #00ff00;
-  --secondary: #98dd28;
+  --secondary: #00DF00;
   --accent: #fcfc03;
   --lightAccent: #fcfdc7;
   --tertiary: #9ba885;
@@ -18,7 +15,7 @@
 
   /* -------------- Neon Theme Colors ---------------- */
   --color-btn-primary: #4cc9ff;
-  --color-btn-secondary: #98dd28;
+  --color-btn-secondary: #00DF00;
   --color-btn-accent: #f038ff;
   --color-btn-tertiary: #00ff00;
   --color-btn-main: #f8f32b;
@@ -157,10 +154,7 @@
 }
 
 /*  ___________________-------------- General Styles ------------_____________________ */
-.bg-accent {
-  --tw-bg-opacity: 1;
-  background-color: rgb(var(--accent) / var(--tw-bg-opacity));
-}
+
 .info-box {
   font-size: 12px;
 }
@@ -302,6 +296,4 @@
   .modal-theme-bg {
     width: 370px;
   }
-}
-
 }

@@ -11,7 +11,10 @@ export default {
         primary: "#00ff00",
         secondary: "#98DD28",
         accent: 'var(--accent)',
-        lightAccent: "#FCFDC7",
+        text: {
+           accent: 'var(--color-red)',
+        },
+        lightAccent: "var(--light-accent)",
         tertiary: "#9BA885",
         darkBackground: "#11140C",
         success: "#219653",

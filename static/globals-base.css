@@ -1,17 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-@layer base {
 :root {
     /* -------------- General Theme Colors ---------------- */
 
     --primary: #00ff00;
-    --secondary: #98dd28;
-    --accent: #011082;
-    /* Changed from #fcfc03 to #011082 */
-    --lightAccent: #0115b7;
-    /* Changed from #fcfdc7 to a lighter shade of #011082 */
+    --secondary: #00DF00;
+    --accent: #99b0f3;
+    /* Changed from #fcfc03 to #99b0f3 */
+    --lightAccent: #84a4bc;
+    /* Changed from #fcfdc7 to a lighter shade of #84a4bc */
     --tertiary: #9ba885;
     --darkBackground: #11140c;
     --success: #219653;
@@ -20,11 +16,11 @@
 
     /* -------------- Neon Theme Colors ---------------- */
     --color-btn-primary: #4cc9ff;
-    --color-btn-secondary: #98dd28;
+    --color-btn-secondary: #00DF00;
     --color-btn-accent: #f038ff;
     --color-btn-tertiary: #00ff00;
-    --color-btn-main: #011082;
-    /* Changed from #f8f32b to #011082 */
+    --color-btn-main: #1554f0;
+    /* Changed from #f8f32b to #1554f0 */
     --color-red: #ff2b2b;
     --color-blue: #2b2bff;
     --color-black: #000000;
@@ -165,12 +161,7 @@
     color: var(--color-btn-primary);
   }
 
-  /*  ___________________-------------- General Styles ------------_____________________ */
-
-  .bg-accent {
-    --tw-bg-opacity: 1;
-    background-color: rgb(var(--accent) / var(--tw-bg-opacity));
-  }
+  /*  ___________________-------------- General Styles ---- */
   .info-box {
     font-size: 12px;
   }
@@ -187,9 +178,9 @@
         calc(100% - 20px) 100%,
         0 100%,
         0 50%);
-    color: #011082;
+    color: #84a4bc;
     /* Changed from #f8f32b to #011082 */
-    border: 2px solid #011082;
+    border: 2px solid #1554f0;
     /* Changed from #f8f32b to #011082 */
   }
 
@@ -324,4 +315,3 @@
       width: 370px;
     }
   }
-}
