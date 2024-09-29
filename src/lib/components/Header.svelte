@@ -112,7 +112,7 @@
         <div class="hidden md:flex items-center ml-4 relative">
           <button
             on:click={() => dispatch("toggle")}
-            class="flex items-center space-x-2 btn-secondary neon-btn text-darkBackground px-3 py-2 rounded-md"
+            class="flex items-center space-x-2 btn-secondary neon-btn px-3 py-2 rounded-md"
           >
             {#if $chainInfo}
               <img

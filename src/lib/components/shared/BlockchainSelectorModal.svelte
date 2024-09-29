@@ -23,7 +23,7 @@
 {#if open}
   <div
     class="modal-overlay z-50 fixed w-full h-full bg-gray-900 flex items-center justify-center"
-    class:opacity-80={open}
+    class:opacity-90={open}
     class:opacity-0={!open}
   >
     <div

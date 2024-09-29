@@ -11,8 +11,6 @@
   import injectedModule from "@web3-onboard/injected-wallets";
   import walletConnectModule from "@web3-onboard/walletconnect";
 
-  import rgeConf from "$lib/rge.conf.json";
-  import rgeAbi from "$lib/rge.abi.json";
   import Loader from "./shared/Loader.svelte";
 
   const injected = injectedModule();

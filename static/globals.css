@@ -1,4 +1,9 @@
-:root {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
   /* -------------- General Theme Colors ---------------- */
 
   --primary: #00ff00;
@@ -152,7 +157,10 @@
 }
 
 /*  ___________________-------------- General Styles ------------_____________________ */
-
+.bg-accent {
+  --tw-bg-opacity: 1;
+  background-color: rgb(var(--accent) / var(--tw-bg-opacity));
+}
 .info-box {
   font-size: 12px;
 }
@@ -294,4 +302,6 @@
   .modal-theme-bg {
     width: 370px;
   }
+}
+
 }
