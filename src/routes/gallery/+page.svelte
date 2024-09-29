@@ -3,7 +3,14 @@
   import Header from "../../lib/components/Header.svelte";
   import BlockchainSelectorModal from "../../lib/components/shared/BlockchainSelectorModal.svelte";
   import { hasShownModal } from "$lib/stores/modal.js";
+  import Hero from "$lib/components/Hero.svelte";
   import InvalidChain from "$lib/components/InvalidChain.svelte";
+  import { chainInfo } from "$lib/stores/chainInfo";
+  import {
+    defaultEvmStores as evm,
+    connected,
+    chainId,
+  } from "svelte-ethers-store";
 
   let showModal = false;
 
@@ -26,7 +33,7 @@
 </script>
 
 <div>
-  <Header on:toggle={() => handleToggleModal()/>
+  <Header on:toggle={() => handleToggleModal()} />
   {#if $connected}
     {#if $chainId != $chainInfo.chainId}
       <InvalidChain />
@@ -41,10 +48,9 @@
           This is content inside my modal! 👋
         </svelte:fragment>
       </BlockchainSelectorModal>
-      <Graveyard } />
+      <Graveyard />
     {/if}
   {:else}
     <Hero />
   {/if}
-  < />
 </div>

@@ -32,10 +32,9 @@
         class="modal-container w-full h-max mx-auto pt-5 shadow-xl z-50 overflow-y-hidden"
       >
         <div class="content p-12 pt-20 bg-darkBackground">
-          Paint on the canvas below, hit save to pay gas to inscribe your of
-          drawing on-chain (Blast.io) ethernarly. Use the erase button to remove
-          pixels. Make sure the Mint button is blue by funding your Blast
-          ethereum account.
+          Paint on the canvas below, hit SAVE to pay gas to inscribe your of
+          drawing on-chain ethernarly. Use the erase button to remove
+          pixels. Make sure the SAVE button is blue by funding your ethereum account.
 
           <br />
 
