@@ -1,15 +1,15 @@
 :root {
   /* -------------- General Theme Colors ---------------- */
 
-  --primary: #c8c8c8;
-  --secondary: #c8c8c8;
-  --accent: #c8c8c8;
-  --lightAccent: #c8c8c8;
-  --tertiary: #c8c8c8;
-  --darkBackground: #c8c8c8;
-  --success: #c8c8c8;
-  --danger: #c8c8c8;
-  --warning: #c8c8c8;
+  --primary: #00ff00;
+  --secondary: #00DF00;
+  --accent: #fcfc03;
+  --lightAccent: #fcfdc7;
+  --tertiary: #9ba885;
+  --darkBackground: #11140c;
+  --success: #219653;
+  --danger: #d34053;
+  --warning: #ffa70b;
 
   /* -------------- Neon Theme Colors ---------------- */
   --color-btn-primary: #4cc9ff;
@@ -31,8 +31,8 @@
       calc(100% - 20px) 100%,
       0 100%,
       0 50%);
-  color: #27b50e;
-  border: 2px solid #2bf835;
+  color: #f8f32b;
+  border: 2px solid #f8f32b;
 }
 
 .logo:hover {
