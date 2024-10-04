@@ -1,4 +1,7 @@
 <script>
+  import {
+    connected
+  } from "svelte-ethers-store";
   import { page } from "$app/stores";
   import { createEventDispatcher, onMount } from "svelte";
   import { locale, translation } from "$lib/stores/i18n";
@@ -59,7 +62,7 @@
         </div>
 
         <!-- Mobile menu, show/hide based on menu state -->
-        <div class=" flex md:hidden pl-4 mt-2">
+        <div class="flex md:hidden pl-4 mt-2">
           <!-- Mobile menu buttons -->
           <div class="block md:hidden bg-accent">
             <div
@@ -78,8 +81,17 @@
               >
                 {t("Header.Wallet")}
               </a>
-            </div>
-          </div>
+          {#if $connected}
+          <a href="#" on:click={() => dispatch("toggle")} class="block px-3 rounded-md text-sm menu-item">
+            {#if $chainInfo}
+              <span>Network: {$chainInfo.name}</span>
+            {:else}
+              <span>Select network</span>
+            {/if}
+          </a>
+          {/if}
+        </div>
+      </div>
         </div>
 
         <div class="hidden md:flex items-center">
@@ -107,7 +119,7 @@
           </div>
         </div>
         <!-- ... existing header content ... -->
-
+        {#if $connected}
         <!-- Add this new blockchain selector -->
         <div class="hidden md:flex items-center ml-4 relative">
           <button
@@ -122,7 +134,7 @@
               />
               <span>{$chainInfo.name}</span>
             {:else}
-              <span>Select Chain</span>
+              <span>Select network</span>
             {/if}
             <svg
               class="w-4 h-4"
@@ -139,7 +151,8 @@
               ></path>
             </svg>
           </button>
-        </div>
+          </div>
+          {/if}
       </div>
     </div>
   </div>

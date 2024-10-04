@@ -1,6 +1,4 @@
-
-
-  :root {
+:root {
   /* -------------- General Theme Colors ---------------- */
 
   --primary: #00ff00;
@@ -25,154 +23,14 @@
   --color-white: #ffffff;
 }
 
-/*  ___________________-------------- NEON BUTTONS ------------_____________________ */
-
-.neon-btn {
-  border: 1px solid;
-  background: transparent;
-  text-transform: uppercase;
-  padding: 10px 20px;
-  clip-path: polygon(
-    20px 0,
-    100% 0,
-    100% 50%,
-    calc(100% - 20px) 100%,
-    0 100%,
-    0 50%
-  );
-  transition: background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
-    color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.btn-primary {
-  color: var(--color-btn-primary);
-}
-
-.btn-secondary {
-  color: var(--color-black);
-  background-color: var(--color-btn-secondary);
-}
-
-.btn-accent {
-  color: var(--color-btn-accent);
-}
-
-.btn-tertiary {
-  color: var(--color-btn-tertiary);
-}
-
-.btn-main {
-  color: var(--color-btn-main);
-}
-
-.btn-red {
-  color: var(--color-red);
-}
-
-.btn-blue {
-  color: var(--color-blue);
-}
-
-.neon-btn:hover {
-  color: var(--color-white);
-  border: 1px solid rgba(0, 0, 0, 0.3);
-}
-
-.btn-primary:hover {
-  background-color: var(--color-btn-primary);
-  box-shadow: 10px 10px 100px 10px rgba(76, 201, 240, 0.9);
-}
-
-.btn-secondary:hover {
-  background-color: var(--color-white);
-  color: var(--color-black);
-  box-shadow: 10px 10px 100px 10px rgb(123, 226, 27);
-}
-
-.btn-accent:hover {
-  background-color: var(--color-btn-accent);
-  box-shadow: 10px 10px 100px 10px rgba(240, 56, 255, 1);
-}
-
-.btn-tertiary:hover {
-  background-color: var(--color-btn-tertiary);
-  box-shadow: 10px 10px 100px 10px rgb(85, 255, 0);
-}
-
-.btn-main:hover {
-  background-color: var(--color-btn-main);
-  box-shadow: 10px 10px 100px 10px rgba(248, 243, 43, 1);
-}
-
-.btn-red:hover {
-  background-color: var(--color-red);
-  box-shadow: 10px 10px 100px 10px rgba(255, 43, 43, 1);
-}
-
-.epitaph:hover {
-  color: var(--color-white); /* White text */
-  cursor: pointer;
-  text-shadow: 0 0 10px var(--color-white),
-    /* First layer of shadow */ 0 0 5px rgba(246, 255, 0, 0.6),
-    /* Second layer */ 0 0 10px rgba(242, 255, 0, 0.6),
-    /* Third layer */ 0 0 20px rgba(208, 255, 0, 0.6),
-    /* Fourth layer */ 0 0 25px rgba(212, 255, 0, 0.6),
-    /* Fifth layer */ 0 0 80px rgba(212, 255, 0, 0.6); /* Sixth layer */
-  border-radius: 10px; /* Match container's border radius */
-  transition: box-shadow 0.3s ease;
-}
-
-/*  ___________________-------------- Container Styles ------------_____________________ */
-
-.main {
-  position: relative;
-  width: 100%;
-}
-
-.main-container {
-  background: var(--darkBackground);
-  width: 99.45%;
-  left: 3px;
-  right: 3px;
-  margin-top: -1%;
-  position: relative;
-  z-index: 2;
-}
-
-.base-content {
-  height: 99.4%;
-  width: 99.4%;
-  position: relative;
-  left: 3.55px;
-  margin-top: -1%;
-}
-
-.signeraddress {
-  word-wrap: break-word;
-  color: var(--color-btn-primary);
-}
-
-/*  ___________________-------------- General Styles ------------_____________________ */
-
-.info-box {
-  font-size: 12px;
-}
-
-.widest-tracking {
-  letter-spacing: 20px;
-}
-
 .logo {
   padding: 10px 20px;
-  clip-path: polygon(
-    20px 0,
-    100% 0,
-    100% 50%,
-    calc(100% - 20px) 100%,
-    0 100%,
-    0 50%
-  );
+  clip-path: polygon(20px 0,
+      100% 0,
+      100% 50%,
+      calc(100% - 20px) 100%,
+      0 100%,
+      0 50%);
   color: #f8f32b;
   border: 2px solid #f8f32b;
 }
@@ -181,119 +39,17 @@
   color: var(--accent);
   cursor: pointer;
   text-shadow: 0 0 10px var(--color-white),
-    /* First layer of shadow */ 0 0 5px rgba(246, 255, 0, 0.6),
-    /* Second layer */ 0 0 10px rgba(242, 255, 0, 0.6),
-    /* Third layer */ 0 0 20px rgba(208, 255, 0, 0.6),
-    /* Fourth layer */ 0 0 25px rgba(212, 255, 0, 0.6),
-    /* Fifth layer */ 0 0 80px rgba(212, 255, 0, 0.6); /* Sixth layer */
+    /* First layer of shadow */
+    0 0 5px rgba(246, 255, 0, 0.6),
+    /* Second layer */
+    0 0 10px rgba(242, 255, 0, 0.6),
+    /* Third layer */
+    0 0 20px rgba(208, 255, 0, 0.6),
+    /* Fourth layer */
+    0 0 25px rgba(212, 255, 0, 0.6),
+    /* Fifth layer */
+    0 0 80px rgba(212, 255, 0, 0.6);
+  /* Sixth layer */
   transition: box-shadow 0.3s ease;
   border: 2px solid var(--accent);
-}
-
-.gallery {
-  display: grid;
-  gap: 1rem;
-}
-
-.gallery-item {
-  display: inline-block;
-  width: 100%;
-  height: auto;
-}
-
-.theme-bg {
-  background: var(--accent);
-  height: 400px;
-  width: 400px;
-  clip-path: polygon(35% 0, 100% 0, 100% 65%, 65% 100%, 0 100%, 0 35%);
-}
-
-.footer {
-  border-top: 3px solid var(--color-black);
-  border-bottom: 6px solid var(--color-black);
-}
-
-@media (max-width: 639px) {
-  .widest-tracking {
-    letter-spacing: 2px;
-  }
-}
-
-/*  ___________________-------------- Custom Scrollbar Styles ------------_____________________ */
-
-.custom-scrollbar::-webkit-scrollbar {
-  height: 10px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: var(--accent);
-  border-radius: 5px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: var(--accent);
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: var(--primary);
-  border-radius: 5px;
-}
-
-/*  ___________________-------------- Custom Loader Styles ------------_____________________ */
-
-.loader {
-  border-top-color: var(--accent);
-  -webkit-animation: spin 1s linear infinite;
-  animation: spin 1s linear infinite;
-}
-
-@-webkit-keyframes spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-  }
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-/*  ___________________-------------- Custom Modal Styles ------------_____________________ */
-
-.modal-theme-bg {
-  background: var(--accent);
-  width: 410px;
-  clip-path: polygon(35% 0, 100% 0, 100% 65%, 65% 100%, 0 100%, 0 35%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.modal-container {
-  clip-path: polygon(35% 0, 100% 0, 100% 65%, 65% 100%, 0 100%, 0 35%);
-  margin: 10px;
-  height: 90%;
-  background-color: var(--darkBackground);
-}
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.8);
-}
-@media (max-width: 768px) {
-  .modal-theme-bg {
-    width: 370px;
-  }
 }

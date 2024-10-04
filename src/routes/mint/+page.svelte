@@ -53,7 +53,7 @@
 
 <Header on:toggle={() => handleToggleModalBlockchainSelector()}/>
 <div class="main bg-accent min-h-screen">
-  <div class="base-content bg-transparent md:bg-darkBackground">
+  <div class="base-content bg-darkBackground">
     {#if $connected}
       {#if $chainId !== $chainInfo.chainId}
         <InvalidChain />
