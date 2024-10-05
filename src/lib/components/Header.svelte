@@ -81,16 +81,18 @@
               >
                 {t("Header.Wallet")}
               </a>
-          {#if $connected}
-          <a href="#" on:click={() => dispatch("toggle")} class="block px-3 rounded-md text-sm menu-item">
-            {#if $chainInfo}
-              <span>Network: {$chainInfo.name}</span>
-            {:else}
-              <span>Select network</span>
+              {#if $connected}
+                <a href="#"
+                  on:click={() => dispatch("toggle")}
+                class="block px-3 rounded-md text-sm menu-item">
+                  {#if $chainInfo}
+                    Net: {$chainInfo.name}
+                  {:else}
+                    SELECT
+                  {/if}
+                </a>
             {/if}
-          </a>
-          {/if}
-        </div>
+            </div>
       </div>
         </div>
 
