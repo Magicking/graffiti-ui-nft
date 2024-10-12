@@ -72,7 +72,7 @@
       $signer.getAddress().then((address) => {
         destination = address;
         $signer.getBalance().then((bal) => {
-          balance = bal.toNumber();
+          balance = bal;
         });
       });
       priceText = rgbToHex(rgb.r, rgb.g, rgb.b);
@@ -100,6 +100,7 @@
       ](sig, "0x" + priceText.substring(1), destination).then((e) => {
         console.log("Mint possible: ", e);
         minBalance = e;
+        console.log("Balance: ", balance);
         $signer.getBalance().then((bal) => {
           balance = bal;
         });
@@ -297,6 +298,10 @@
           class="btn btn-secondary btn-neon"
           on:click={() => dispatch("toggle")}>Read More!</button
         >
+        <button
+          class="btn btn-primary btn-neon"
+          on:click={() => dispatch("imageInputModalToggle")}>Take photo</button
+        >
       </div>
       <div class="flex flex-col items-stretch md:items-center relative p-6">
         <div>
@@ -382,7 +387,7 @@
         <div class="">
           <button
             id="saveBtn"
-            class="w-full mt-4 px-2 py-1 neon-btn {balance < minBalance
+            class="w-full mt-4 px-2 py-1 neon-btn {typeof balance === 'object' && balance.lt(minBalance)
               ? 'btn-red'
               : 'btn-blue'}"
           >
