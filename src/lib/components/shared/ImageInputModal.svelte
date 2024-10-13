@@ -2,6 +2,7 @@
   import { createEventDispatcher, onMount } from "svelte";
 
   export let open = false;
+  export let functionOnSubmit = (imageData) => {};
   const dispatch = createEventDispatcher();
   let modalVisible = false;
   let img = null;
@@ -83,6 +84,11 @@
 
     ctx.putImageData(imageData, 0, 0);
   }
+  function submitImage() {
+    const canvas = document.getElementById("canvas");
+    const imageData = ctx.getImageData(0, 0, 128, 128);
+    functionOnSubmit(imageData.data);
+  }
 </script>
 
 <div>
@@ -118,6 +124,12 @@
             <br /><br />
             <canvas id="canvas" width="128" height="128"></canvas>
             <br />
+            <button
+              class="mt-6 btn-green neon-btn"
+              on:click={() => functionOnSubmit()}
+            >
+              ✓
+            </button>
             <button
               class="mt-6 btn-red neon-btn"
               on:click={() => dispatch("close")}
