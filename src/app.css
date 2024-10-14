@@ -33,7 +33,7 @@ button.active {
 }
 
 :root {
-
+  --color-green: #007F00;
   /*  ___________________-------------- NEON BUTTONS ------------_____________________ */
   
   .neon-btn {
@@ -52,6 +52,10 @@ button.active {
       box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
+  .btn-green {
+    color: var(--color-green);
+  }
+
   .btn-primary {
     color: var(--color-btn-primary);
   }
