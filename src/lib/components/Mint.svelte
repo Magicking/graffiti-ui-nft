@@ -12,6 +12,7 @@
   import ColorPicker from "svelte-awesome-color-picker";
   import rgeAbi from "$lib/rge.abi.json";
   import { goto } from "$app/navigation";
+  import { CanvasStore } from "$lib/stores/image";
 
   if ($chainInfo) {
     console.log(rgeAbi);
@@ -19,7 +20,6 @@
   }
   const maxX = 128;
   const maxY = 128;
-  export let nymMode = false;
 
   let priceText = "";
   let destination = "";
@@ -27,11 +27,17 @@
   let fUpdatePrice;
   let minBalance = 0;
   let balance = 0;
+  let updateCanvas = (d) => {};
 
   let w;
   $: t = $translation;
   $: lang = $locale;
 
+  const unsubscribeCanvasStore = CanvasStore.subscribe((value) => {
+    console.log("CanvasStore", value);
+    // TODO: update the canvas with the new image data
+    updateCanvas(value);
+  });
   let showTooltip = false;
   let canvasWidth;
   let updateCanvasColors = () => {};
@@ -50,6 +56,7 @@
   // Cleanup to remove the event listener when the component is destroyed
   onDestroy(async () => {
     if (w) w.removeEventListener("resize", updateCanvasWidth);
+    unsubscribeCanvasStore();
   });
   function getRandomColor() {
     // TODO Check color availability
@@ -61,8 +68,36 @@
   }
 
   let rgb = getRandomColor();
+  let drawnPixels = new Array(maxX)
+    .fill(null)
+    .map(() => new Array(maxY).fill(false));
   function validate(e) {
     console.log("TODO CHECK destination is a valid address");
+  }
+
+  function rgbToHex(r, g, b) {
+    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+  }
+
+  function setPixel(x, y, set) {
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    const pixX = ctx.canvas.width / maxX;
+    const pixY = ctx.canvas.height / maxY;
+    squaresize = parseInt(squaresize);
+    ctx.fillStyle = rgbToHex(rgb.r, rgb.g, rgb.b);
+    for (let i = x - squaresize + 1; i < x + squaresize; i++) {
+      for (let j = y - squaresize + 1; j < y + squaresize; j++) {
+        if (i >= 0 && i < maxX && j >= 0 && j < maxY) {
+          if (set) {
+            ctx.fillRect(i * pixX, j * pixY, pixX, pixY);
+          } else {
+            ctx.clearRect(i * pixX, j * pixY, pixX, pixY);
+          }
+          drawnPixels[i][j] = set;
+        }
+      }
+    }
   }
 
   onMount(async () => {
@@ -80,9 +115,6 @@
     const canvas = document.getElementById("canvas");
     const saveBtn = document.getElementById("saveBtn");
     let drawing = false;
-    let drawnPixels = new Array(maxX)
-      .fill(null)
-      .map(() => new Array(maxY).fill(false));
     const eraseBtn = document.getElementById("eraseBtn");
     let isEraserActive = false;
     let colorPrice = 0;
@@ -91,7 +123,7 @@
       let sig = [];
       for (let x = 0; x < 64; x++) {
         sig.push(
-          "0x0161fc4222080401f68c205e0e40000001311c4222180c01548860638e400000"
+          "0x0161fc4222080401f68c205e0e40000001311c4222180c01548860638e400000",
         );
       }
       priceText = rgbToHex(rgb.r, rgb.g, rgb.b);
@@ -107,6 +139,14 @@
       });
       // set priceText to the color in HEX
       updateCanvasColors();
+      updateCanvas = (newImage) => {
+        for (let y = 0; y < maxY; y++) {
+          for (let x = 0; x < maxX; x++) {
+            setPixel(x, y, newImage[y][x]);
+          }
+        }
+        updateCanvasColors();
+      };
     };
     fUpdatePrice(rgb);
     eraseBtn.addEventListener("click", () => {
@@ -211,7 +251,7 @@
         await $contracts.rge["mintGraffitiBaseOf(uint256[64],uint256,address)"](
           sig,
           rgb256,
-          destination
+          destination,
         ).then((e) => {
           console.log("Message sent using Provider: ", e);
           goto("/");
@@ -219,7 +259,7 @@
       } catch (error) {
         console.error(
           "An error occurred when calling mintGraffitiBaseOf:",
-          error
+          error,
         );
       }
     });
@@ -238,26 +278,6 @@
       setPixel(x, y, true);
     }
 
-    function setPixel(x, y, set) {
-      const ctx = canvas.getContext("2d");
-      const pixX = ctx.canvas.width / maxX;
-      const pixY = ctx.canvas.height / maxY;
-      squaresize = parseInt(squaresize);
-      ctx.fillStyle = rgbToHex(rgb.r, rgb.g, rgb.b);
-      for (let i = x - squaresize + 1; i < x + squaresize; i++) {
-        for (let j = y - squaresize + 1; j < y + squaresize; j++) {
-          if (i >= 0 && i < maxX && j >= 0 && j < maxY) {
-            if (set) {
-              ctx.fillRect(i * pixX, j * pixY, pixX, pixY);
-            } else {
-              ctx.clearRect(i * pixX, j * pixY, pixX, pixY);
-            }
-            drawnPixels[i][j] = set;
-          }
-        }
-      }
-    }
-
     function fUupdateCanvasColors() {
       const ctx = canvas.getContext("2d");
       const pixX = ctx.canvas.width / maxX;
@@ -273,10 +293,6 @@
       }
     }
     updateCanvasColors = fUupdateCanvasColors;
-
-    function rgbToHex(r, g, b) {
-      return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-    }
   });
 
   const dispatch = createEventDispatcher();
@@ -387,7 +403,8 @@
         <div class="">
           <button
             id="saveBtn"
-            class="w-full mt-4 px-2 py-1 neon-btn {typeof balance === 'object' && balance.lt(minBalance)
+            class="w-full mt-4 px-2 py-1 neon-btn {typeof balance ===
+              'object' && balance.lt(minBalance)
               ? 'btn-red'
               : 'btn-blue'}"
           >

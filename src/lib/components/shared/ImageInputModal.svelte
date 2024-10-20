@@ -1,8 +1,8 @@
 <script>
   import { createEventDispatcher, onMount } from "svelte";
+  import { CanvasStore } from "$lib/stores/image";
 
   export let open = false;
-  export let functionOnSubmit = (imageData) => {};
   const dispatch = createEventDispatcher();
   let modalVisible = false;
   let img = null;
@@ -65,7 +65,7 @@
     // Draw the final image to the main canvas (128x128)
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(tempCanvas, 0, 0, 128, 128);
-
+    ctx.willReadFrequently = true;
     // Apply threshold filter
     const imageData = ctx.getImageData(0, 0, 128, 128);
     const data = imageData.data;
@@ -83,11 +83,16 @@
     }
 
     ctx.putImageData(imageData, 0, 0);
-  }
-  function submitImage() {
-    const canvas = document.getElementById("canvas");
-    const imageData = ctx.getImageData(0, 0, 128, 128);
-    functionOnSubmit(imageData.data);
+
+    // Update CanvasStore with the new image data
+    const canvasData = new Array(128).fill(null).map(() => new Array(128).fill(false));
+    for (let y = 0; y < 128; y++) {
+      for (let x = 0; x < 128; x++) {
+        const index = (y * 128 + x) * 4;
+        canvasData[y][x] = data[index] === 255;
+      }
+    }
+    CanvasStore.set(canvasData);
   }
 </script>
 
@@ -124,12 +129,6 @@
             <br /><br />
             <canvas id="canvas" width="128" height="128"></canvas>
             <br />
-            <button
-              class="mt-6 btn-green neon-btn"
-              on:click={() => functionOnSubmit()}
-            >
-              ✓
-            </button>
             <button
               class="mt-6 btn-red neon-btn"
               on:click={() => dispatch("close")}
