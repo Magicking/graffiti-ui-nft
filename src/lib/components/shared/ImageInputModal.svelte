@@ -7,6 +7,12 @@
   let modalVisible = false;
   let img = null;
 
+  let redWeight = 0.3;
+  let greenWeight = 0.59;
+  let blueWeight = 0.11;
+
+  let inverted = false;
+
   onMount(() => {
     if (open) {
       setTimeout(() => {
@@ -17,6 +23,9 @@
 
   $: if (!open) {
     modalVisible = false;
+    redWeight = 0.3;
+    greenWeight = 0.59;
+    blueWeight = 0.11;
   }
     const fileInputChange = (event) => {
       const file = event.target.files[0];
@@ -39,6 +48,23 @@
       }
     };
 
+    const weightSliderInput = () => {
+      redWeight = parseFloat(document.getElementById("red-weight-slider").value);
+      greenWeight = parseFloat(document.getElementById("green-weight-slider").value);
+      blueWeight = parseFloat(document.getElementById("blue-weight-slider").value);
+
+      if (img) {
+        drawAndApplyThreshold();
+      }
+    };
+
+    function invertImage() {
+      inverted = !inverted;
+      if (img) {
+        drawAndApplyThreshold();
+      }
+    }
+
   function drawAndApplyThreshold() {
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
@@ -59,6 +85,7 @@
     const tempCanvas = document.createElement("canvas");
     tempCanvas.width = width;
     tempCanvas.height = height;
+    tempCanvas.willReadFrequently = true;
     const tempCtx = tempCanvas.getContext("2d");
     tempCtx.drawImage(img, 0, 0, width, height);
 
@@ -75,10 +102,14 @@
       const red = data[i];
       const green = data[i + 1];
       const blue = data[i + 2];
-      // Calculate the grayscale value
-      const grayscale = 0.3 * red + 0.59 * green + 0.11 * blue;
+      // Calculate the grayscale value using the adjustable weights
+      const grayscale = redWeight * red + greenWeight * green + blueWeight * blue;
       // Apply threshold
-      const value = grayscale > threshold ? 255 : 0;
+      let value = grayscale > threshold ? 255 : 0;
+      // Invert if necessary
+      if (inverted) {
+        value = 255 - value;
+      }
       data[i] = data[i + 1] = data[i + 2] = value;
     }
 
@@ -127,7 +158,56 @@
               on:input={thresholdSliderInput}
             />
             <br /><br />
-            <canvas id="canvas" width="128" height="128"></canvas>
+            <label for="red-weight-slider">
+              Red Weight: <span id="red-weight-value">{redWeight.toFixed(2)}</span>
+            </label>
+            <input
+              type="range"
+              id="red-weight-slider"
+              min="0"
+              max="1"
+              step="0.01"
+              value={redWeight}
+              on:input={weightSliderInput}
+            />
+            <br />
+            <label for="green-weight-slider">
+              Green Weight: <span id="green-weight-value">{greenWeight.toFixed(2)}</span>
+            </label>
+            <input
+              type="range"
+              id="green-weight-slider"
+              min="0"
+              max="1"
+              step="0.01"
+              value={greenWeight}
+              on:input={weightSliderInput}
+            />
+            <br />
+            <label for="blue-weight-slider">
+              Blue Weight: <span id="blue-weight-value">{blueWeight.toFixed(2)}</span>
+            </label>
+            <input
+              type="range"
+              id="blue-weight-slider"
+              min="0"
+              max="1"
+              step="0.01"
+              value={blueWeight}
+              on:input={weightSliderInput}
+            />
+            <br />
+            <div class="flex justify-center items-center my-4">
+              <canvas id="canvas" width="128" height="128" class="border border-gray-600"></canvas>
+            </div>
+            <div class="flex justify-center mt-4">
+              <button
+                class="btn-blue neon-btn"
+                on:click={invertImage}
+              >
+                {inverted ? 'Revert' : 'Invert'}
+              </button>
+            </div>
             <br />
             <button
               class="mt-6 btn-red neon-btn"
