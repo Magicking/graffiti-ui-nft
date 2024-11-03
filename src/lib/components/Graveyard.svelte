@@ -1,11 +1,14 @@
 <script>
   import { range } from "$lib/range.js";
   import { defaultEvmStores as evm, contracts } from "svelte-ethers-store";
+  import { onMount } from "svelte";
 
   import rgeAbi from "$lib/rge.abi.json";
   import { GraveyardStore1, TotalSupply } from "$lib/stores/graveyard.js";
   import { chainInfo } from "$lib/stores/chainInfo";
   import { locale, translation } from "$lib/stores/i18n";
+    import { writable } from "svelte/store";
+
 
   import Loader from "./shared/Loader.svelte";
 
@@ -16,7 +19,37 @@
   $: totalSupply = TotalSupply;
   $: t = $translation;
   $: GraveyardStore1;
+  let last1 = writable(null);
+  let last2 = writable(null);
+  let last3 = writable(null);
+  let last4 = writable(null);
   let owners = {};
+
+  function b64DecodeUnicode(str) {
+    return decodeURIComponent(
+      atob(str)
+        .split("")
+        .map(function (c) {
+          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join("")
+    );
+  }
+
+  function getLast(index, store) {
+    if ($contracts.rge) {
+      $contracts.rge.tokenURI(index).then((tokenURI) => {
+        const stripb64h = b64DecodeUnicode(
+          tokenURI.replace(/^data:\w+\/\w+;base64,/, "")
+      );
+      const parsedNFT = JSON.parse(stripb64h);
+      store.set(parsedNFT);
+      });
+    } else {
+      console.log("Waiting for contract");
+      setTimeout(() => getLast(index, store), 1000);
+    }
+  }
 
   const getRecentTokens = (count) => {
     const start = totalSupply > count ? totalSupply - count : 0;
@@ -34,6 +67,19 @@
 
   const shortAddress = (address) =>
     `${address.slice(0, 6)}...${address.slice(-4)}`;
+
+  onMount(() => {
+    $contracts.rge.totalSupply().then((totalSupply) => {
+      if (totalSupply > 1)
+        getLast(totalSupply-1, last1);
+    if (totalSupply > 2)
+      getLast(totalSupply-2, last2);
+    if (totalSupply > 3)
+      getLast(totalSupply-3, last3);
+    if (totalSupply > 4)
+        getLast(totalSupply-4, last4);
+    });
+  });
 </script>
 
 <div class="main">
@@ -55,36 +101,110 @@
           <!-- Carousel Section for Top 10 Most Recent Images -->
           <div class="w-[90%] overflow-x-auto mb-20 custom-scrollbar">
             <div class="flex space-x-4 p-4">
-              {#each range(totalSupply - 0, totalSupply - 10, 1) as tokenId}
-                {#if tokenId >= 0 && tokenId < totalSupply && $GraveyardStore1}
-                  <div
-                    class="min-w-[250px] bg-gray-700 rounded-lg overflow-hidden"
-                  >
-                    <a href="/graffiti/?i={tokenId}" class="block">
-                      {#if $GraveyardStore1[tokenId]}
-                        <img
-                          class="class-{tokenId} w-full h-64 object-cover"
-                          alt="NFT"
-                          src={$GraveyardStore1[tokenId].image}
-                        />
-                      {:else}
-                        <div
-                          class="w-full h-64 bg-gray-600 flex justify-center items-center"
-                        >
-                          <span class="text-white"
-                            >{t("Graveyard.Loading")}</span
-                          >
-                        </div>
-                      {/if}
-                    </a>
+              <div
+                class="min-w-[250px] bg-gray-700 rounded-lg overflow-hidden"
+              >
+                <a href="/graffiti/?i={totalSupply-1}" class="block">
+                  {#if $last1 != null}
+                    <img
+                      class="class w-full h-64 object-cover"
+                      alt="NFT"
+                      src={$last1.image}
+                    />
+                  {:else}
                     <div
-                      class="details bg-accent p-2 text-center text-black border-2 border-accent"
+                      class="w-full h-64 bg-gray-600 flex justify-center items-center"
                     >
-                      <p>№&nbsp;{tokenId}</p>
+                      <span class="text-white"
+                        >{t("Graveyard.Loading")}</span
+                      >
                     </div>
-                  </div>
-                {/if}
-              {/each}
+                  {/if}
+                </a>
+                <div
+                  class="details bg-accent p-2 text-center text-black border-2 border-accent"
+                >
+                  <p>№&nbsp;{totalSupply-0}</p>
+                </div>
+              </div>
+              <div
+                class="min-w-[250px] bg-gray-700 rounded-lg overflow-hidden"
+              >
+                <a href="/graffiti/?i={totalSupply-2}" class="block">
+                  {#if $last2 != null}
+                    <img
+                      class="class w-full h-64 object-cover"
+                      alt="NFT"
+                      src={$last2.image}
+                    />
+                  {:else}
+                    <div
+                      class="w-full h-64 bg-gray-600 flex justify-center items-center"
+                    >
+                      <span class="text-white"
+                        >{t("Graveyard.Loading")}</span
+                      >
+                    </div>
+                  {/if}
+                </a>
+                <div
+                  class="details bg-accent p-2 text-center text-black border-2 border-accent"
+                >
+                  <p>№&nbsp;{totalSupply-2}</p>
+                </div>
+              </div>
+              <div
+                class="min-w-[250px] bg-gray-700 rounded-lg overflow-hidden"
+              >
+                <a href="/graffiti/?i={totalSupply-3}" class="block">
+                  {#if $last3 != null}
+                    <img
+                      class="class w-full h-64 object-cover"
+                      alt="NFT"
+                      src={$last3.image}
+                    />
+                  {:else}
+                    <div
+                      class="w-full h-64 bg-gray-600 flex justify-center items-center"
+                    >
+                      <span class="text-white"
+                        >{t("Graveyard.Loading")}</span
+                      >
+                    </div>
+                  {/if}
+                </a>
+                <div
+                  class="details bg-accent p-2 text-center text-black border-2 border-accent"
+                >
+                  <p>№&nbsp;{totalSupply-3}</p>
+                </div>
+              </div>
+              <div
+                class="min-w-[250px] bg-gray-700 rounded-lg overflow-hidden"
+              >
+                <a href="/graffiti/?i={totalSupply}" class="block">
+                  {#if $last4 != null}
+                    <img
+                      class="class w-full h-64 object-cover"
+                      alt="NFT"
+                      src={$last4.image}
+                    />
+                  {:else}
+                    <div
+                      class="w-full h-64 bg-gray-600 flex justify-center items-center"
+                    >
+                      <span class="text-white"
+                        >{t("Graveyard.Loading")}</span
+                      >
+                    </div>
+                  {/if}
+                </a>
+                <div
+                  class="details bg-accent p-2 text-center text-black border-2 border-accent"
+                >
+                  <p>№&nbsp;{totalSupply-4}</p>
+                </div>
+              </div>
             </div>
           </div>
           <h1 class="text-accent text-2xl uppercase text-center md:text-start">
