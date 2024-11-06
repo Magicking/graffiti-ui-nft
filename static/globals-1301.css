@@ -1,0 +1,55 @@
+:root {
+  /* -------------- General Theme Colors ---------------- */
+
+  --primary: #c8c8c8;
+  --secondary: #c8c8c8;
+  --accent: #c8c8c8;
+  --lightAccent: #c8c8c8;
+  --tertiary: #c8c8c8;
+  --darkBackground: #c8c8c8;
+  --success: #c8c8c8;
+  --danger: #c8c8c8;
+  --warning: #c8c8c8;
+
+  /* -------------- Neon Theme Colors ---------------- */
+  --color-btn-primary: #4cc9ff;
+  --color-btn-secondary: #00DF00;
+  --color-btn-accent: #f038ff;
+  --color-btn-tertiary: #00ff00;
+  --color-btn-main: #f8f32b;
+  --color-red: #ff2b2b;
+  --color-blue: #2b2bff;
+  --color-black: #000000;
+  --color-white: #ffffff;
+}
+
+.logo {
+  padding: 10px 20px;
+  clip-path: polygon(20px 0,
+      100% 0,
+      100% 50%,
+      calc(100% - 20px) 100%,
+      0 100%,
+      0 50%);
+  color: #27b50e;
+  border: 2px solid #2bf835;
+}
+
+.logo:hover {
+  color: var(--accent);
+  cursor: pointer;
+  text-shadow: 0 0 10px var(--color-white),
+    /* First layer of shadow */
+    0 0 5px rgba(246, 255, 0, 0.6),
+    /* Second layer */
+    0 0 10px rgba(242, 255, 0, 0.6),
+    /* Third layer */
+    0 0 20px rgba(208, 255, 0, 0.6),
+    /* Fourth layer */
+    0 0 25px rgba(212, 255, 0, 0.6),
+    /* Fifth layer */
+    0 0 80px rgba(212, 255, 0, 0.6);
+  /* Sixth layer */
+  transition: box-shadow 0.3s ease;
+  border: 2px solid var(--accent);
+}

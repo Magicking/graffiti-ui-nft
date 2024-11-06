@@ -47,6 +47,13 @@
         label: "Base",
         rpcUrl: "https://mainnet.base.org",
       },
+      {
+        id: "0x515",
+        token: "ETH",
+        label: "Unichain Testnet",
+        rpcUrl: "https://sepolia.unichain.org/",
+      },
+
     ],
     appMetadata: {
       name: "Graffiti",

@@ -59,6 +59,55 @@
       },
     },
     {
+      chainId: 1301,
+      name: "Unichain Testnet",
+      logo: "/images/logo/unichaintestnet.svg",
+      address: "0x971b2d96eFc3cffb8bAcE89A17AbfEd0b8743cD1",
+      addChain: async () => {
+        if (window.ethereum) {
+          try {
+            await window.ethereum
+              .request({
+                method: "wallet_addEthereumChain",
+                params: [
+                  {
+                    chainId: "0x515",
+                    blockExplorerUrls: ["https://sepolia.uniscan.xyz/"],
+                    chainName: "Unichain Testnet",
+                    nativeCurrency: {
+                      name: "Ethereum",
+                      symbol: "ETH",
+                      decimals: 18,
+                    },
+                    rpcUrls: ["https://sepolia.unichain.org"],
+                  },
+                ],
+              })
+              .then(() => {
+                console.log("Added Blast chain");
+                evm.attachContract(
+                  "rge",
+                  "0x971b2d96eFc3cffb8bAcE89A17AbfEd0b8743cD1",
+                  rgeAbi["abi"],
+                );
+                chainInfo.set({
+                  chainId: 0x515,
+                  name: "Unichain Testnet",
+                  logo: "/images/logo/unichaintestnet.svg",
+                  address: "0x971b2d96eFc3cffb8bAcE89A17AbfEd0b8743cD1",
+                });
+                reload();
+              });
+          } catch (addError) {
+            console.error(addError);
+          }
+        } else {
+          console.log("Ethereum object does not exist!");
+        }
+        dispatch("close");
+      },
+    },
+    {
       chainId: 8453,
       name: "Base",
       logo: "/images/logo/base.png",

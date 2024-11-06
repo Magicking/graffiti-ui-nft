@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="./globals-81457.css" />
   {:else if $chainInfo.chainId === 8453}
     <link rel="stylesheet" href="./globals-8453.css" />
+  {:else if $chainInfo.chainId === 1301}
+    <link rel="stylesheet" href="./globals-1301.css" />
   {:else}
       <link rel="stylesheet" href="./globals.css" />
     {/if}

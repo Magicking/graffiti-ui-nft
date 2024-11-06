@@ -98,9 +98,10 @@
           <h1 class="text-accent text-center text-2xl uppercase mt-10">
             {t("Graveyard.TopArt")}
           </h1>
+
           <!-- Carousel Section for Top 10 Most Recent Images -->
-          <div class="w-[90%] overflow-x-auto mb-20 custom-scrollbar">
-            <div class="flex space-x-4 p-4">
+          <div class="w-[90%] overflow-x-auto mb-20 custom-scrollbar flex justify-center">
+            <div class="flex space-x-4 p-4 mx-auto">
               <div
                 class="min-w-[250px] bg-gray-700 rounded-lg overflow-hidden"
               >
@@ -124,7 +125,7 @@
                 <div
                   class="details bg-accent p-2 text-center text-black border-2 border-accent"
                 >
-                  <p>№&nbsp;{totalSupply-0}</p>
+                  <p>№&nbsp;{totalSupply-1}</p>
                 </div>
               </div>
               <div
@@ -182,7 +183,7 @@
               <div
                 class="min-w-[250px] bg-gray-700 rounded-lg overflow-hidden"
               >
-                <a href="/graffiti/?i={totalSupply}" class="block">
+                <a href="/graffiti/?i={totalSupply-4}" class="block">
                   {#if $last4 != null}
                     <img
                       class="class w-full h-64 object-cover"
