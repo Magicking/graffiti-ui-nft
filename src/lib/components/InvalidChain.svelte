@@ -79,7 +79,7 @@
                       symbol: "ETH",
                       decimals: 18,
                     },
-                    rpcUrls: ["https://sepolia.unichain.org"],
+                    rpcUrls: ["https://astrochain-sepolia.gateway.tenderly.co/61BmxXdISBzOffdlsTaEeK"],
                   },
                 ],
               })

@@ -51,7 +51,7 @@
         id: "0x515",
         token: "ETH",
         label: "Unichain Testnet",
-        rpcUrl: "https://sepolia.unichain.org/",
+        rpcUrl: "https://astrochain-sepolia.gateway.tenderly.co/61BmxXdISBzOffdlsTaEeK",
       },
 
     ],
