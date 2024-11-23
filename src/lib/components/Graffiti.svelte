@@ -35,7 +35,10 @@
   function getRgbString(NFT) {
     const red = NFT.attributes[0].Red;
     const green = NFT.attributes[1].Green;
-    const blue = NFT.attributes[2].Red; // Red => Green after patch submission
+    const blue =
+      NFT.attributes[2].Blue !== undefined
+        ? NFT.attributes[2].Blue
+        : NFT.attributes[2].Red;
     return `rgb(${red}, ${green}, ${blue})`;
   }
 
@@ -109,14 +112,14 @@
               </a>
             </p>
             <p class="mt-2 font-sm">
-              Creator: <a
-                href="https://blastscan.io/address/{graffiti.creator}"
-                class="text-accent">{graffiti.creator}</a
+              Owner: <a
+                href="{chainInfo.blockExplorer}/{graffiti.owner}"
+                class="text-primary">{graffiti.owner}</a
               >
             </p>
             <p class="mt-2 font-sm">
-              Owner: <a
-                href="https://blastscan.io/address/{graffiti.owner}"
+              Marketplace: <a
+                href="{chainInfo.viewUrl}/{graffiti.id}"
                 class="text-primary">{graffiti.owner}</a
               >
             </p>
