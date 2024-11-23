@@ -1,0 +1,46 @@
+export const chainConfigs = {
+  BLAST: {
+    chainId: "0x13e31",
+    decimalId: 81457,
+    name: "Blast",
+    shortName: "Blast",
+    logo: "/images/logo/blast.png",
+    address: "0x971b2d96eFc3cffb8bAcE89A17AbfEd0b8743cD1",
+    blockExplorer: "https://blastscan.io/address",
+    viewUrl: "https://blastscan.io/address",
+    rpcUrl: "https://rpc.blast.io",
+  },/*
+  UNICHAIN_TESTNET: {
+    chainId: "0x515",
+    decimalId: 1301,
+    name: "Unichain Testnet",
+    shortName: "Unichain Testnet",
+    logo: "/images/logo/unichaintestnet.svg",
+    address: "0x971b2d96eFc3cffb8bAcE89A17AbfEd0b8743cD1",
+    blockExplorer: "https://sepolia.uniscan.xyz/",
+    viewUrl: "https://sepolia.uniscan.xyz/",
+    rpcUrl: "https://sepolia.unichain.org",
+  },*/
+  BASE: {
+    chainId: "0x2105",
+    decimalId: 8453,
+    name: "Base",
+    shortName: "Base",
+    logo: "/images/logo/base.png",
+    address: "0xCc39Fe145eECe8a733833D7A78dCa7f287996693",
+    blockExplorer: "https://base.blockscout.com/address",
+    viewUrl: "https://base.blockscout.com/",
+    rpcUrl: "https://mainnet.base.org",
+  },
+  LINEA: {
+    chainId: "0xe708",
+    decimalId: 59144,
+    name: "Linea",
+    shortName: "Linea",
+    logo: "/images/logo/linea.png",
+    address: "0xE6d6AacC26201AFf57a666090f789b15591a8e44",
+    blockExplorer: "https://lineascan.build/address",
+    viewUrl: "https://lineascan.build/",
+    rpcUrl: "https://linea-mainnet.g.alchemy.com/v2/oQWLmraB4JTm193r0nOHIkq3BY3cJJ2o",
+  },
+}; 

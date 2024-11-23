@@ -1,162 +1,23 @@
 <script>
-  import { chainInfo } from "$lib/stores/chainInfo";
   import { createEventDispatcher } from "svelte";
-  import { defaultEvmStores as evm } from "svelte-ethers-store";
+  import { chainConfigs } from "$lib/config/chains";
+  import { addChain } from "$lib/utils/chainUtils";
 
-  import rgeAbi from "$lib/rge.abi.json";
-    let reload = () => {
-      window.location.reload();
-    };
   const dispatch = createEventDispatcher();
-  const blockchains = [
-    {
-      chainId: 81457,
-      name: "Blast",
-      logo: "/images/logo/blast.png",
-      address: "0x971b2d96eFc3cffb8bAcE89A17AbfEd0b8743cD1",
-      addChain: async () => {
-        if (window.ethereum) {
-          try {
-            await window.ethereum
-              .request({
-                method: "wallet_addEthereumChain",
-                params: [
-                  {
-                    chainId: "0x13e31",
-                    blockExplorerUrls: ["https://blastscan.io"],
-                    chainName: "Blast Mainnet",
-                    nativeCurrency: {
-                      name: "Ethereum",
-                      symbol: "ETH",
-                      decimals: 18,
-                    },
-                    rpcUrls: ["https://rpc.blast.io"],
-                  },
-                ],
-              })
-              .then(() => {
-                console.log("Added Blast chain");
-                evm.attachContract(
-                  "rge",
-                  "0x971b2d96eFc3cffb8bAcE89A17AbfEd0b8743cD1",
-                  rgeAbi["abi"],
-                );
-                chainInfo.set({
-                  chainId: 0x13e31,
-                  name: "Blast",
-                  logo: "/images/logo/blast.png",
-                  address: "0x971b2d96eFc3cffb8bAcE89A17AbfEd0b8743cD1",
-                });
-                reload();
-              });
-          } catch (addError) {
-            console.error(addError);
-          }
-        } else {
-          console.log("Ethereum object does not exist!");
-        }
-        dispatch("close");
-      },
-    },
-    {
-      chainId: 1301,
-      name: "Unichain Testnet",
-      logo: "/images/logo/unichaintestnet.svg",
-      address: "0x971b2d96eFc3cffb8bAcE89A17AbfEd0b8743cD1",
-      addChain: async () => {
-        if (window.ethereum) {
-          try {
-            await window.ethereum
-              .request({
-                method: "wallet_addEthereumChain",
-                params: [
-                  {
-                    chainId: "0x515",
-                    blockExplorerUrls: ["https://sepolia.uniscan.xyz/"],
-                    chainName: "Unichain Testnet",
-                    nativeCurrency: {
-                      name: "Ethereum",
-                      symbol: "ETH",
-                      decimals: 18,
-                    },
-                    rpcUrls: ["https://astrochain-sepolia.gateway.tenderly.co/61BmxXdISBzOffdlsTaEeK"],
-                  },
-                ],
-              })
-              .then(() => {
-                console.log("Added Blast chain");
-                evm.attachContract(
-                  "rge",
-                  "0x971b2d96eFc3cffb8bAcE89A17AbfEd0b8743cD1",
-                  rgeAbi["abi"],
-                );
-                chainInfo.set({
-                  chainId: 0x515,
-                  name: "Unichain Testnet",
-                  logo: "/images/logo/unichaintestnet.svg",
-                  address: "0x971b2d96eFc3cffb8bAcE89A17AbfEd0b8743cD1",
-                });
-                reload();
-              });
-          } catch (addError) {
-            console.error(addError);
-          }
-        } else {
-          console.log("Ethereum object does not exist!");
-        }
-        dispatch("close");
-      },
-    },
-    {
-      chainId: 8453,
-      name: "Base",
-      logo: "/images/logo/base.png",
-      address: "0xCc39Fe145eECe8a733833D7A78dCa7f287996693",
-      addChain: async () => {
-        if (window.ethereum) {
-          try {
-            await window.ethereum
-              .request({
-                method: "wallet_addEthereumChain",
-                params: [
-                  {
-                    chainId: "0x2105",
-                    blockExplorerUrls: ["https://base.blockscout.com/"],
-                    chainName: "Base Mainnet",
-                    nativeCurrency: {
-                      name: "Ethereum",
-                      symbol: "ETH",
-                      decimals: 18,
-                    },
-                    rpcUrls: ["https://mainnet.base.org"],
-                  },
-                ],
-              })
-              .then(() => {
-                console.log("Added Base chain");
-                evm.attachContract(
-                  "rge",
-                  "0xCc39Fe145eECe8a733833D7A78dCa7f287996693",
-                  rgeAbi["abi"],
-                );
-                chainInfo.set({
-                  chainId: 0x2105,
-                  name: "Base",
-                  logo: "/images/logo/base.png",
-                  address: "0xCc39Fe145eECe8a733833D7A78dCa7f287996693",
-                });
-                reload();
-              });
-          } catch (addError) {
-            console.error(addError);
-          }
-        } else {
-          console.log("Ethereum object does not exist!");
-        }
-        dispatch("close");
-      },
-    },
-  ];
+  
+  const blockchains = Object.values(chainConfigs).map(config => ({
+    chainId: config.decimalId,
+    name: config.shortName,
+    logo: config.logo,
+    address: config.address,
+    addChain: async () => {
+      const success = await addChain(config);
+      if (success) {
+        window.location.reload();
+      }
+      dispatch("close");
+    }
+  }));
 </script>
 
 <div>
